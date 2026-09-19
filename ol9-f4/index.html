@@ -1,11 +1,2703 @@
 <!DOCTYPE html>
-<html>
+<html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>علوم نهم - فصل چهارم</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102A43">
+<title>آزمایشگاه حرکت | علوم نهم</title>
+
+<style>
+:root{
+  --navy:#102A43;
+  --navy2:#243B53;
+  --teal:#00C1C3;
+  --teal-dark:#008B8D;
+  --bg:#F4F8FA;
+  --card:#FFFFFF;
+  --text:#172B4D;
+  --muted:#627D98;
+  --green:#238636;
+  --red:#D64545;
+  --orange:#E98A15;
+  --border:#D9E2EC;
+  --shadow:0 10px 30px rgba(16,42,67,.08);
+  --radius:18px;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:
+    Tahoma,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.9;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  min-height:100vh;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.topbar{
+  background:
+    linear-gradient(135deg,var(--navy),#163F5F);
+  color:white;
+  padding:18px 16px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 4px 18px rgba(0,0,0,.12);
+}
+
+.topbar-inner{
+  width:min(1100px,100%);
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  width:auto;
+  height:54px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:var(--teal);
+  color:var(--navy);
+  font-weight:900;
+  font-size:22px;
+  padding:6px 12px;
+}
+
+.brand h1{
+  margin:0;
+  font-size:10px;
+}
+
+.brand small{
+  display:block;
+  opacity:.75;
+  font-size:11px;
+}
+
+.score-box{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.score{
+  background:rgba(255,255,255,.12);
+  padding:6px 12px;
+  border-radius:12px;
+  white-space:nowrap;
+  font-weight:bold;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main{
+  width:min(1100px,100%);
+  margin:auto;
+  padding:25px 15px 60px;
+}
+
+.hero{
+  background:
+    radial-gradient(circle at 85% 20%,rgba(0,193,195,.25),transparent 30%),
+    linear-gradient(135deg,#102A43,#1B4965);
+  color:white;
+  border-radius:25px;
+  padding:30px 25px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  position:relative;
+}
+
+.hero h2{
+  margin:0 0 8px;
+  font-size:clamp(25px,5vw,40px);
+}
+
+.hero p{
+  margin:0;
+  max-width:720px;
+  color:#E7F4F5;
+}
+
+.hero-tag{
+  display:inline-block;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.18);
+  padding:4px 12px;
+  border-radius:999px;
+  font-size:12px;
+  margin-bottom:10px;
+}
+
+.progress-area{
+  margin-top:22px;
+}
+
+.progress-label{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  opacity:.9;
+}
+
+.progress{
+  height:9px;
+  background:rgba(255,255,255,.15);
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:7px;
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:var(--teal);
+  transition:.4s;
+}
+
+/* =========================
+   MISSION MAP
+========================= */
+
+.mission-map{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+  margin:20px 0;
+}
+
+.map-step{
+  border:1px solid var(--border);
+  background:white;
+  border-radius:13px;
+  padding:10px 5px;
+  text-align:center;
+  font-size:11px;
+  color:var(--muted);
+  position:relative;
+}
+
+.map-step .num{
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  margin:0 auto 4px;
+  background:#E7EEF3;
+  color:var(--navy);
+  font-weight:bold;
+}
+
+.map-step.active{
+  border-color:var(--teal);
+  color:var(--navy);
+  box-shadow:0 0 0 2px rgba(0,193,195,.12);
+}
+
+.map-step.active .num{
+  background:var(--teal);
+}
+
+.map-step.done .num{
+  background:var(--green);
+  color:white;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.section{
+  margin-top:22px;
+  scroll-margin-top:90px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:22px;
+}
+
+.section-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.section-head h3{
+  margin:0;
+  color:var(--navy);
+  font-size:22px;
+}
+
+.section-head p{
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.badge{
+  background:#E7F9F9;
+  color:var(--teal-dark);
+  border-radius:999px;
+  padding:5px 12px;
+  font-size:12px;
+  white-space:nowrap;
+  font-weight:bold;
+}
+
+.info-box{
+  background:#F0F7FA;
+  border-right:4px solid var(--teal);
+  padding:12px 15px;
+  border-radius:10px;
+  margin:15px 0;
+}
+
+.warning-box{
+  background:#FFF8E8;
+  border-right:4px solid var(--orange);
+}
+
+.success-box{
+  background:#EDF8F0;
+  border-right:4px solid var(--green);
+}
+
+.error-box{
+  background:#FFF1F1;
+  border-right:4px solid var(--red);
+}
+
+.hidden{
+  display:none !important;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:18px;
+}
+
+.btn{
+  border:0;
+  border-radius:12px;
+  padding:10px 17px;
+  transition:.2s;
+  font-weight:bold;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+}
+
+.btn-primary{
+  background:var(--teal);
+  color:var(--navy);
+}
+
+.btn-secondary{
+  background:#E9F0F5;
+  color:var(--navy);
+}
+
+.btn-dark{
+  background:var(--navy);
+  color:white;
+}
+
+.btn-danger{
+  background:#FDECEC;
+  color:var(--red);
+}
+
+/* =========================
+   ROUTE ACTIVITY
+========================= */
+
+.route-stage{
+  background:#F8FBFC;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:15px;
+}
+
+.route-svg{
+  width:100%;
+  height:auto;
+  min-height:250px;
+}
+
+.route-line{
+  fill:none;
+  stroke:#C5D2DC;
+  stroke-width:12;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.route-direct{
+  fill:none;
+  stroke:var(--teal);
+  stroke-width:6;
+  stroke-dasharray:12 9;
+  stroke-linecap:round;
+}
+
+.route-dot{
+  fill:var(--navy);
+}
+
+.route-label{
+  font-size:16px;
+  font-weight:bold;
+}
+
+.route-choice-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:15px;
+}
+
+.choice{
+  border:2px solid var(--border);
+  background:white;
+  border-radius:14px;
+  padding:15px;
+  text-align:right;
+  transition:.2s;
+}
+
+.choice:hover{
+  border-color:var(--teal);
+}
+
+.choice.selected{
+  border-color:var(--teal);
+  background:#ECFBFB;
+}
+
+.choice strong{
+  display:block;
+  color:var(--navy);
+}
+
+.choice small{
+  color:var(--muted);
+}
+
+/* =========================
+   METRIC GRID
+========================= */
+
+.metric-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:15px;
+}
+
+.metric{
+  background:#F7FAFC;
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:13px;
+  text-align:center;
+}
+
+.metric span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.metric strong{
+  display:block;
+  color:var(--navy);
+  font-size:20px;
+  margin-top:2px;
+}
+
+/* =========================
+   FORMULA CARDS
+========================= */
+
+.formula-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:15px 0;
+}
+
+.formula{
+  background:#102A43;
+  color:white;
+  border-radius:14px;
+  padding:16px;
+  text-align:center;
+}
+
+.formula small{
+  color:#A9D9DA;
+}
+
+.formula strong{
+  display:block;
+  font-size:21px;
+  margin-top:5px;
+  direction:ltr;
+}
+
+/* =========================
+   SIMULATOR
+========================= */
+
+.sim-grid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:18px;
+}
+
+.controls{
+  display:grid;
+  gap:15px;
+}
+
+.control{
+  background:#F8FBFC;
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:13px;
+}
+
+.control-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  font-size:14px;
+}
+
+.control-value{
+  font-weight:bold;
+  color:var(--teal-dark);
+}
+
+input[type="range"]{
+  width:100%;
+  accent-color:var(--teal-dark);
+  margin-top:8px;
+}
+
+.sim-screen{
+  min-height:340px;
+  background:
+    linear-gradient(#DFF3F4 0 35%,#EAF3E7 35% 100%);
+  border-radius:17px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--border);
+}
+
+.road{
+  position:absolute;
+  left:0;
+  right:0;
+  top:57%;
+  height:90px;
+  background:#667788;
+}
+
+.road-line{
+  position:absolute;
+  left:0;
+  right:0;
+  top:50%;
+  border-top:5px dashed #F8E58C;
+}
+
+.car{
+  position:absolute;
+  top:calc(57% - 32px);
+  width:74px;
+  height:34px;
+  background:#102A43;
+  border-radius:16px 20px 7px 7px;
+  transition:left .25s linear;
+}
+
+.car:before{
+  content:"";
+  position:absolute;
+  width:35px;
+  height:17px;
+  right:17px;
+  top:-12px;
+  background:#75D5D6;
+  border-radius:12px 12px 2px 2px;
+}
+
+.wheel{
+  position:absolute;
+  bottom:-8px;
+  width:16px;
+  height:16px;
+  background:#1B1B1B;
+  border-radius:50%;
+}
+
+.wheel.one{
+  left:10px;
+}
+
+.wheel.two{
+  right:10px;
+}
+
+.velocity-arrow{
+  position:absolute;
+  top:35%;
+  left:50%;
+  transform:translateX(-50%);
+  color:var(--navy);
+  font-size:18px;
+  font-weight:bold;
+  direction:ltr;
+}
+
+.sim-result{
+  margin-top:15px;
+}
+
+/* =========================
+   COMPARISON
+========================= */
+
+.compare{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:15px;
+}
+
+.compare-card{
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:16px;
+}
+
+.compare-card h4{
+  margin:0 0 8px;
+  color:var(--navy);
+}
+
+.compare-card ul{
+  padding-right:20px;
+  margin:8px 0;
+}
+
+/* =========================
+   QUIZ
+========================= */
+
+.quiz-card{
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:17px;
+  margin-bottom:13px;
+}
+
+.quiz-number{
+  font-size:12px;
+  color:var(--teal-dark);
+  font-weight:bold;
+}
+
+.quiz-question{
+  font-weight:bold;
+  margin:6px 0 12px;
+}
+
+.options{
+  display:grid;
+  gap:8px;
+}
+
+.option{
+  width:100%;
+  text-align:right;
+  border:1px solid var(--border);
+  background:white;
+  padding:11px 13px;
+  border-radius:11px;
+}
+
+.option:hover{
+  border-color:var(--teal);
+}
+
+.option.correct{
+  border-color:var(--green);
+  background:#EDF8F0;
+}
+
+.option.wrong{
+  border-color:var(--red);
+  background:#FFF1F1;
+}
+
+.feedback{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:10px;
+  font-size:13px;
+}
+
+.quiz-actions{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+}
+
+.result-big{
+  text-align:center;
+  padding:25px;
+  background:
+    linear-gradient(135deg,#102A43,#1D536A);
+  color:white;
+  border-radius:18px;
+}
+
+.result-big .percent{
+  font-size:48px;
+  font-weight:900;
+}
+
+.stars{
+  font-size:27px;
+  letter-spacing:4px;
+}
+
+/* =========================
+   CONCEPT TABLE
+========================= */
+
+.concept-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:15px;
+  font-size:14px;
+}
+
+.concept-table th,
+.concept-table td{
+  border:1px solid var(--border);
+  padding:10px;
+  text-align:right;
+  vertical-align:top;
+}
+
+.concept-table th{
+  background:#EEF5F8;
+  color:var(--navy);
+}
+
+.concept-table td:first-child{
+  font-weight:bold;
+  color:var(--navy);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  width:min(1100px,100%);
+  margin:auto;
+  padding:0 15px 30px;
+  color:var(--muted);
+  font-size:12px;
+  text-align:center;
+}
+
+@media(max-width:800px){
+  .sim-grid{
+    grid-template-columns:1fr;
+  }
+
+  .metric-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .formula-grid{
+    grid-template-columns:1fr;
+  }
+
+  .mission-map{
+    grid-template-columns:repeat(5,1fr);
+  }
+}
+
+@media(max-width:600px){
+  .topbar-inner{
+    align-items:flex-start;
+  }
+
+  .score-box{
+    flex-direction:column;
+    align-items:flex-end;
+    gap:4px;
+  }
+
+  .hero{
+    padding:23px 17px;
+    border-radius:19px;
+  }
+
+  .card{
+    padding:16px;
+    border-radius:15px;
+  }
+
+  .section-head{
+    flex-direction:column;
+  }
+
+  .route-choice-grid,
+  .compare{
+    grid-template-columns:1fr;
+  }
+
+  .mission-map{
+    overflow-x:auto;
+    grid-template-columns:repeat(5,minmax(100px,1fr));
+  }
+
+  .map-step{
+    min-width:100px;
+  }
+
+  .concept-table{
+    font-size:12px;
+  }
+}
+
+/* accessibility */
+button:focus-visible,
+input:focus-visible{
+  outline:3px solid rgba(0,193,195,.35);
+  outline-offset:2px;
+}
+</style>
 </head>
+
 <body>
-    <h1>علوم نهم - فصل چهارم</h1>
-    <p>صفحه آموزشی من</p>
+
+<div class="app">
+
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <div class="brand">
+      <div class="logo">علوم با رشیدی</div>
+      <div>
+        <h1>آزمایشگاه حرکت</h1>
+        <small>علوم نهم · فصل چهارم</small>
+      </div>
+    </div>
+
+    <div class="score-box">
+      <div class="score">
+        امتیاز: <span id="score">0</span>
+      </div>
+
+      <div class="score">
+        رکورد: <span id="bestScore">0</span>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+
+  <span class="hero-tag">ماموریت یادگیری</span>
+
+  <h2>حرکت را فقط نخوان؛ آزمایش کن!</h2>
+
+  <p>
+    در این مأموریت باید بفهمی چرا «مسافت» با «جابه‌جایی»
+    یکی نیست، چرا «تندی» با «سرعت» فرق دارد و چگونه
+    تغییر سرعت باعث ایجاد شتاب می‌شود.
+  </p>
+
+  <div class="progress-area">
+
+    <div class="progress-label">
+      <span>پیشرفت مأموریت</span>
+      <span id="progressText">۰ از ۵ مرحله</span>
+    </div>
+
+    <div class="progress">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+  </div>
+
+</section>
+
+<div class="mission-map">
+
+  <div class="map-step active" data-map="1">
+    <div class="num">۱</div>
+    مسافت و جابه‌جایی
+  </div>
+
+  <div class="map-step" data-map="2">
+    <div class="num">۲</div>
+    تندی متوسط
+  </div>
+
+  <div class="map-step" data-map="3">
+    <div class="num">۳</div>
+    سرعت و تندی
+  </div>
+
+  <div class="map-step" data-map="4">
+    <div class="num">۴</div>
+    شتاب
+  </div>
+
+  <div class="map-step" data-map="5">
+    <div class="num">✓</div>
+    چالش نهایی
+  </div>
+
+</div>
+
+
+<!-- =========================
+     STAGE 1
+========================= -->
+
+<section class="section" id="stage1">
+
+<div class="card">
+
+  <div class="section-head">
+    <div>
+      <span class="badge">مرحله ۱ · کشف</span>
+      <h3>مسافت یا جابه‌جایی؟</h3>
+      <p>
+        اول پیش‌بینی کن؛ بعد نتیجه را ببین.
+      </p>
+    </div>
+  </div>
+
+  <div class="info-box">
+    یک دونده از نقطه A حرکت می‌کند، مسیر خمیده را طی می‌کند
+    و به نقطه B می‌رسد. آیا طول مسیر طی‌شده و فاصله مستقیم
+    A تا B یکی هستند؟
+  </div>
+
+  <div class="route-stage">
+
+    <svg class="route-svg" viewBox="0 0 700 300"
+         aria-label="مسیر دونده از A تا B">
+
+      <path class="route-line"
+        d="M100 220 C180 50, 270 260, 350 110
+           C430 -30, 520 230, 610 80"/>
+
+      <line class="route-direct"
+        x1="100" y1="220"
+        x2="610" y2="80"/>
+
+      <circle class="route-dot" cx="100" cy="220" r="12"/>
+      <circle class="route-dot" cx="610" cy="80" r="12"/>
+
+      <text x="75" y="255" class="route-label">A</text>
+      <text x="620" y="70" class="route-label">B</text>
+
+      <text x="270" y="180" fill="#627D98">
+        مسیر واقعی
+      </text>
+
+      <text x="355" y="75" fill="#008B8D">
+        جابه‌جایی
+      </text>
+
+    </svg>
+
+  </div>
+
+  <h4>پیش‌بینی تو چیست؟</h4>
+
+  <div class="route-choice-grid">
+
+    <button class="choice"
+      onclick="chooseDistance('same',this)">
+      <strong>۱) تقریباً برابرند</strong>
+      <small>مسیر و فاصله مستقیم تفاوتی ندارند.</small>
+    </button>
+
+    <button class="choice"
+      onclick="chooseDistance('different',this)">
+      <strong>۲) متفاوت‌اند</strong>
+      <small>طول مسیر واقعی معمولاً از فاصله مستقیم بیشتر است.</small>
+    </button>
+
+  </div>
+
+  <div id="distanceFeedback" class="hidden"></div>
+
+  <div class="metric-grid">
+
+    <div class="metric">
+      <span>مسافت</span>
+      <strong>طول مسیر</strong>
+    </div>
+
+    <div class="metric">
+      <span>جابه‌جایی</span>
+      <strong>A → B</strong>
+    </div>
+
+    <div class="metric">
+      <span>نوع کمیت</span>
+      <strong>طول</strong>
+    </div>
+
+    <div class="metric">
+      <span>جهت</span>
+      <strong>جابه‌جایی دارد</strong>
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary"
+      onclick="completeStage(1)">
+      مرحله را کامل کردم
+    </button>
+  </div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     STAGE 2
+========================= -->
+
+<section class="section" id="stage2">
+
+<div class="card">
+
+  <div class="section-head">
+    <div>
+      <span class="badge">مرحله ۲ · محاسبه</span>
+      <h3>تندی متوسط یا سرعت متوسط؟</h3>
+      <p>
+        اینجا همان جایی است که «مسافت» و «جابه‌جایی»
+        نتیجه متفاوتی ایجاد می‌کنند.
+      </p>
+    </div>
+  </div>
+
+  <div class="formula-grid">
+
+    <div class="formula">
+      <small>تندی متوسط</small>
+      <strong>distance ÷ time</strong>
+    </div>
+
+    <div class="formula">
+      <small>سرعت متوسط</small>
+      <strong>displacement ÷ time</strong>
+    </div>
+
+    <div class="formula">
+      <small>واحد معمول</small>
+      <strong>m/s</strong>
+    </div>
+
+  </div>
+
+  <div class="info-box">
+    یک خودرو در مدت ۳۰ دقیقه مسافت ۴۶ کیلومتر را طی کرده
+    و جابه‌جایی آن ۲۲ کیلومتر به سمت جنوب‌شرقی بوده است.
+  </div>
+
+  <div class="sim-grid">
+
+    <div class="controls">
+
+      <div class="control">
+
+        <div class="control-head">
+          <span>مسافت طی‌شده</span>
+          <span class="control-value">
+            <span id="distanceValue">46</span> km
+          </span>
+        </div>
+
+        <input
+          id="distanceSlider"
+          type="range"
+          min="10"
+          max="100"
+          value="46"
+          oninput="updateAverageMotion()">
+
+      </div>
+
+      <div class="control">
+
+        <div class="control-head">
+          <span>جابه‌جایی</span>
+          <span class="control-value">
+            <span id="displacementValue">22</span> km
+          </span>
+        </div>
+
+        <input
+          id="displacementSlider"
+          type="range"
+          min="0"
+          max="80"
+          value="22"
+          oninput="updateAverageMotion()">
+
+      </div>
+
+      <div class="control">
+
+        <div class="control-head">
+          <span>زمان</span>
+          <span class="control-value">
+            <span id="timeValue">30</span> دقیقه
+          </span>
+        </div>
+
+        <input
+          id="timeSlider"
+          type="range"
+          min="10"
+          max="120"
+          value="30"
+          oninput="updateAverageMotion()">
+
+      </div>
+
+      <div class="info-box">
+        توجه کن: اگر مسافت و جابه‌جایی متفاوت باشند،
+        تندی متوسط و اندازه سرعت متوسط نیز معمولاً متفاوت خواهند بود.
+      </div>
+
+    </div>
+
+    <div>
+
+      <div class="metric-grid">
+
+        <div class="metric">
+          <span>تندی متوسط</span>
+          <strong id="avgSpeed">92</strong>
+          <small>km/h</small>
+        </div>
+
+        <div class="metric">
+          <span>اندازه سرعت متوسط</span>
+          <strong id="avgVelocity">44</strong>
+          <small>km/h</small>
+        </div>
+
+        <div class="metric">
+          <span>جهت سرعت متوسط</span>
+          <strong>جنوب‌شرقی</strong>
+        </div>
+
+        <div class="metric">
+          <span>تفاوت</span>
+          <strong id="avgDifference">48</strong>
+          <small>km/h</small>
+        </div>
+
+      </div>
+
+      <div id="averageFeedback" class="info-box">
+        تندی متوسط با «مسافت» محاسبه می‌شود؛ سرعت متوسط با «جابه‌جایی»
+        و جهت آن نیز اهمیت دارد.
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary"
+      onclick="completeStage(2)">
+      مرحله را کامل کردم
+    </button>
+  </div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     STAGE 3
+========================= -->
+
+<section class="section" id="stage3">
+
+<div class="card">
+
+  <div class="section-head">
+    <div>
+      <span class="badge">مرحله ۳ · مشاهده</span>
+      <h3>تندی با سرعت چه فرقی دارد؟</h3>
+      <p>
+        سرعت فقط یک عدد نیست؛ جهت حرکت هم بخشی از آن است.
+      </p>
+    </div>
+  </div>
+
+  <div class="sim-grid">
+
+    <div class="sim-screen">
+
+      <div class="velocity-arrow" id="velocityArrow">
+        ← سرعت به سمت غرب
+      </div>
+
+      <div class="road">
+        <div class="road-line"></div>
+      </div>
+
+      <div class="car" id="car">
+        <div class="wheel one"></div>
+        <div class="wheel two"></div>
+      </div>
+
+    </div>
+
+    <div>
+
+      <div class="control">
+
+        <div class="control-head">
+          <span>تندی لحظه‌ای</span>
+
+          <span class="control-value">
+            <span id="instantSpeedValue">60</span>
+            km/h
+          </span>
+        </div>
+
+        <input
+          id="instantSpeed"
+          type="range"
+          min="0"
+          max="120"
+          value="60"
+          oninput="updateInstantMotion()">
+
+      </div>
+
+      <div class="control" style="margin-top:12px">
+
+        <div class="control-head">
+          <span>جهت حرکت</span>
+
+          <span class="control-value"
+            id="directionValue">
+            شرق
+          </span>
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="btn btn-secondary"
+            onclick="setDirection('east')">
+            ← به شرق
+          </button>
+
+          <button
+            class="btn btn-secondary"
+            onclick="setDirection('west')">
+            به غرب →
+          </button>
+
+        </div>
+
+      </div>
+
+      <div id="instantFeedback" class="info-box">
+
+        در یک لحظه، «تندی» مقدار سرعت حرکت بدون درنظرگرفتن
+        جهت است؛ اما «سرعت» علاوه بر مقدار، جهت حرکت را نیز مشخص می‌کند.
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="compare">
+
+    <div class="compare-card">
+
+      <h4>تندی</h4>
+
+      <ul>
+        <li>تندی لحظه‌ای همان چیزی است که معمولاً از سرعت‌سنج خودرو می‌خوانیم.</li>
+        <li>فقط مقدار حرکت را بیان می‌کند.</li>
+        <li>جهت در بیان تندی وارد نمی‌شود.</li>
+      </ul>
+
+    </div>
+
+    <div class="compare-card">
+
+      <h4>سرعت</h4>
+
+      <ul>
+        <li>هم مقدار حرکت را بیان می‌کند.</li>
+        <li>جهت حرکت نیز باید مشخص باشد.</li>
+        <li>مثلاً: ۶۰ کیلومتر بر ساعت به سمت شرق.</li>
+      </ul>
+
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary"
+      onclick="completeStage(3)">
+      مرحله را کامل کردم
+    </button>
+  </div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     STAGE 4
+========================= -->
+
+<section class="section" id="stage4">
+
+<div class="card">
+
+  <div class="section-head">
+    <div>
+      <span class="badge">مرحله ۴ · آزمایشگاه شتاب</span>
+      <h3>چه زمانی می‌گوییم متحرک شتاب دارد؟</h3>
+      <p>
+        مقدار سرعت اولیه، سرعت نهایی و مدت زمان تغییر را تغییر بده.
+      </p>
+    </div>
+  </div>
+
+  <div class="info-box">
+    وقتی سرعت یک متحرک تغییر می‌کند، می‌گوییم حرکت آن دارای شتاب است.
+    شتاب متوسط از تغییر سرعت در مدت زمان مشخص به دست می‌آید.
+  </div>
+
+  <div class="sim-grid">
+
+    <div class="controls">
+
+      <div class="control">
+
+        <div class="control-head">
+          <span>سرعت اولیه</span>
+          <span class="control-value">
+            <span id="initialVValue">0</span> m/s
+          </span>
+        </div>
+
+        <input
+          id="initialV"
+          type="range"
+          min="0"
+          max="30"
+          value="0"
+          oninput="updateAcceleration()">
+
+      </div>
+
+      <div class="control">
+
+        <div class="control-head">
+          <span>سرعت نهایی</span>
+          <span class="control-value">
+            <span id="finalVValue">20</span> m/s
+          </span>
+        </div>
+
+        <input
+          id="finalV"
+          type="range"
+          min="0"
+          max="40"
+          value="20"
+          oninput="updateAcceleration()">
+
+      </div>
+
+      <div class="control">
+
+        <div class="control-head">
+          <span>زمان تغییر سرعت</span>
+          <span class="control-value">
+            <span id="accTimeValue">5</span> s
+          </span>
+        </div>
+
+        <input
+          id="accTime"
+          type="range"
+          min="1"
+          max="20"
+          value="5"
+          oninput="updateAcceleration()">
+
+      </div>
+
+      <div class="formula">
+        <small>شتاب متوسط</small>
+        <strong>تغییرات زمان ÷ تغییرات سرعت   = شتاب متوسط</strong>
+      </div>
+
+    </div>
+
+    <div>
+
+      <div class="result-big">
+
+        <div>شتاب متوسط</div>
+
+        <div class="percent">
+          <span id="accelerationValue">4</span>
+        </div>
+
+        <div>m/s²</div>
+
+      </div>
+
+      <div
+        id="accelerationMessage"
+        class="info-box"
+        style="margin-top:12px">
+
+        سرعت در حال افزایش است؛ بنابراین شتاب مثبت است.
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="actions">
+
+    <button class="btn btn-secondary"
+      onclick="setAccelerationExample('zero')">
+      حالت بدون تغییر سرعت
+    </button>
+
+    <button class="btn btn-secondary"
+      onclick="setAccelerationExample('increase')">
+      افزایش سرعت
+    </button>
+
+    <button class="btn btn-secondary"
+      onclick="setAccelerationExample('decrease')">
+      کاهش سرعت
+    </button>
+
+  </div>
+
+  <div class="actions">
+
+    <button class="btn btn-primary"
+      onclick="completeStage(4)">
+      مرحله را کامل کردم
+    </button>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     STAGE 5 QUIZ
+========================= -->
+
+<section class="section" id="stage5">
+
+<div class="card">
+
+  <div class="section-head">
+
+    <div>
+      <span class="badge">مرحله ۵ · چالش نهایی</span>
+      <h3>آزمون فرمانده حرکت</h3>
+      <p>
+        ۸ سؤال تصادفی؛ هر بار می‌توانی آزمون تازه‌ای بگیری.
+      </p>
+    </div>
+
+    <span class="badge">
+      امتیاز هر سؤال: ۱۰
+    </span>
+
+  </div>
+
+  <div id="quizContainer"></div>
+
+  <div class="quiz-actions">
+
+    <button
+      class="btn btn-primary"
+      id="submitQuizBtn"
+      onclick="submitQuiz()">
+      بررسی پاسخ‌ها
+    </button>
+
+    <button
+      class="btn btn-secondary"
+      onclick="newQuiz()">
+      آزمون جدید
+    </button>
+
+  </div>
+
+  <div id="quizResult" class="hidden"></div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     REVIEW
+========================= -->
+
+<section class="section">
+
+<div class="card">
+
+  <div class="section-head">
+
+    <div>
+      <span class="badge">مرور سریع</span>
+      <h3>چهار مفهوم را کنار هم ببین</h3>
+      <p>
+        این جدول را بعد از فعالیت‌ها مرور کن.
+      </p>
+    </div>
+
+  </div>
+
+  <table class="concept-table">
+
+    <thead>
+      <tr>
+        <th>مفهوم</th>
+        <th>با چه چیزی محاسبه می‌شود؟</th>
+        <th>آیا جهت مهم است؟</th>
+        <th>واحد معمول</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <td>مسافت</td>
+        <td>طول مسیر طی‌شده</td>
+        <td>خیر</td>
+        <td>m ، km</td>
+      </tr>
+
+      <tr>
+        <td>جابه‌جایی</td>
+        <td>فاصله جهت‌دار از مبدأ تا مقصد</td>
+        <td>بله</td>
+        <td>m ، km</td>
+      </tr>
+
+      <tr>
+        <td>تندی متوسط</td>
+        <td>مسافت ÷ زمان</td>
+        <td>خیر</td>
+        <td>m/s ، km/h</td>
+      </tr>
+
+      <tr>
+        <td>سرعت متوسط</td>
+        <td>جابه‌جایی ÷ زمان</td>
+        <td>بله</td>
+        <td>m/s ، km/h</td>
+      </tr>
+
+      <tr>
+        <td>شتاب متوسط</td>
+        <td>تغییر سرعت ÷ زمان</td>
+        <td>با توجه به جهت سرعت</td>
+        <td>m/s²</td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+</section>
+
+
+<section class="section">
+
+<div class="card">
+
+  <div class="section-head">
+    <div>
+      <span class="badge">پایان مأموریت</span>
+      <h3>وضعیت یادگیری تو</h3>
+    </div>
+  </div>
+
+  <div id="finalStatus" class="info-box">
+    هنوز همه مراحل را کامل نکرده‌ای.
+    فعالیت‌ها را انجام بده و سپس آزمون نهایی را اجرا کن.
+  </div>
+
+  <div class="actions">
+
+    <button
+      class="btn btn-dark"
+      onclick="resetProgress()">
+      شروع دوباره
+    </button>
+
+  </div>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+  این صفحه کاملاً سمت کاربر اجرا می‌شود و برای ذخیره پیشرفت فقط از localStorage استفاده می‌کند.
+</footer>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   DATA
+========================================================= */
+
+const state = {
+  score: Number(localStorage.getItem("motionScore") || 0),
+  bestScore: Number(localStorage.getItem("motionBest") || 0),
+  completed: JSON.parse(
+    localStorage.getItem("motionCompleted") || "[]"
+  ),
+  direction: "east",
+  quiz: [],
+  quizSubmitted: false
+};
+
+const quizBank = [
+
+  {
+    q:
+      "دانش‌آموزی مسیری خمیده را از خانه تا مدرسه طی می‌کند. کدام کمیت طول کل مسیر واقعی او را نشان می‌دهد؟",
+    options: [
+      "مسافت طی‌شده",
+      "جابه‌جایی",
+      "سرعت متوسط",
+      "شتاب متوسط"
+    ],
+    answer:0,
+    feedback:[
+      "مسافت برابر مجموع طول مسیر طی‌شده است.",
+      "جابه‌جایی فاصله جهت‌دار مبدأ تا مقصد است، نه طول مسیر واقعی.",
+      "سرعت متوسط از جابه‌جایی و زمان به دست می‌آید.",
+      "شتاب متوسط تغییر سرعت در زمان است."
+    ]
+  },
+
+  {
+    q:
+      "یک خودرو ۸۴۰ متر را در ۶۰ ثانیه طی می‌کند. تندی متوسط خودرو چند متر بر ثانیه است؟",
+    options:[
+      "۱۲ m/s",
+      "۱۴ m/s",
+      "۱۶ m/s",
+      "۱۸ m/s"
+    ],
+    answer:1,
+    feedback:[
+      "۸۴۰ ÷ ۶۰ برابر ۱۴ نیست که این گزینه نشان دهد؛ مقدار درست ۱۴ m/s است.",
+      "تندی متوسط = مسافت ÷ زمان = ۸۴۰ ÷ ۶۰ = ۱۴ m/s.",
+      "۸۴۰ ÷ ۶۰ برابر ۱۶ نیست.",
+      "۸۴۰ ÷ ۶۰ برابر ۱۸ نیست."
+    ]
+  },
+
+  {
+    q:
+      "خودرویی در مدت نیم ساعت، ۴۶ کیلومتر مسیر را طی کرده است. تندی متوسط آن چند کیلومتر بر ساعت است؟",
+    options:[
+      "۲۳ km/h",
+      "۴۶ km/h",
+      "۹۲ km/h",
+      "۱۳۸ km/h"
+    ],
+    answer:2,
+    feedback:[
+      "۴۶ کیلومتر در نیم ساعت یعنی در یک ساعت ۹۲ کیلومتر.",
+      "این مقدار برابر تندی متوسط نیست؛ زمان نیم ساعت است.",
+      "۴۶ ÷ ۰٫۵ = ۹۲ km/h.",
+      "محاسبه تندی متوسط چنین مقداری نمی‌دهد."
+    ]
+  },
+
+  {
+    q:
+      "خودرویی با تندی ۶۰ کیلومتر بر ساعت به سمت شرق حرکت می‌کند. برای توصیف کامل سرعت آن چه اطلاعاتی لازم است؟",
+    options:[
+      "فقط عدد ۶۰",
+      "فقط مدت زمان حرکت",
+      "تندی و جهت حرکت",
+      "فقط مسافت طی‌شده"
+    ],
+    answer:2,
+    feedback:[
+      "عدد ۶۰ فقط مقدار تندی را مشخص می‌کند.",
+      "زمان به‌تنهایی سرعت را مشخص نمی‌کند.",
+      "سرعت لحظه‌ای علاوه بر مقدار، جهت حرکت را نیز مشخص می‌کند.",
+      "مسافت به‌تنهایی سرعت را مشخص نمی‌کند."
+    ]
+  },
+
+  {
+    q:
+      "اگر متحرکی مسیر خود را تغییر دهد ولی تندی آن ثابت بماند، کدام گزاره درست است؟",
+    options:[
+      "حتماً شتاب صفر است.",
+      "ممکن است سرعت تغییر کند، چون جهت حرکت تغییر کرده است.",
+      "مسافت آن صفر می‌شود.",
+      "جابه‌جایی همیشه با مسافت برابر می‌شود."
+    ],
+    answer:1,
+    feedback:[
+      "تغییر جهت می‌تواند باعث تغییر سرعت شود، حتی اگر تندی ثابت باشد.",
+      "سرعت شامل جهت است؛ بنابراین با تغییر جهت، سرعت تغییر می‌کند.",
+      "تغییر مسیر باعث صفر شدن مسافت نمی‌شود.",
+      "برابری مسافت و جابه‌جایی فقط در شرایط خاص رخ می‌دهد."
+    ]
+  },
+
+  {
+    q:
+      "اگر سرعت متحرکی از ۰ به ۲۰ متر بر ثانیه در ۵ ثانیه تغییر کند، شتاب متوسط آن چند متر بر مجذور ثانیه است؟",
+    options:[
+      "۲ m/s²",
+      "۴ m/s²",
+      "۵ m/s²",
+      "۲۰ m/s²"
+    ],
+    answer:1,
+    feedback:[
+      "تغییر سرعت ۲۰ و زمان ۵ ثانیه است؛ حاصل ۴ می‌شود.",
+      "شتاب متوسط = تغییر سرعت ÷ زمان = ۲۰ ÷ ۵ = ۴ m/s².",
+      "۲۰ ÷ ۵ برابر ۵ نیست.",
+      "۲۰ m/s² حاصل تقسیم تغییر سرعت بر ۱ ثانیه است، نه ۵ ثانیه."
+    ]
+  },
+
+  {
+    q:
+      "دونده‌ای یک دور کامل یک مسیر بسته را طی می‌کند و دقیقاً به نقطه شروع برمی‌گردد. کدام عبارت درباره جابه‌جایی او درست است؟",
+    options:[
+      "جابه‌جایی برابر کل طول مسیر است.",
+      "جابه‌جایی صفر است.",
+      "جابه‌جایی همیشه از مسافت بیشتر است.",
+      "جابه‌جایی به زمان بستگی دارد."
+    ],
+    answer:1,
+    feedback:[
+      "کل طول مسیر مسافت است، نه جابه‌جایی در این حالت.",
+      "چون نقطه شروع و پایان یکی است، بردار جابه‌جایی صفر است.",
+      "مسافت نمی‌تواند در این حالت از جابه‌جایی کمتر باشد؛ جابه‌جایی صفر است.",
+      "در این مثال جابه‌جایی از جایگاه مبدأ و مقصد تعیین می‌شود."
+    ]
+  },
+
+  {
+    q:
+      "اگر سرعت یک خودرو در حال کاهش باشد، در ساده‌ترین حالت حرکت مستقیم، کدام نتیجه درست است؟",
+    options:[
+      "سرعت حتماً ثابت است.",
+      "تغییر سرعت صفر است.",
+      "خودرو دارای شتاب است.",
+      "مسافت طی‌شده صفر است."
+    ],
+    answer:2,
+    feedback:[
+      "کاهش سرعت یعنی سرعت در حال تغییر است.",
+      "اگر سرعت تغییر کند، تغییر سرعت صفر نیست.",
+      "تغییر سرعت در طول زمان به معنای وجود شتاب است.",
+      "خودرو می‌تواند هنگام کاهش سرعت همچنان در حال پیمودن مسیر باشد."
+    ]
+  },
+
+  {
+    q:
+      "کدام رابطه برای تندی متوسط درست است؟",
+    options:[
+      "مسافت ÷ زمان",
+      "جابه‌جایی ÷ زمان",
+      "تغییر سرعت ÷ زمان",
+      "زمان ÷ مسافت"
+    ],
+    answer:0,
+    feedback:[
+      "تندی متوسط از تقسیم مسافت طی‌شده بر مدت زمان به دست می‌آید.",
+      "جابه‌جایی ÷ زمان رابطه سرعت متوسط است.",
+      "تغییر سرعت ÷ زمان رابطه شتاب متوسط است.",
+      "زمان ÷ مسافت معکوس تندی است، نه خود تندی."
+    ]
+  },
+
+  {
+    q:
+      "کدام رابطه برای سرعت متوسط درست است؟",
+    options:[
+      "مسافت ÷ زمان",
+      "جابه‌جایی ÷ زمان",
+      "زمان ÷ جابه‌جایی",
+      "تغییر سرعت ÷ زمان"
+    ],
+    answer:1,
+    feedback:[
+      "مسافت ÷ زمان تندی متوسط است.",
+      "سرعت متوسط از جابه‌جایی تقسیم بر زمان به دست می‌آید و جهت نیز اهمیت دارد.",
+      "زمان ÷ جابه‌جایی معکوس سرعت متوسط است.",
+      "تغییر سرعت ÷ زمان شتاب متوسط است."
+    ]
+  }
+
+];
+
+
+/* =========================================================
+   SCORE
+========================================================= */
+
+function updateScore(points){
+
+  state.score += points;
+
+  if(state.score > state.bestScore){
+    state.bestScore = state.score;
+  }
+
+  localStorage.setItem("motionScore",state.score);
+  localStorage.setItem("motionBest",state.bestScore);
+
+  document.getElementById("score").textContent =
+    state.score;
+
+  document.getElementById("bestScore").textContent =
+    state.bestScore;
+
+  updateFinalStatus();
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function saveState(){
+
+  localStorage.setItem(
+    "motionCompleted",
+    JSON.stringify(state.completed)
+  );
+
+  updateProgress();
+}
+
+function updateProgress(){
+
+  const count = state.completed.length;
+
+  const percent = Math.min(
+    100,
+    count / 5 * 100
+  );
+
+  document.getElementById("progressFill")
+    .style.width = percent + "%";
+
+  document.getElementById("progressText")
+    .textContent =
+      `${count} از ۵ مرحله`;
+
+  document.querySelectorAll(".map-step")
+    .forEach(el => {
+
+      const n = Number(el.dataset.map);
+
+      el.classList.toggle(
+        "active",
+        n === Math.min(count + 1,5)
+      );
+
+      el.classList.toggle(
+        "done",
+        state.completed.includes(n)
+      );
+
+    });
+
+  updateFinalStatus();
+}
+
+
+function completeStage(stage){
+
+  if(!state.completed.includes(stage)){
+
+    state.completed.push(stage);
+
+    updateScore(20);
+
+    saveState();
+
+    showToast(
+      `مرحله ${stage} کامل شد؛ ۲۰ امتیاز گرفتی.`
+    );
+
+  }else{
+
+    showToast(
+      "این مرحله قبلاً ثبت شده است."
+    );
+
+  }
+
+  const next = stage + 1;
+
+  if(next <= 5){
+
+    setTimeout(() => {
+
+      document
+        .getElementById("stage" + next)
+        ?.scrollIntoView({
+          behavior:"smooth",
+          block:"start"
+        });
+
+    },300);
+
+  }
+}
+
+
+/* =========================================================
+   STAGE 1
+========================================================= */
+
+function chooseDistance(choice,button){
+
+  document.querySelectorAll(".choice")
+    .forEach(x => x.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+  const box =
+    document.getElementById("distanceFeedback");
+
+  box.classList.remove("hidden");
+
+  if(choice === "different"){
+
+    box.className =
+      "success-box info-box";
+
+    box.innerHTML =
+      "<strong>آفرین!</strong><br>" +
+      "مسافت، طول مسیر واقعی طی‌شده است؛ " +
+      "اما جابه‌جایی، فاصله جهت‌دار بین مبدأ و مقصد است. " +
+      "در این شکل مسیر خمیده از خط مستقیم A تا B طولانی‌تر است.";
+
+    updateScore(10);
+
+  }else{
+
+    box.className =
+      "warning-box info-box";
+
+    box.innerHTML =
+      "<strong>یک بار دیگر فکر کن.</strong><br>" +
+      "خط مستقیم بین مبدأ و مقصد کوتاه‌ترین مسیر است. " +
+      "مسیر خمیده‌ای که دونده واقعاً طی کرده، معمولاً طول بیشتری دارد.";
+
+  }
+
+}
+
+
+/* =========================================================
+   STAGE 2
+========================================================= */
+
+function updateAverageMotion(){
+
+  const d =
+    Number(document.getElementById("distanceSlider").value);
+
+  const displacement =
+    Number(document.getElementById("displacementSlider").value);
+
+  const minutes =
+    Number(document.getElementById("timeSlider").value);
+
+  document.getElementById("distanceValue")
+    .textContent = d;
+
+  document.getElementById("displacementValue")
+    .textContent = displacement;
+
+  document.getElementById("timeValue")
+    .textContent = minutes;
+
+  const hours = minutes / 60;
+
+  const avgSpeed = d / hours;
+
+  const avgVelocity = displacement / hours;
+
+  document.getElementById("avgSpeed")
+    .textContent = round(avgSpeed);
+
+  document.getElementById("avgVelocity")
+    .textContent = round(avgVelocity);
+
+  document.getElementById("avgDifference")
+    .textContent =
+      round(Math.abs(avgSpeed - avgVelocity));
+
+  const feedback =
+    document.getElementById("averageFeedback");
+
+  if(d === displacement){
+
+    feedback.className =
+      "success-box info-box";
+
+    feedback.innerHTML =
+      "در این حالت مسافت و اندازه جابه‌جایی برابرند؛ " +
+      "پس اندازه تندی متوسط و سرعت متوسط نیز برابر می‌شود " +
+      "البته سرعت متوسط همچنان جهت دارد.";
+
+  }else{
+
+    feedback.className =
+      "info-box";
+
+    feedback.innerHTML =
+      "چون مسافت و اندازه جابه‌جایی متفاوت‌اند، " +
+      "تندی متوسط و اندازه سرعت متوسط نیز متفاوت شده‌اند. " +
+      "برای سرعت متوسط، جهت جابه‌جایی نیز باید بیان شود.";
+
+  }
+
+}
+
+
+function round(n){
+
+  return Math.round(n * 10) / 10;
+
+}
+
+
+/* =========================================================
+   STAGE 3
+========================================================= */
+
+function setDirection(direction){
+
+  state.direction = direction;
+
+  const label =
+    document.getElementById("directionValue");
+
+  const arrow =
+    document.getElementById("velocityArrow");
+
+  if(direction === "east"){
+
+    label.textContent = "شرق";
+
+    arrow.textContent =
+      "← سرعت به سمت شرق";
+
+    arrow.style.direction = "rtl";
+
+  }else{
+
+    label.textContent = "غرب";
+
+    arrow.textContent =
+      "سرعت به سمت غرب →";
+
+    arrow.style.direction = "ltr";
+
+  }
+
+  updateInstantMotion();
+
+}
+
+
+function updateInstantMotion(){
+
+  const speed =
+    Number(
+      document.getElementById("instantSpeed").value
+    );
+
+  document.getElementById("instantSpeedValue")
+    .textContent = speed;
+
+  const car =
+    document.getElementById("car");
+
+  const percentage =
+    speed / 120 * 75;
+
+  car.style.left =
+    `calc(${percentage}% - 37px)`;
+
+  const feedback =
+    document.getElementById("instantFeedback");
+
+  if(speed === 0){
+
+    feedback.className =
+      "warning-box info-box";
+
+    feedback.innerHTML =
+      "تندی لحظه‌ای صفر است؛ خودرو در آن لحظه ساکن است. " +
+      "در این لحظه سرعت نیز صفر است.";
+
+  }else{
+
+    feedback.className =
+      "info-box";
+
+    feedback.innerHTML =
+      `تندی لحظه‌ای برابر ${speed} km/h است. ` +
+      `برای بیان سرعت، جهت «${state.direction === "east" ? "شرق" : "غرب"}» ` +
+      "را نیز باید همراه مقدار ذکر کنیم.";
+
+  }
+
+}
+
+
+/* =========================================================
+   STAGE 4
+========================================================= */
+
+function updateAcceleration(){
+
+  const vi =
+    Number(document.getElementById("initialV").value);
+
+  const vf =
+    Number(document.getElementById("finalV").value);
+
+  const t =
+    Number(document.getElementById("accTime").value);
+
+  document.getElementById("initialVValue")
+    .textContent = vi;
+
+  document.getElementById("finalVValue")
+    .textContent = vf;
+
+  document.getElementById("accTimeValue")
+    .textContent = t;
+
+  const a = (vf - vi) / t;
+
+  document.getElementById("accelerationValue")
+    .textContent = round(a);
+
+  const message =
+    document.getElementById("accelerationMessage");
+
+  if(a > 0){
+
+    message.className =
+      "success-box info-box";
+
+    message.innerHTML =
+      "سرعت نهایی از سرعت اولیه بیشتر است؛ " +
+      "بنابراین شتاب متوسط مثبت شده است.";
+
+  }else if(a < 0){
+
+    message.className =
+      "warning-box info-box";
+
+    message.innerHTML =
+      "سرعت نهایی از سرعت اولیه کمتر است؛ " +
+      "بنابراین تغییر سرعت منفی شده و شتاب متوسط منفی است.";
+
+  }else{
+
+    message.className =
+      "info-box";
+
+    message.innerHTML =
+      "سرعت تغییر نکرده است؛ بنابراین شتاب متوسط صفر است.";
+
+  }
+
+}
+
+
+function setAccelerationExample(type){
+
+  if(type === "zero"){
+
+    document.getElementById("initialV").value = 15;
+    document.getElementById("finalV").value = 15;
+    document.getElementById("accTime").value = 5;
+
+  }
+
+  if(type === "increase"){
+
+    document.getElementById("initialV").value = 0;
+    document.getElementById("finalV").value = 20;
+    document.getElementById("accTime").value = 5;
+
+  }
+
+  if(type === "decrease"){
+
+    document.getElementById("initialV").value = 25;
+    document.getElementById("finalV").value = 10;
+    document.getElementById("accTime").value = 5;
+
+  }
+
+  updateAcceleration();
+
+}
+
+
+/* =========================================================
+   QUIZ
+========================================================= */
+
+function shuffle(array){
+
+  const a = [...array];
+
+  for(let i = a.length - 1; i > 0; i--){
+
+    const j =
+      Math.floor(Math.random() * (i + 1));
+
+    [a[i],a[j]] =
+      [a[j],a[i]];
+
+  }
+
+  return a;
+
+}
+
+
+function newQuiz(){
+
+  state.quiz =
+    shuffle(quizBank)
+      .slice(0,8);
+
+  state.quizSubmitted = false;
+
+  const container =
+    document.getElementById("quizContainer");
+
+  container.innerHTML = "";
+
+  state.quiz.forEach((item,index) => {
+
+    const card =
+      document.createElement("div");
+
+    card.className = "quiz-card";
+
+    const number =
+      document.createElement("div");
+
+    number.className = "quiz-number";
+
+    number.textContent =
+      `سؤال ${index + 1} از ${state.quiz.length}`;
+
+    card.appendChild(number);
+
+    const question =
+      document.createElement("div");
+
+    question.className = "quiz-question";
+
+    question.textContent = item.q;
+
+    card.appendChild(question);
+
+    const options =
+      document.createElement("div");
+
+    options.className = "options";
+
+    const shuffledOptions =
+      item.options.map(
+        (text,i) => ({
+          text,
+          original:i
+        })
+      );
+
+    const mixed =
+      shuffle(shuffledOptions);
+
+    mixed.forEach(option => {
+
+      const button =
+        document.createElement("button");
+
+      button.className = "option";
+
+      button.dataset.original =
+        option.original;
+
+      button.textContent =
+        option.text;
+
+      button.onclick = function(){
+
+        if(state.quizSubmitted) return;
+
+        options
+          .querySelectorAll(".option")
+          .forEach(b =>
+            b.classList.remove("selected")
+          );
+
+        button.classList.add("selected");
+
+      };
+
+      options.appendChild(button);
+
+    });
+
+    card.appendChild(options);
+
+    const feedback =
+      document.createElement("div");
+
+    feedback.className =
+      "feedback hidden";
+
+    card.appendChild(feedback);
+
+    container.appendChild(card);
+
+  });
+
+  document.getElementById("quizResult")
+    .classList.add("hidden");
+
+  document.getElementById("submitQuizBtn")
+    .disabled = false;
+
+}
+
+
+function submitQuiz(){
+
+  if(state.quizSubmitted) return;
+
+  const cards =
+    document.querySelectorAll(".quiz-card");
+
+  let correct = 0;
+
+  cards.forEach((card,index) => {
+
+    const selected =
+      card.querySelector(".option.selected");
+
+    const feedback =
+      card.querySelector(".feedback");
+
+    const item =
+      state.quiz[index];
+
+    card.querySelectorAll(".option")
+      .forEach(button => {
+
+        const original =
+          Number(button.dataset.original);
+
+        if(original === item.answer){
+
+          button.classList.add("correct");
+
+        }
+
+        if(
+          selected &&
+          button === selected &&
+          original !== item.answer
+        ){
+
+          button.classList.add("wrong");
+
+        }
+
+      });
+
+    feedback.classList.remove("hidden");
+
+    if(!selected){
+
+      feedback.className =
+        "feedback warning-box";
+
+      feedback.innerHTML =
+        "برای این سؤال پاسخی انتخاب نکردی. " +
+        item.feedback[item.answer];
+
+      return;
+
+    }
+
+    const chosen =
+      Number(selected.dataset.original);
+
+    if(chosen === item.answer){
+
+      correct++;
+
+      feedback.className =
+        "feedback success-box";
+
+      feedback.textContent =
+        item.feedback[item.answer];
+
+    }else{
+
+      feedback.className =
+        "feedback error-box";
+
+      feedback.textContent =
+        item.feedback[chosen] +
+        " پاسخ درست: " +
+        item.feedback[item.answer];
+
+    }
+
+  });
+
+  state.quizSubmitted = true;
+
+  const gained =
+    correct * 10;
+
+  updateScore(gained);
+
+  completeStageWithoutPoints(5);
+
+  const percent =
+    Math.round(correct / state.quiz.length * 100);
+
+  let stars = "";
+
+  if(percent >= 90) stars = "★★★★★";
+  else if(percent >= 75) stars = "★★★★☆";
+  else if(percent >= 60) stars = "★★★☆☆";
+  else if(percent >= 40) stars = "★★☆☆☆";
+  else stars = "★☆☆☆☆";
+
+  const result =
+    document.getElementById("quizResult");
+
+  result.className = "";
+
+  result.innerHTML = `
+    <div class="result-big">
+      <div class="stars">${stars}</div>
+      <div class="percent">${percent}%</div>
+      <div>
+        ${correct} پاسخ درست از ${state.quiz.length}
+      </div>
+      <p>
+        ${getQuizMessage(percent)}
+      </p>
+      <small>
+        ${gained} امتیاز از آزمون به امتیاز کل اضافه شد.
+      </small>
+    </div>
+  `;
+
+  result.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
+
+}
+
+
+function completeStageWithoutPoints(stage){
+
+  if(!state.completed.includes(stage)){
+
+    state.completed.push(stage);
+
+    saveState();
+
+  }
+
+}
+
+
+function getQuizMessage(percent){
+
+  if(percent >= 90)
+    return "تفاوت‌های اصلی مفاهیم حرکت را به‌خوبی تشخیص دادی.";
+
+  if(percent >= 75)
+    return "مفاهیم اصلی را فهمیده‌ای؛ چند نکته را دوباره مرور کن.";
+
+  if(percent >= 50)
+    return "پایه مفهومی شکل گرفته است؛ جدول مرور و شبیه‌سازی‌ها را دوباره بررسی کن.";
+
+  return "اشکالی ندارد؛ دوباره مراحل تعاملی را انجام بده و سپس آزمون جدید بگیر.";
+
+}
+
+
+/* =========================================================
+   FINAL STATUS
+========================================================= */
+
+function updateFinalStatus(){
+
+  const box =
+    document.getElementById("finalStatus");
+
+  const count =
+    state.completed.length;
+
+  if(count >= 5){
+
+    box.className =
+      "success-box info-box";
+
+    box.innerHTML =
+      `<strong>مأموریت کامل شد!</strong><br>
+       تو تمام مراحل را انجام داده‌ای.
+       امتیاز فعلی تو ${state.score} است
+       و رکورد ذخیره‌شده ${state.bestScore} است.`;
+
+  }else{
+
+    box.className =
+      "info-box";
+
+    box.innerHTML =
+      `هنوز ${5 - count} مرحله باقی مانده است.
+       فعالیت‌ها را انجام بده و سپس آزمون نهایی را اجرا کن.`;
+
+  }
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetProgress(){
+
+  const ok =
+    confirm(
+      "پیشرفت، امتیاز و رکورد این صفحه روی همین دستگاه پاک شود؟"
+    );
+
+  if(!ok) return;
+
+  localStorage.removeItem("motionScore");
+  localStorage.removeItem("motionBest");
+  localStorage.removeItem("motionCompleted");
+
+  state.score = 0;
+  state.bestScore = 0;
+  state.completed = [];
+
+  document.getElementById("score")
+    .textContent = "0";
+
+  document.getElementById("bestScore")
+    .textContent = "0";
+
+  updateProgress();
+
+  showToast("پیشرفت صفحه پاک شد.");
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message){
+
+  const old =
+    document.querySelector(".toast");
+
+  if(old) old.remove();
+
+  const toast =
+    document.createElement("div");
+
+  toast.className = "toast";
+
+  toast.textContent = message;
+
+  Object.assign(toast.style,{
+    position:"fixed",
+    bottom:"20px",
+    right:"50%",
+    transform:"translateX(50%)",
+    background:"#102A43",
+    color:"#fff",
+    padding:"10px 18px",
+    borderRadius:"12px",
+    zIndex:"1000",
+    boxShadow:"0 10px 30px rgba(0,0,0,.2)",
+    fontSize:"13px"
+  });
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+
+    toast.remove();
+
+  },2500);
+
+}
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+document.getElementById("score")
+  .textContent = state.score;
+
+document.getElementById("bestScore")
+  .textContent = state.bestScore;
+
+updateProgress();
+
+updateAverageMotion();
+
+updateInstantMotion();
+
+updateAcceleration();
+
+newQuiz();
+
+</script>
+
 </body>
 </html>
