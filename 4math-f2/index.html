@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#6C4FF5" />
+  <title>شهر کسرها | ریاضی چهارم ابتدایی</title>
+  <style>
+    :root{
+      --navy:#3D2B75;
+      --teal:#19C3B1;
+      --purple:#6C4FF5;
+      --sky:#45B7FF;
+      --yellow:#FFC857;
+      --pink:#FF6FAE;
+      --orange:#FF8A4C;
+      --ink:#28364B;
+      --muted:#68788E;
+      --bg:#F7F6FF;
+      --card:#FFFFFF;
+      --line:#E6E4F2;
+      --good:#159E73;
+      --bad:#D64B5F;
+      --warn:#9D6A07;
+      --shadow:0 14px 34px rgba(61,43,117,.10);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#EEF6FB 0%,#F7FAFC 42%,#EEF5F8 100%);
+      color:var(--ink);
+      font-family:"Tahoma","Vazirmatn","Segoe UI",sans-serif;
+      line-height:1.7;
+      min-height:100vh;
+    }
+    button,input{font:inherit}
+    button{cursor:pointer}
+    .shell{width:min(1080px,100%);margin:0 auto;padding:16px}
+    .topbar{
+      position:sticky;top:0;z-index:20;
+      padding-top:env(safe-area-inset-top);
+      background:rgba(244,248,251,.92);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(217,229,238,.85)
+    }
+    .topbar-inner{width:min(1080px,100%);margin:auto;padding:10px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:900;color:var(--navy);font-size:15px}
+    .brand-badge{width:38px;height:38px;border-radius:12px;background:var(--navy);display:grid;place-items:center;color:white;box-shadow:0 8px 20px rgba(16,42,67,.18);font-size:18px}
+    .top-actions{display:flex;gap:8px;align-items:center}
+    .icon-btn{border:1px solid var(--line);background:white;color:var(--navy);width:42px;height:42px;border-radius:12px;font-size:18px;display:grid;place-items:center}
+    .hero{padding:28px 0 8px}
+    .hero-card{background:linear-gradient(135deg,var(--navy),#173F61);color:white;border-radius:28px;padding:24px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+    .hero-card:before,.hero-card:after{content:"";position:absolute;border-radius:50%;opacity:.16;background:var(--teal)}
+    .hero-card:before{width:180px;height:180px;left:-60px;top:-60px}
+    .hero-card:after{width:260px;height:260px;right:-110px;bottom:-130px}
+    .hero-content{position:relative;z-index:1}
+    .eyebrow{font-size:13px;opacity:.86;margin-bottom:5px}
+    h1{font-size:clamp(27px,6vw,44px);margin:0 0 8px;line-height:1.25}
+    .hero p{margin:0;max-width:720px;opacity:.9}
+    .progress-wrap{margin-top:20px}
+    .progress-top{display:flex;justify-content:space-between;gap:10px;font-size:13px;opacity:.92}
+    .progress{height:10px;background:rgba(255,255,255,.16);border-radius:99px;overflow:hidden;margin-top:8px}
+    .progress > span{display:block;height:100%;background:var(--teal);width:0;border-radius:inherit;transition:width .35s ease}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+    .stat{padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.09);text-align:center}
+    .stat b{display:block;font-size:18px}
+    .stat span{font-size:12px;opacity:.8}
+
+    .section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:28px 0 12px}
+    .section-title h2{font-size:20px;margin:0}
+    .section-title p{margin:0;color:var(--muted);font-size:13px}
+    .map{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .stage-card{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:16px;box-shadow:0 8px 24px rgba(16,42,67,.05);text-align:right;position:relative;overflow:hidden;min-height:145px;transition:.2s ease}
+    .stage-card:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(16,42,67,.09)}
+    .stage-card.locked{opacity:.55;filter:saturate(.75);cursor:not-allowed}
+    .stage-card.active{border-color:rgba(0,193,195,.55);box-shadow:0 10px 28px rgba(0,193,195,.12)}
+    .stage-card.done{border-color:rgba(22,133,91,.35)}
+    .stage-num{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#E9F7F7;color:var(--navy);font-weight:900;float:left;margin-right:8px}
+    .stage-card h3{margin:0 0 3px;font-size:16px}
+    .stage-card p{margin:0;color:var(--muted);font-size:12px}
+    .status{display:inline-flex;align-items:center;gap:5px;margin-top:13px;font-size:12px;font-weight:800;color:var(--muted)}
+    .status.done{color:var(--good)}
+    .status.locked{color:var(--muted)}
+    .stage-cta{margin-top:14px;border:none;background:var(--navy);color:white;padding:10px 12px;border-radius:12px;font-weight:800;width:100%}
+    .stage-cta.secondary{background:#EAF8F8;color:var(--navy)}
+
+    .lesson{margin-top:24px}
+    .lesson-card{background:white;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow)}
+    .lesson-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+    .lesson-label{font-size:12px;color:var(--teal);font-weight:900}
+    .lesson-head h2{margin:2px 0 4px;font-size:24px}
+    .lesson-head p{margin:0;color:var(--muted);font-size:13px}
+    .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);padding:7px 10px;border-radius:999px;background:#FBFDFF;font-size:12px;white-space:nowrap}
+
+    .activity{margin-top:18px}
+    .instruction{background:#F3FAFB;border:1px solid #D5F0F0;padding:12px 14px;border-radius:16px;font-size:14px}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+    .mini-card{border:1px solid var(--line);border-radius:18px;padding:14px;background:#FCFEFF}
+    .mini-card h3{font-size:15px;margin:0 0 8px}
+    .muted{color:var(--muted);font-size:13px}
+
+    .frac{display:inline-flex;flex-direction:column;vertical-align:middle;line-height:1;min-width:28px;text-align:center;margin:0 3px}
+    .frac .n{border-bottom:2px solid currentColor;padding:0 4px 2px}
+    .frac .d{padding:2px 4px 0}
+    .frac.big{font-size:28px;min-width:44px}
+    .frac.big .n{padding-bottom:5px}
+    .frac.big .d{padding-top:5px}
+    .equation{font-weight:900;font-size:18px}
+
+    .fraction-shape{width:min(420px,100%);margin:14px auto 6px}
+    .bar{display:grid;border:3px solid var(--navy);border-radius:15px;overflow:hidden;background:white;min-height:70px}
+    .bar .part{background:#F8FBFD;border-left:1px solid #C8D7E2;display:grid;place-items:center;min-height:64px;transition:.2s}
+    .bar .part:last-child{border-left:none}
+    .bar .part.selected{background:var(--teal);color:white}
+    .bar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:7px}
+
+    .choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+    .choice{border:1px solid var(--line);background:white;padding:13px;border-radius:14px;min-height:52px;font-weight:800;color:var(--ink);transition:.18s}
+    .choice:hover{border-color:#A9C7D6}
+    .choice.selected{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,193,195,.09)}
+    .choice.correct{background:#EEF9F4;border-color:#9ED7BD;color:#126E4A}
+    .choice.wrong{background:#FFF3F3;border-color:#E8B0B0;color:#9B3838}
+
+    .feedback{min-height:52px;margin-top:12px;border-radius:14px;padding:11px 13px;display:flex;align-items:center;gap:8px;font-size:13px}
+    .feedback.empty{background:#F8FAFC;border:1px dashed var(--line);color:var(--muted)}
+    .feedback.good{background:#EEF9F4;border:1px solid #BFE6D0;color:#126E4A}
+    .feedback.bad{background:#FFF4F4;border:1px solid #EBC1C1;color:#963939}
+    .feedback.hint{background:#FFF9EC;border:1px solid #E8D3A1;color:#815C13}
+
+    .action-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .btn{border:none;border-radius:14px;padding:12px 15px;font-weight:900;min-height:48px}
+    .btn.primary{background:var(--navy);color:white}
+    .btn.accent{background:var(--teal);color:#073B40}
+    .btn.ghost{background:white;border:1px solid var(--line);color:var(--navy)}
+    .btn.danger{background:#FFF2F2;border:1px solid #EFCACA;color:#963939}
+    .btn:disabled{opacity:.45;cursor:not-allowed}
+
+    .drag-track{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+    .drop-zone,.drag-item{border:2px dashed #C8D7E2;border-radius:18px;padding:14px;background:#FAFCFE;text-align:center;min-height:86px;display:grid;place-items:center}
+    .drop-zone.filled{border-style:solid;border-color:var(--teal);background:#F2FBFB}
+    .drag-items{display:grid;gap:10px}
+    .drag-item{border-style:solid;background:white;font-weight:800}
+    .drag-item.active{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,193,195,.1)}
+    .touch-note{font-size:11px;color:var(--muted);margin-top:6px}
+
+    .number-line-wrap{overflow-x:auto;padding:6px 2px 4px}
+    .number-line{position:relative;min-width:560px;padding:38px 18px 20px}
+    .line{height:5px;background:var(--navy);border-radius:99px;position:relative}
+    .tick{position:absolute;top:-11px;width:3px;height:28px;background:var(--navy);transform:translateX(-50%)}
+    .tick small{position:absolute;top:31px;left:50%;transform:translateX(-50%);font-size:12px;white-space:nowrap;color:var(--ink)}
+    .pin{position:absolute;top:-18px;width:38px;height:38px;border-radius:50%;background:var(--teal);border:4px solid white;box-shadow:0 4px 12px rgba(0,193,195,.25);transform:translateX(-50%);display:grid;place-items:center;font-size:16px;transition:.2s;left:50%}
+    .slider{width:100%;margin:18px 0 2px;accent-color:var(--teal)}
+    .number-line-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px}
+
+    .compare-board{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-top:14px}
+    .compare-card{border:1px solid var(--line);border-radius:18px;background:white;padding:16px;text-align:center;min-height:124px;display:grid;place-items:center}
+    .versus{font-weight:900;color:var(--muted)}
+
+    .equal-bars{display:grid;gap:12px;margin-top:14px}
+    .equal-row{display:grid;grid-template-columns:100px 1fr 130px;gap:10px;align-items:center}
+    .eq-mini-bar{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;height:48px;border:2px solid var(--navy);border-radius:12px;overflow:hidden;background:#F7FAFC}
+    .eq-mini-bar span{border-left:1px solid #CAD7E1}
+    .eq-mini-bar span:last-child{border-left:none}
+    .eq-mini-bar span.on{background:var(--teal)}
+
+    .op-box{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;background:#F8FBFD;border:1px solid var(--line);border-radius:18px;padding:14px;margin-top:14px;text-align:center}
+    .op-symbol{font-size:22px;font-weight:900}
+    .result-box{padding:16px;border-radius:16px;background:#F5FAFC;border:1px solid var(--line);text-align:center;margin-top:14px}
+    .result-big{font-size:28px;font-weight:900}
+
+    .scenario{margin-top:14px;padding:16px;border-radius:18px;background:linear-gradient(180deg,#FFFFFF,#F7FBFC);border:1px solid var(--line)}
+    .scenario h3{margin:0 0 6px;font-size:16px}
+    .scenario p{margin:0;color:var(--muted);font-size:13px}
+
+    .challenge-grid{display:grid;gap:16px}
+    .challenge-item{border:1px solid var(--line);border-radius:18px;padding:15px;background:white}
+    .q-head{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted);margin-bottom:8px}
+    .q-text{font-size:15px;font-weight:900}
+
+    .result-card{margin-top:16px;padding:22px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(135deg,#F6FCFC,#FFFFFF);text-align:center}
+    .medal{font-size:58px;line-height:1}
+    .result-card h3{font-size:24px;margin:10px 0 5px}
+    .score-ring{width:150px;height:150px;border-radius:50%;margin:16px auto;background:conic-gradient(var(--teal) var(--score),#E8EEF3 0);display:grid;place-items:center}
+    .score-ring:before{content:"";width:112px;height:112px;border-radius:50%;background:white;position:absolute}
+    .score-center{position:relative;z-index:1;text-align:center}
+    .score-center strong{display:block;font-size:26px}
+    .score-center span{font-size:11px;color:var(--muted)}
+
+    footer{padding:30px 0 42px;color:var(--muted);font-size:12px;text-align:center}
+    .hidden{display:none!important}
+
+    .teacher-line{font-size:12px;color:#5E4B9B;font-weight:900;margin-top:2px}
+    .student-chip{display:inline-flex;align-items:center;gap:7px;background:#FFF7DC;border:1px solid #FFE29A;color:#73530A;padding:7px 11px;border-radius:999px;font-size:12px;font-weight:900}
+    .name-gate{position:fixed;inset:0;z-index:80;background:rgba(50,37,87,.58);backdrop-filter:blur(8px);display:grid;place-items:center;padding:18px}
+    .name-card{width:min(500px,100%);background:#fff;border-radius:28px;padding:24px;box-shadow:0 28px 70px rgba(37,28,66,.28);position:relative;overflow:hidden}
+    .name-card:before,.name-card:after{content:"";position:absolute;border-radius:50%;filter:blur(1px);opacity:.42}
+    .name-card:before{width:140px;height:140px;background:#D8D0FF;left:-50px;top:-50px}
+    .name-card:after{width:120px;height:120px;background:#C9F7F1;right:-40px;bottom:-35px}
+    .name-content{position:relative;z-index:1}
+    .name-logo{width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,var(--purple),var(--pink));display:grid;place-items:center;color:#fff;font-size:32px;box-shadow:0 12px 26px rgba(108,79,245,.25);margin-bottom:14px}
+    .name-card h2{margin:0 0 6px;font-size:24px;color:var(--navy)}
+    .name-card p{margin:0 0 16px;color:var(--muted);font-size:13px}
+    .name-input{width:100%;height:54px;border:2px solid #E4E0F7;border-radius:15px;padding:0 15px;outline:none;color:var(--ink);background:#FCFBFF}
+    .name-input:focus{border-color:var(--purple);box-shadow:0 0 0 4px rgba(108,79,245,.09)}
+    .name-actions{display:grid;grid-template-columns:1fr;gap:9px;margin-top:12px}
+
+    .hero-card{background:linear-gradient(135deg,#5A3FD0 0%,#7A55F6 55%,#4B86F9 100%)}
+    .hero-card:before{background:var(--yellow);opacity:.24}
+    .hero-card:after{background:var(--pink);opacity:.20}
+    .hero-grid{display:grid;grid-template-columns:1fr 230px;gap:18px;align-items:center}
+    .hero-illustration{min-height:188px;border-radius:24px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;padding:10px}
+    .hero-illustration svg{width:100%;max-width:220px;height:auto;filter:drop-shadow(0 12px 18px rgba(0,0,0,.11))}
+
+    .stats .stat:first-child{background:rgba(255,255,255,.18)}
+    .stats .stat:nth-child(2){background:rgba(255,200,87,.18)}
+    .stats .stat:nth-child(3){background:rgba(255,111,174,.14)}
+    .stage-card{transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease}
+    .stage-card:nth-child(4n+1) .stage-num{background:#EEE9FF;color:#5A3FD0}
+    .stage-card:nth-child(4n+2) .stage-num{background:#E5FAF6;color:#138574}
+    .stage-card:nth-child(4n+3) .stage-num{background:#FFF3D8;color:#956B09}
+    .stage-card:nth-child(4n) .stage-num{background:#FFE8F1;color:#C44778}
+    .stage-num{font-size:21px}
+    .stage-cta{background:linear-gradient(135deg,var(--purple),#4B86F9)}
+    .stage-cta.secondary{background:#EEECFF;color:#5039C1}
+    .lesson-card{box-shadow:0 18px 42px rgba(61,43,117,.09)}
+    .instruction{background:linear-gradient(90deg,#F2F0FF,#EAFBF8);border-color:#DAD5F8}
+    .btn.primary{background:linear-gradient(135deg,var(--purple),#4B86F9)}
+    .btn.accent{background:linear-gradient(135deg,#21CDB7,#3BD7BE);color:#123C39}
+    .choice.selected{border-color:var(--purple);box-shadow:0 0 0 3px rgba(108,79,245,.10)}
+    .part.selected{background:linear-gradient(180deg,#6C4FF5,#8A73FF)!important}
+    .pin{background:var(--pink);box-shadow:0 4px 12px rgba(255,111,174,.27)}
+    .progress > span{background:linear-gradient(90deg,var(--yellow),var(--pink),var(--teal))}
+    .stage-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:20px;padding-top:16px;border-top:1px dashed #DDD8EE}
+    .stage-nav .btn{flex:1}
+    .next-note{font-size:12px;color:var(--muted);text-align:center;min-width:170px}
+    .score-strip{margin-top:14px;padding:12px 14px;border-radius:17px;background:linear-gradient(90deg,#FFF8E4,#FFF0F8);border:1px solid #F3E2B5;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .score-strip strong{color:#704F9E}
+    .result-card .student-result{display:inline-flex;align-items:center;gap:7px;margin-top:6px;padding:8px 12px;background:#F1EFFF;border-radius:999px;color:#5540A8;font-weight:900}
+
+    @media (max-width:760px){
+      .hero-grid{grid-template-columns:1fr}
+      .hero-illustration{min-height:145px;order:-1}
+      .hero-illustration svg{max-width:175px}
+      .stage-nav{display:grid;grid-template-columns:1fr}
+      .next-note{min-width:0}
+    }
+
+    @media (min-width:760px){
+      .shell{padding:22px}
+      .map{grid-template-columns:repeat(4,1fr)}
+      .lesson-card{padding:24px}
+      .choices{grid-template-columns:repeat(4,1fr)}
+      .stats{max-width:620px}
+    }
+    @media (max-width:520px){
+      .hero-card{padding:19px}
+      .grid-2,.compare-board,.drag-track{grid-template-columns:1fr}
+      .compare-board{gap:8px}
+      .versus{display:none}
+      .equal-row{grid-template-columns:1fr}
+      .op-box{grid-template-columns:1fr auto 1fr}
+      .btn{width:100%}
+      .action-row{display:grid;grid-template-columns:1fr}
+      .stage-card{min-height:130px}
+    }
+  </style>
+</head>
+<body>
+  <div class="name-gate" id="nameGate">
+    <div class="name-card">
+      <div class="name-content">
+        <div class="name-logo">½</div>
+        <h2>به شهر کسرها خوش آمدی! 🎈</h2>
+        <p>برای اینکه امتیازت با نام خودت ثبت شود، اسم یا نام کوچکت را وارد کن.</p>
+        <input class="name-input" id="studentNameInput" type="text" maxlength="24" autocomplete="name" placeholder="مثلاً: علی" aria-label="نام دانش‌آموز" />
+        <div class="name-actions"><button class="btn primary" id="startBtn">شروع ماموریت 🚀</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><div class="brand-badge">½</div><div><div>شهر کسرها</div><div class="teacher-line">دبیر: مهدیه فاضلی نیا</div></div></div>
+      <div class="top-actions">
+        <span class="student-chip" id="studentChip">👤 دانش‌آموز</span>
+        <button class="icon-btn" id="resetBtn" title="شروع دوباره" aria-label="شروع دوباره">↺</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="hero-grid">
+        <div class="hero-content">
+          <div class="eyebrow">ریاضی پایه چهارم ابتدایی · فصل دوم</div>
+          <h1>ماموریت بزرگِ شهر کسرها</h1>
+          <p>هفت ایستگاه را پشت سر بگذار، با شکل و محور فکر کن، کسرها را مقایسه و ترکیب کن و در پایان خودت را در یک چالش کامل امتحان کن.</p>
+          <div class="progress-wrap">
+            <div class="progress-top"><span id="progressLabel">۰ از ۸ بخش</span><span id="scoreLabel">امتیاز: ۰</span></div>
+            <div class="progress"><span id="progressBar"></span></div>
+          </div>
+          <div class="stats">
+            <div class="stat"><b id="starsStat">۰</b><span>ستاره</span></div>
+            <div class="stat"><b id="bestStat">۰</b><span>بهترین امتیاز</span></div>
+            <div class="stat"><b id="attemptStat">۰</b><span>تلاش</span></div>
+          </div>
+        </div>
+        <div class="hero-illustration" aria-hidden="true">
+          <svg viewBox="0 0 230 200" xmlns="http://www.w3.org/2000/svg" role="img">
+            <circle cx="178" cy="37" r="28" fill="#FFD66B" opacity=".95"/>
+            <path d="M27 157c18-29 42-42 72-42s54 13 72 42" fill="#C8F8EE"/>
+            <rect x="52" y="89" rx="18" width="126" height="84" fill="#fff" opacity=".95"/>
+            <rect x="68" y="106" rx="8" width="94" height="28" fill="#EDE9FF"/>
+            <text x="115" y="126" text-anchor="middle" font-size="16" font-weight="700" fill="#5A3FD0">۱/۲ = ۲/۴</text>
+            <circle cx="111" cy="55" r="25" fill="#F9C7A2"/>
+            <path d="M89 49c3-20 48-31 49 2-9-6-18-7-25-2-7 5-15 6-24 0Z" fill="#4C3D71"/>
+            <circle cx="102" cy="58" r="3" fill="#28364B"/><circle cx="120" cy="58" r="3" fill="#28364B"/>
+            <path d="M105 69c6 6 12 6 18 0" stroke="#B65B66" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M86 88c9-15 24-20 39-20s29 5 39 20l-9 16H95Z" fill="#6C4FF5"/>
+            <rect x="20" y="65" rx="12" width="42" height="42" fill="#FF6FAE"/>
+            <text x="41" y="93" text-anchor="middle" font-size="22" font-weight="900" fill="#fff">+</text>
+            <rect x="181" y="115" rx="12" width="34" height="34" fill="#19C3B1"/>
+            <text x="198" y="137" text-anchor="middle" font-size="19" font-weight="900" fill="#fff">½</text>
+            <circle cx="188" cy="167" r="5" fill="#FFC857"/><circle cx="29" cy="126" r="6" fill="#6C4FF5"/>
+          </svg>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><div><h2>نقشه یادگیری</h2><p>هر ایستگاه بعد از قبلی باز می‌شود.</p></div></div>
+      <div class="map" id="stageMap"></div>
+    </section>
+
+    <section class="lesson" id="lessonArea"></section>
+
+    <footer>این صفحه بدون سرور و بدون کتابخانه خارجی اجرا می‌شود و پیشرفت فقط روی همین دستگاه ذخیره می‌شود.</footer>
+  </main>
+
+  <script>
+    const KEY = 'hadirah_fraction_grade4_v1';
+
+    const stateDefault = {
+      unlocked: 0,
+      completed: [],
+      studentName: '', 
+      score: 0,
+      bestScore: 0,
+      attempts: 0,
+      answers: {}
+    };
+
+    let state = loadState();
+    let currentStage = Math.min(state.unlocked, 7);
+    let currentActivity = {};
+
+    const stages = [
+      {id:0, title:'کشف کسر', desc:'واحد را به قسمت‌های مساوی تقسیم کن.', icon:'①'},
+      {id:1, title:'صورت و مخرج', desc:'جای درست هر بخش از کسر را پیدا کن.', icon:'②'},
+      {id:2, title:'محور و عدد مخلوط', desc:'کسر و عدد مخلوط را روی محور پیدا کن.', icon:'③'},
+      {id:3, title:'مقایسه کسرها', desc:'با شکل و استدلال، کسر بزرگ‌تر را پیدا کن.', icon:'④'},
+      {id:4, title:'کسرهای مساوی', desc:'یک مقدار را به چند شکل یکسان نشان بده.', icon:'⑤'},
+      {id:5, title:'جمع و تفریق', desc:'با قطعه‌های مساوی حساب کن و نتیجه بگیر.', icon:'⑥'},
+      {id:6, title:'ضرب عدد در کسر', desc:'ضرب را به صورت جمع تکراری ببین.', icon:'⑦'},
+      {id:7, title:'چالش نهایی', desc:'آموخته‌ها را در یک مأموریت ترکیبی به کار ببر.', icon:'🏁'}
+    ];
+
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(KEY);
+        return raw ? {...stateDefault, ...JSON.parse(raw)} : {...stateDefault};
+      }catch(e){ return {...stateDefault}; }
+    }
+    function saveState(){
+      localStorage.setItem(KEY, JSON.stringify(state));
+    }
+    function faNum(n){
+      return String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+    }
+    function frac(n,d,cls=''){
+      return `<span class="frac ${cls}"><span class="n">${n}</span><span class="d">${d}</span></span>`;
+    }
+    function mixed(w,n,d){
+      return `<span class="equation">${w} ${frac(n,d)}</span>`;
+    }
+    function addScore(points){
+      state.score += points;
+      if(state.score > state.bestScore) state.bestScore = state.score;
+      saveState();
+      updateHeader();
+      const scoreStrip=document.querySelector('.score-strip .live-score');
+      if(scoreStrip) scoreStrip.textContent=faNum(state.score);
+    }
+    function markComplete(id){
+      if(!state.completed.includes(id)) state.completed.push(id);
+      if(id === state.unlocked && state.unlocked < 7) state.unlocked++;
+      saveState();
+      renderMap();
+      updateHeader();
+    }
+    function countStars(){ return state.completed.length + (state.completed.includes(7) ? 2 : 0); }
+    function updateHeader(){
+      const done = state.completed.length;
+      document.getElementById('progressLabel').textContent = `${faNum(done)} از ${faNum(8)} بخش`;
+      document.getElementById('scoreLabel').textContent = state.studentName ? `امتیاز ${state.studentName}: ${faNum(state.score)}` : `امتیاز: ${faNum(state.score)}`;
+      document.getElementById('progressBar').style.width = `${(done/8)*100}%`;
+      document.getElementById('starsStat').textContent = faNum(countStars());
+      document.getElementById('bestStat').textContent = faNum(state.bestScore);
+      document.getElementById('attemptStat').textContent = faNum(state.attempts);
+      document.getElementById('studentChip').textContent = state.studentName ? `👤 ${state.studentName}` : '👤 دانش‌آموز';
+    }
+
+    function renderMap(){
+      const map = document.getElementById('stageMap');
+      map.innerHTML = stages.map(s=>{
+        const done = state.completed.includes(s.id);
+        const unlocked = s.id <= state.unlocked;
+        const status = done ? `<span class="status done">✓ تکمیل شد</span>` : unlocked ? `<span class="status">● آماده شروع</span>` : `<span class="status locked">🔒 قفل</span>`;
+        return `<article class="stage-card ${done?'done':''} ${s.id===currentStage && unlocked?'active':''} ${!unlocked?'locked':''}" data-stage="${s.id}">
+          <div class="stage-num">${s.icon}</div>
+          <h3>${s.title}</h3><p>${s.desc}</p>${status}
+          <button class="stage-cta ${done?'secondary':''}" ${!unlocked?'disabled':''}>${done?'مرور دوباره':'شروع ایستگاه'}</button>
+        </article>`;
+      }).join('');
+      map.querySelectorAll('.stage-card').forEach(card=>{
+        card.addEventListener('click', e=>{
+          if(e.target.tagName==='BUTTON' && e.target.disabled) return;
+          const id = Number(card.dataset.stage);
+          if(id <= state.unlocked){ openStage(id); }
+        });
+      });
+    }
+
+    function baseLesson(title, subtitle, content, tag){
+      return `<div class="lesson-card">
+        <div class="lesson-head">
+          <div><div class="lesson-label">${tag}</div><h2>${title}</h2><p>${subtitle}</p></div>
+          <span class="pill">ایستگاه ${faNum(currentStage+1)} از ${faNum(8)}</span>
+        </div>
+        <div class="activity">${content}</div>
+        <div class="score-strip"><span>👤 <strong>${state.studentName || 'دانش‌آموز'}</strong></span><span>⭐ امتیاز فعلی: <strong class="live-score">${faNum(state.score)}</strong></span></div>
+        <div class="stage-nav">
+          <button class="btn ghost" id="prevStageBtn" ${currentStage===0?'disabled':''}>مرحله قبل</button>
+          <div class="next-note">${currentStage===7?'پایان مسیر 🎉':'وقتی آماده شدی، ادامه بده'}</div>
+          ${currentStage===7?'<button class="btn accent" id="finishBtn">دیدن نتیجه 🎉</button>':`<button class="btn primary" id="nextStageBtn">مرحله بعدی ←</button>`}
+        </div>
+      </div>`;
+    }
+
+    function openStage(id){
+      currentStage = id;
+      currentActivity = {};
+      renderMap();
+      const area = document.getElementById('lessonArea');
+      if(id===0) area.innerHTML = stage0();
+      if(id===1) area.innerHTML = stage1();
+      if(id===2) area.innerHTML = stage2();
+      if(id===3) area.innerHTML = stage3();
+      if(id===4) area.innerHTML = stage4();
+      if(id===5) area.innerHTML = stage5();
+      if(id===6) area.innerHTML = stage6();
+      if(id===7) area.innerHTML = stage7();
+      area.scrollIntoView({behavior:'smooth', block:'start'});
+      bindStage();
+    }
+
+    function feedback(el, type, html){
+      el.className = `feedback ${type}`;
+      el.innerHTML = html;
+    }
+
+    function stage0(){
+      currentActivity.selected = new Set();
+      currentActivity.parts = 4;
+      return baseLesson('کشف کسر','یک واحد وقتی به قسمت‌های مساوی تقسیم شود، می‌توانیم بخشی از آن را با کسر نشان دهیم.',`<div class="instruction">دو قسمت از چهار قسمت مساوی را انتخاب کن. بعد، کسری را بنویس.</div>
+        <div class="fraction-shape"><div class="bar" id="partsBar" style="grid-template-columns:repeat(4,1fr)"></div><div class="bar-label"><span>کل قسمت‌های مساوی: ۴</span><span id="selectedCount">انتخاب شده: ۰</span></div></div>
+        <div class="action-row"><button class="btn ghost" id="clearParts">پاک کردن انتخاب</button><button class="btn primary" id="checkStage0">بررسی</button></div>
+        <div id="stage0Feedback" class="feedback empty">هنوز جوابی ثبت نشده است.</div>`,'آموزش + تعامل');
+    }
+
+    function stage1(){
+      currentActivity.slot1 = null;
+      currentActivity.slot2 = null;
+      return baseLesson('صورت و مخرج','در کسر، عدد بالا «صورت» و عدد پایین «مخرج» است.',`<div class="instruction">برای کسر زیر، کارت‌های «صورت» و «مخرج» را در جای درست قرار بده. روی یک کارت بزن، سپس روی جای خالی مقصد بزن.</div>
+        <div class="grid-2"><div class="mini-card"><h3>کسر هدف</h3><div style="text-align:center;font-size:26px">${frac(3,5,'big')}</div><p class="muted">صورت = تعداد قسمت‌های انتخاب‌شده · مخرج = تعداد کل قسمت‌های مساوی</p></div><div class="mini-card"><h3>جای خالی</h3><div class="drag-track"><button class="drop-zone" id="dropTop">جای عدد بالا</button><button class="drop-zone" id="dropBottom">جای عدد پایین</button></div><div class="drag-items"><button class="drag-item" data-role="numerator">صورت</button><button class="drag-item" data-role="denominator">مخرج</button></div></div></div>
+        <div class="touch-note">در موبایل هم با ضربه‌های پشت سر هم کار می‌کند.</div>
+        <div class="action-row"><button class="btn primary" id="checkStage1">بررسی</button></div>
+        <div id="stage1Feedback" class="feedback empty">دو کارت را در جای درست بگذار.</div>`,'تعامل لمسی');
+    }
+
+    function stage2(){
+      currentActivity.q = 0;
+      currentActivity.corrects = 0;
+      return baseLesson('محور و عدد مخلوط','روی محور عددی، هر واحد را به قسمت‌های مساوی تقسیم می‌کنیم. عدد مخلوط هم یک عدد صحیح و یک کسر را کنار هم نشان می‌دهد.',`<div class="instruction">نقطه را طوری جابه‌جا کن که روی <strong>۳ و یک‌دوم</strong> قرار بگیرد.</div>
+        <div class="number-line-wrap"><div class="number-line" id="numberLine"><div class="line"></div></div></div>
+        <input class="slider" id="lineSlider" type="range" min="0" max="8" step="0.5" value="0" aria-label="حرکت روی محور">
+        <div class="number-line-controls"><span class="muted">۰</span><strong id="lineValue">۰</strong><span class="muted">۴</span></div>
+        <div class="action-row"><button class="btn primary" id="checkStage2">این نقطه پاسخ من است</button></div>
+        <div id="stage2Feedback" class="feedback empty">قبل از بررسی، جای نقطه را حدس بزن.</div>
+        <div class="scenario"><h3>بعد از پاسخ</h3><p>اگر بخواهی، می‌توانی دوباره روی محور حرکت کنی و جای عدد مخلوط را بهتر ببینی.</p></div>`,'کشف + پیش‌بینی');
+    }
+
+    function stage3(){
+      currentActivity.choice = null;
+      return baseLesson('مقایسه کسرها','برای مقایسه فقط به عددهای بالا نگاه نکن؛ به اندازه قسمت‌های مساوی هم توجه کن.',`<div class="instruction">کدام کسر بزرگ‌تر است؟ اول حدس بزن، بعد شکل‌ها را کنار هم ببین.</div>
+        <div class="compare-board"><div class="compare-card"><div>${frac(1,4,'big')}</div><div class="fraction-shape"><div class="bar" style="grid-template-columns:repeat(4,1fr)"><span class="part selected"></span><span class="part"></span><span class="part"></span><span class="part"></span></div></div></div><div class="versus">؟</div><div class="compare-card"><div>${frac(1,5,'big')}</div><div class="fraction-shape"><div class="bar" style="grid-template-columns:repeat(5,1fr)"><span class="part selected"></span><span class="part"></span><span class="part"></span><span class="part"></span><span class="part"></span></div></div></div></div>
+        <div class="choices"><button class="choice" data-value="right">${frac(1,5,'big')} بزرگ‌تر است</button><button class="choice" data-value="left">${frac(1,4,'big')} بزرگ‌تر است</button></div>
+        <div class="action-row"><button class="btn primary" id="checkStage3">بررسی</button></div>
+        <div id="stage3Feedback" class="feedback empty">یک گزینه را انتخاب کن.</div>`,'مقایسه با شکل');
+    }
+
+    function stage4(){
+      currentActivity.parts = 2;
+      return baseLesson('کسرهای مساوی','یک مقدار می‌تواند با کسرهای متفاوتی نوشته شود، بدون اینکه مقدارش عوض شود.',`<div class="instruction">دکمه‌ها را بزن و ببین چگونه <strong>${frac(1,2)}</strong> به کسرهای مساوی دیگری تبدیل می‌شود.</div>
+        <div class="equal-bars" id="equalBars"></div>
+        <div class="action-row"><button class="btn accent" id="splitMore">قسمت‌های بیشتری بساز</button><button class="btn ghost" id="resetEqual">شروع از ${frac(1,2)}</button></div>
+        <div id="stage4Feedback" class="feedback empty">هر بار شکل تغییر می‌کند، مقدار کل همان می‌ماند.</div>
+        <div class="scenario"><h3>یک سؤال کوتاه</h3><p>${frac(2,4)} با ${frac(1,2)} برابر است یا متفاوت؟</p><div class="choices" id="eqChoices"><button class="choice" data-value="eq">برابرند</button><button class="choice" data-value="neq">متفاوت‌اند</button></div><div id="eqMiniFeedback" class="feedback empty">پاسخ را انتخاب کن.</div></div>`,'کشف تصویری');
+    }
+
+    function stage5(){
+      currentActivity.op = null;
+      return baseLesson('جمع و تفریق کسرها','وقتی کسرها هم‌مخرج‌اند، می‌توانیم تعداد قسمت‌ها را با هم جمع یا از هم کم کنیم.',`<div class="instruction">حاصل عبارت را انتخاب کن. اول قطعه‌های مساوی را در ذهنت کنار هم قرار بده.</div>
+        <div class="op-box"><div>${frac(2,8,'big')}</div><div class="op-symbol">+</div><div>${frac(3,8,'big')}</div></div>
+        <div class="choices"><button class="choice" data-value="5/8">${frac(5,8,'big')}</button><button class="choice" data-value="5/16">${frac(5,16,'big')}</button><button class="choice" data-value="2/8">${frac(2,8,'big')}</button><button class="choice" data-value="6/8">${frac(6,8,'big')}</button></div>
+        <div class="scenario"><h3>چالش کاربردی</h3><p>از یک کارخانه، ${frac(1,7)} محصول به گیلان و ${frac(2,7)} به مازندران حمل شده است. چه کسری از محصول به این دو استان حمل شده؟</p></div>
+        <div class="action-row"><button class="btn primary" id="checkStage5">بررسی</button></div>
+        <div id="stage5Feedback" class="feedback empty">یک پاسخ را انتخاب کن.</div>`,'جمع و تفریق');
+    }
+
+    function stage6(){
+      currentActivity.choice = null;
+      return baseLesson('ضرب عدد در کسر','ضرب عدد در کسر را می‌توان به صورت جمع چندباره همان کسر دید.',`<div class="instruction">برای <strong>۳ × ${frac(2,7)}</strong>، چند بار ${frac(2,7)} را با هم جمع می‌کنیم؟</div>
+        <div class="scenario"><div class="equation" style="text-align:center;font-size:23px">${frac(2,7,'big')} + ${frac(2,7,'big')} + ${frac(2,7,'big')} = ؟</div></div>
+        <div class="choices"><button class="choice" data-value="6/7">${frac(6,7,'big')}</button><button class="choice" data-value="5/7">${frac(5,7,'big')}</button><button class="choice" data-value="6/21">${frac(6,21,'big')}</button><button class="choice" data-value="2/21">${frac(2,21,'big')}</button></div>
+        <div class="action-row"><button class="btn primary" id="checkStage6">بررسی</button></div>
+        <div id="stage6Feedback" class="feedback empty">اول به جمع تکراری نگاه کن.</div>`,'جمع تکراری → ضرب');
+    }
+
+    const finalQs = [
+      {t:'کدام کسر، دو قسمت از هشت قسمت مساوی را نشان می‌دهد؟', opts:['2/8','2/6','8/2','1/8'], a:0, why:'مخرج ۸ یعنی کل به ۸ قسمت مساوی تقسیم شده و صورت ۲ یعنی ۲ قسمت انتخاب شده است.'},
+      {t:'در کسر 3/5، عدد ۵ چه نام دارد؟', opts:['صورت','مخرج','عدد مخلوط','واحد'], a:1, why:'عدد پایین کسر، مخرج است.'},
+      {t:'کدام عدد روی نقطه‌ای بین ۳ و ۴ قرار می‌گیرد و به ۳ و یک‌دوم مربوط است؟', opts:['3.5','4.5','2.5','3.25'], a:0, why:'یک‌دومِ یک واحد بعد از ۳، نقطه ۳.۵ را نشان می‌دهد.'},
+      {t:'کدام کسر بزرگ‌تر است؟', opts:['1/4','1/5','برابرند','نمی‌توان گفت'], a:0, why:'وقتی صورت‌ها برابرند، کسر با مخرج کوچک‌تر مقدار بزرگ‌تری از واحد را نشان می‌دهد.'},
+      {t:'کدام گزینه با 1/2 برابر است؟', opts:['2/4','2/5','3/5','4/6'], a:0, why:'۲ از ۴ قسمت همان نصف واحد است.'},
+      {t:'حاصل 2/9 + 3/9 چیست؟', opts:['5/9','5/18','6/9','1/9'], a:0, why:'مخرج مشترک می‌ماند و صورت‌ها با هم جمع می‌شوند.'},
+      {t:'حاصل 3 × 2/7 چیست؟', opts:['6/7','5/7','6/21','2/7'], a:0, why:'سه بار ۲/۷ برابر ۶/۷ است.'},
+      {t:'اگر 5/8 یک شکل رنگ شده باشد، کدام عبارت درباره آن درست‌تر است؟', opts:['۵ قسمت از ۸ قسمت مساوی رنگ شده','۸ قسمت از ۵ قسمت رنگ شده','۵ و ۸ هر دو صورت‌اند','مخرج تعداد قسمت‌های رنگی است'], a:0, why:'صورت تعداد قسمت‌های انتخاب‌شده را نشان می‌دهد و مخرج تعداد کل قسمت‌های مساوی را.'}
+    ];
+
+    function stage7(){
+      currentActivity.finalAnswers = {};
+      return baseLesson('چالش نهایی: نجات جشن شهر','اکنون باید آموخته‌های چند ایستگاه را در موقعیت‌های تازه به کار ببری.',`<div class="instruction">برای هر سؤال فقط یک گزینه را انتخاب کن. در پایان نتیجه و توضیح هر پاسخ را می‌بینی.</div><div class="challenge-grid" id="challengeGrid"></div><div class="action-row"><button class="btn accent" id="submitFinal">ثبت همه پاسخ‌ها</button><button class="btn ghost" id="retryFinal">پاک کردن پاسخ‌ها</button></div><div id="finalResult" class="result-card hidden"></div>`,'ارزیابی + انتقال');
+    }
+
+    function bindStage(){
+      const prev=document.getElementById('prevStageBtn');
+      if(prev) prev.addEventListener('click',()=>{ if(currentStage>0) openStage(currentStage-1); });
+      const next=document.getElementById('nextStageBtn');
+      if(next) next.addEventListener('click',()=>{
+        if(!state.completed.includes(currentStage)){
+          const area=document.getElementById('lessonArea');
+          const note=area.querySelector('.next-note');
+          if(note){note.textContent='اول فعالیت این مرحله را درست انجام بده 🌟'; note.style.color='var(--bad)';}
+          area.querySelector('.lesson-card')?.scrollIntoView({behavior:'smooth',block:'start'});
+          return;
+        }
+        openStage(currentStage+1);
+      });
+      const finish=document.getElementById('finishBtn');
+      if(finish) finish.addEventListener('click',()=>{ document.getElementById('finalResult')?.scrollIntoView({behavior:'smooth',block:'center'}); });
+      if(currentStage===0) bind0();
+      if(currentStage===1) bind1();
+      if(currentStage===2) bind2();
+      if(currentStage===3) bind3();
+      if(currentStage===4) bind4();
+      if(currentStage===5) bind5();
+      if(currentStage===6) bind6();
+      if(currentStage===7) bind7();
+    }
+
+    function bind0(){
+      const bar = document.getElementById('partsBar');
+      const count = document.getElementById('selectedCount');
+      for(let i=0;i<4;i++){
+        const part=document.createElement('button');part.className='part';part.setAttribute('aria-label',`قسمت ${i+1}`);part.textContent=faNum(i+1);bar.appendChild(part);
+        part.addEventListener('click',()=>{ if(currentActivity.selected.has(i)) currentActivity.selected.delete(i); else currentActivity.selected.add(i); part.classList.toggle('selected'); count.textContent=`انتخاب شده: ${faNum(currentActivity.selected.size)}`; });
+      }
+      document.getElementById('clearParts').addEventListener('click',()=>{currentActivity.selected.clear();bar.querySelectorAll('.part').forEach(x=>x.classList.remove('selected'));count.textContent='انتخاب شده: ۰';feedback(document.getElementById('stage0Feedback'),'empty','هنوز جوابی ثبت نشده است.');});
+      document.getElementById('checkStage0').addEventListener('click',()=>{
+        state.attempts++; saveState(); updateHeader();
+        const f=document.getElementById('stage0Feedback');
+        if(currentActivity.selected.size===2){ const first=!state.completed.includes(0); feedback(f,'good','آفرین! ۲ قسمت از ۴ قسمت انتخاب شده است، پس کسر موردنظر '+frac(2,4)+' است.'); if(first) addScore(10); markComplete(0); }
+        else if(currentActivity.selected.size===0) feedback(f,'hint','اول دو قسمت از چهار قسمت مساوی را انتخاب کن.');
+        else feedback(f,'bad','برای این مرحله دقیقاً دو قسمت از چهار قسمت مساوی لازم است. دوباره امتحان کن.');
+      });
+    }
+
+    function bind1(){
+      let picked=null;
+      const drops=[document.getElementById('dropTop'),document.getElementById('dropBottom')];
+      document.querySelectorAll('.drag-item').forEach(item=>item.addEventListener('click',()=>{picked=item.dataset.role;document.querySelectorAll('.drag-item').forEach(x=>x.classList.remove('active'));item.classList.add('active');}));
+      drops[0].addEventListener('click',()=>{if(picked){currentActivity.slot1=picked;drops[0].innerHTML=picked==='numerator'?'صورت':'مخرج';drops[0].classList.add('filled');picked=null;}});
+      drops[1].addEventListener('click',()=>{if(picked){currentActivity.slot2=picked;drops[1].innerHTML=picked==='numerator'?'صورت':'مخرج';drops[1].classList.add('filled');picked=null;}});
+      document.getElementById('checkStage1').addEventListener('click',()=>{
+        state.attempts++;saveState();updateHeader();
+        const f=document.getElementById('stage1Feedback');
+        if(currentActivity.slot1==='numerator' && currentActivity.slot2==='denominator'){const first=!state.completed.includes(1);feedback(f,'good','درست است! در '+frac(3,5)+'، ۳ صورت و ۵ مخرج است.');if(first) addScore(10);markComplete(1);}
+        else feedback(f,'bad','یک بار دیگر فکر کن: عدد بالا صورت است و عدد پایین مخرج.');
+      });
+    }
+
+    function bind2(){
+      const line=document.getElementById('numberLine');
+      for(let i=0;i<=8;i++){
+        const t=document.createElement('span');t.className='tick';t.style.left=`${(i/8)*100}%`;t.innerHTML=`<small>${i%2===0?faNum(i/2):''}</small>`;line.appendChild(t);
+      }
+      const pin=document.createElement('span');pin.className='pin';pin.id='pin';pin.textContent='●';line.appendChild(pin);
+      const slider=document.getElementById('lineSlider');
+      const value=document.getElementById('lineValue');
+      const update=()=>{ const v=Number(slider.value); pin.style.left=`${(v/8)*100}%`; const whole=Math.floor(v/2); const rem=v%2; value.innerHTML=rem?mixed(whole,1,2):faNum(whole); };
+      slider.addEventListener('input',update);update();
+      document.getElementById('checkStage2').addEventListener('click',()=>{
+        state.attempts++;saveState();updateHeader();
+        const f=document.getElementById('stage2Feedback');
+        if(Number(slider.value)===7){const first=!state.completed.includes(2);feedback(f,'good','آفرین! نقطه روی ۳ و یک‌دوم قرار گرفت؛ یعنی سه واحد کامل و نصف واحد.');if(first) addScore(12);markComplete(2);}
+        else feedback(f,'hint','از عدد ۳، فقط نصف یک واحد جلو برو.');
+      });
+    }
+
+    function bind3(){
+      document.querySelectorAll('#lessonArea .choice').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('#lessonArea .choice').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');currentActivity.choice=btn.dataset.value;}));
+      document.getElementById('checkStage3').addEventListener('click',()=>{
+        state.attempts++;saveState();updateHeader();
+        const f=document.getElementById('stage3Feedback');
+        document.querySelectorAll('.choice').forEach(x=>x.classList.remove('correct','wrong'));
+        const selected=document.querySelector('#lessonArea .choice.selected');
+        if(!selected){feedback(f,'hint','یکی از دو گزینه را انتخاب کن.');return;}
+        if(currentActivity.choice==='left'){selected.classList.add('correct');const first=!state.completed.includes(3);feedback(f,'good','درست! هر دو صورت ۱ هستند؛ یک‌چهارم از یک‌پنجم بزرگ‌تر است چون واحد را به قسمت‌های کمتری تقسیم کرده‌ایم.');if(first) addScore(12);markComplete(3);}
+        else {selected.classList.add('wrong');feedback(f,'bad','به اندازه قسمت‌های هر شکل نگاه کن. وقتی یک واحد به ۴ قسمت تقسیم شود، هر قسمت از وقتی که به ۵ قسمت تقسیم شود بزرگ‌تر است.');}
+      });
+    }
+
+    function drawEqualBars(){
+      const wrap=document.getElementById('equalBars');
+      const parts=currentActivity.parts;
+      const rows=[];
+      const makeRow=(label,total,on)=>{
+        let cells='';for(let i=0;i<total;i++) cells+=`<span class="${i<on?'on':''}"></span>`;
+        return `<div class="equal-row"><strong>${label}</strong><div class="eq-mini-bar" style="grid-auto-columns:1fr">${cells}</div><span class="equation">${frac(on,total)}</span></div>`;
+      };
+      rows.push(makeRow('شروع',2,1));
+      if(parts>2) rows.push(makeRow('تقسیم بیشتر',parts,parts/2));
+      if(parts>=8) rows.push(makeRow('باز هم تقسیم',8,4));
+      wrap.innerHTML=rows.join('');
+    }
+
+    function bind4(){
+      drawEqualBars();
+      document.getElementById('splitMore').addEventListener('click',()=>{
+        if(currentActivity.parts<8){currentActivity.parts*=2;drawEqualBars();feedback(document.getElementById('stage4Feedback'),'good',`الان می‌توانی ببینی که ${frac(1,2)} با ${frac(currentActivity.parts/2,currentActivity.parts)} یک مقدار دارد.`);}
+        else {feedback(document.getElementById('stage4Feedback'),'hint','این مرحله تا ۸ قسمت پیش می‌رود؛ حالا روی سؤال پایین تمرکز کن.');}
+      });
+      document.getElementById('resetEqual').addEventListener('click',()=>{currentActivity.parts=2;drawEqualBars();feedback(document.getElementById('stage4Feedback'),'empty','هر بار شکل تغییر می‌کند، مقدار کل همان می‌ماند.');});
+      document.querySelectorAll('#eqChoices .choice').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('#eqChoices .choice').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');}));
+      document.querySelectorAll('#eqChoices .choice').forEach(btn=>btn.addEventListener('click',()=>{
+        const f=document.getElementById('eqMiniFeedback');
+        if(btn.dataset.value==='eq'){feedback(f,'good','درست است؛ ۲ از ۴ قسمت همان مقدار نصف یک واحد است.');if(!state.completed.includes(4)){addScore(12);markComplete(4);}}
+        else feedback(f,'bad','به مقدار واقعی بخش رنگ‌شده نگاه کن، نه فقط به عددهای کسر.');
+      }));
+    }
+
+    function bind5(){
+      document.querySelectorAll('#lessonArea .choice').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('#lessonArea .choice').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');currentActivity.op=btn.dataset.value;}));
+      document.getElementById('checkStage5').addEventListener('click',()=>{
+        state.attempts++;saveState();updateHeader();
+        const f=document.getElementById('stage5Feedback');
+        if(currentActivity.op==='5/8'){const first=!state.completed.includes(5);feedback(f,'good',`آفرین! ${frac(2,8)} + ${frac(3,8)} = ${frac(5,8)}. مخرج مشترک می‌ماند و صورت‌ها جمع می‌شوند.`);if(first) addScore(14);markComplete(5);}
+        else feedback(f,'bad','هر دو کسر مخرج ۸ دارند. مخرج را نگه دار و صورت‌ها را جمع کن.');
+      });
+    }
+
+    function bind6(){
+      document.querySelectorAll('#lessonArea .choice').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('#lessonArea .choice').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');currentActivity.choice=btn.dataset.value;}));
+      document.getElementById('checkStage6').addEventListener('click',()=>{
+        state.attempts++;saveState();updateHeader();
+        const f=document.getElementById('stage6Feedback');
+        if(currentActivity.choice==='6/7'){const first=!state.completed.includes(6);feedback(f,'good',`درست است: ${frac(2,7)} + ${frac(2,7)} + ${frac(2,7)} = ${frac(6,7)}.`);if(first) addScore(14);markComplete(6);}
+        else feedback(f,'bad',`به سه بار تکرارِ ${frac(2,7)} نگاه کن؛ صورت ۲ سه بار تکرار شده است.`);
+      });
+    }
+
+    function bind7(){
+      const grid=document.getElementById('challengeGrid');
+      grid.innerHTML=finalQs.map((q,i)=>`<div class="challenge-item"><div class="q-head"><span>سؤال ${faNum(i+1)} از ${faNum(finalQs.length)}</span><span>مهارت ترکیبی</span></div><div class="q-text">${q.t}</div><div class="choices">${q.opts.map((o,j)=>`<button class="choice" data-q="${i}" data-opt="${j}">${formatOpt(o)}</button>`).join('')}</div></div>`).join('');
+      grid.querySelectorAll('.choice').forEach(btn=>btn.addEventListener('click',()=>{
+        const q=Number(btn.dataset.q);const opt=Number(btn.dataset.opt);currentActivity.finalAnswers[q]=opt;
+        grid.querySelectorAll(`.choice[data-q="${q}"]`).forEach(x=>x.classList.remove('selected','correct','wrong'));btn.classList.add('selected');
+      }));
+      document.getElementById('submitFinal').addEventListener('click',submitFinal);
+      document.getElementById('retryFinal').addEventListener('click',()=>{currentActivity.finalAnswers={};grid.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected','correct','wrong'));document.getElementById('finalResult').classList.add('hidden');});
+    }
+
+    function formatOpt(o){
+      if(/^\d+\/\d+$/.test(o)){const [a,b]=o.split('/');return frac(a,b,'big');}
+      return o;
+    }
+    function submitFinal(){
+      state.attempts++;saveState();updateHeader();
+      let answered=0,correct=0;
+      finalQs.forEach((q,i)=>{
+        const sel=currentActivity.finalAnswers[i];
+        if(sel!==undefined) answered++;
+        document.querySelectorAll(`.choice[data-q="${i}"]`).forEach(btn=>{
+          const opt=Number(btn.dataset.opt);
+          if(opt===q.a) btn.classList.add('correct');
+          else if(sel===opt) btn.classList.add('wrong');
+        });
+        if(sel===q.a) correct++;
+      });
+      const r=document.getElementById('finalResult');
+      r.classList.remove('hidden');
+      const pct=Math.round((correct/finalQs.length)*100);
+      const already=state.completed.includes(7);
+      if(!already) addScore(correct*8);
+      if(correct>=6) markComplete(7);
+      const medal=correct===finalQs.length?'🏆':correct>=6?'🥇':correct>=4?'🥈':'💡';
+      r.innerHTML=`<div class="medal">${medal}</div><h3>${correct===finalQs.length?'قهرمان شهر کسرها شدی!':correct>=6?'ماموریت را با موفقیت پشت سر گذاشتی!':'یادگیریت در حال قوی‌تر شدن است.'}</h3><div class="student-result">👤 ${state.studentName || 'دانش‌آموز'}</div><p class="muted">${faNum(answered)} پاسخ از ${faNum(finalQs.length)} ثبت شد · ${faNum(correct)} پاسخ درست</p><div class="score-ring" style="--score:${pct*3.6}deg"><div class="score-center"><strong>${faNum(pct)}٪</strong><span>عملکرد</span></div></div><div class="scenario"><h3>یک نکته برای مرور</h3><p>${correct<6?'به سؤال‌های اشتباه برگرد و توضیح نمایش‌داده‌شده را بخوان؛ تلاش دوباره بخشی از یادگیری است.':'آفرین! حالا می‌توانی این مفاهیم را در مسئله‌های تازه مثل پول، زمان، مسیر و تقسیم مواد هم به کار ببری.'}</p></div>`;
+    }
+
+    document.getElementById('resetBtn').addEventListener('click',()=>{
+      if(confirm('پیشرفت این دستگاه پاک شود و از ابتدا شروع کنیم؟')){
+        state={...stateDefault};saveState();currentStage=0;renderMap();updateHeader();
+        document.getElementById('studentNameInput').value='';
+        document.getElementById('nameGate').classList.remove('hidden');
+        openStage(0);
+      }
+    });
+
+    const nameGate=document.getElementById('nameGate');
+    const nameInput=document.getElementById('studentNameInput');
+    document.getElementById('startBtn').addEventListener('click',()=>{
+      const name=nameInput.value.trim();
+      if(!name){ nameInput.focus(); nameInput.style.borderColor='var(--bad)'; return; }
+      state.studentName=name; saveState(); updateHeader(); nameGate.classList.add('hidden'); openStage(currentStage);
+    });
+    nameInput.addEventListener('keydown',e=>{ if(e.key==='Enter') document.getElementById('startBtn').click(); });
+
+    updateHeader();
+    renderMap();
+    openStage(0);
+    if(state.studentName){ nameGate.classList.add('hidden'); }
+    else { nameInput.focus(); }
+  </script>
+</body>
+</html>
