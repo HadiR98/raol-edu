@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102a43">
+<title>درسنامه فصل اول علوم نهم | استاد رشیدی</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap');
+:root{--navy:#102a43;--blue:#174e70;--teal:#00c1c3;--mint:#c8fff2;--ink:#193247;--muted:#607789;--paper:#f3f8fb}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:"Vazirmatn",Tahoma,sans-serif;color:var(--ink);background:radial-gradient(circle at 12% 8%,#c7f7f0 0,transparent 28%),radial-gradient(circle at 90% 80%,#d9eaff 0,transparent 28%),var(--paper);display:flex;align-items:center;justify-content:center;padding:28px 16px;overflow-x:hidden}
+body:before,body:after{content:"";position:fixed;border-radius:50%;pointer-events:none;z-index:-1}
+body:before{width:260px;height:260px;border:1px solid #00aeb533;top:-90px;right:-80px;box-shadow:0 0 0 24px #00aeb30b,0 0 0 50px #00aeb308}
+body:after{width:190px;height:190px;border:1px solid #174e7022;bottom:-70px;left:-60px;box-shadow:0 0 0 25px #174e7008}
+.shell{width:min(760px,100%);position:relative}
+.topline{display:flex;align-items:center;gap:10px;margin:0 auto 15px;width:fit-content;color:#426276;font-size:.83rem;font-weight:700;letter-spacing:.1px}
+.topline .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 5px #00c1c31c}
+.card{position:relative;overflow:hidden;border:1px solid #ffffffd9;border-radius:30px;background:#ffffffd9;box-shadow:0 24px 70px #163c5520,0 3px 12px #163c5508;backdrop-filter:blur(12px)}
+.hero{padding:clamp(28px,6vw,52px) clamp(20px,6vw,54px) 34px;text-align:center;background:linear-gradient(140deg,#102a43 0%,#174e70 67%,#087e8b 100%);color:white;position:relative;isolation:isolate}
+.hero:before{content:"";position:absolute;z-index:-1;width:310px;height:310px;border-radius:50%;border:1px solid #ffffff17;left:-100px;top:-160px;box-shadow:0 0 0 30px #ffffff08,0 0 0 65px #ffffff05}
+.hero:after{content:"";position:absolute;z-index:-1;width:150px;height:150px;border-radius:50%;border:1px solid #00e0d533;right:-65px;bottom:-95px;box-shadow:0 0 0 22px #00e0d50a}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;border:1px solid #ffffff35;border-radius:999px;padding:7px 13px;color:#bafaf0;font-size:.78rem;font-weight:600;background:#ffffff0c}
+h1{font-size:clamp(1.65rem,5vw,2.55rem);line-height:1.55;margin:19px 0 8px;font-weight:900;letter-spacing:-.7px}
+.subtitle{margin:0;color:#d4e6ef;font-size:1rem}
+.teacher{margin:25px auto 0;display:flex;align-items:center;justify-content:center;gap:10px;color:#f2ffff;font-size:.9rem}
+.teacher .avatar{width:34px;height:34px;border-radius:12px;background:linear-gradient(145deg,#00c1c3,#75f2d8);display:grid;place-items:center;color:#10364c;font-weight:900}
+.content{padding:clamp(22px,5vw,42px)}
+.section-label{font-size:.82rem;font-weight:800;color:#678092;margin:0 0 15px;display:flex;align-items:center;gap:9px}
+.section-label:before{content:"";height:2px;width:22px;background:var(--teal);border-radius:2px}
+.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.action{border:0;min-height:82px;border-radius:18px;padding:17px 16px;display:flex;align-items:center;gap:13px;text-align:right;text-decoration:none;color:var(--ink);background:white;box-shadow:0 5px 20px #183f5410;border:1px solid #e1edf2;transition:transform .2s,box-shadow .2s,border-color .2s;cursor:pointer;font:inherit}
+.action:hover{transform:translateY(-3px);box-shadow:0 12px 25px #183f5418;border-color:#9be8e1}
+.action.primary{background:linear-gradient(135deg,#e1fffa,#f8fffe);border-color:#b6f2e9}
+.action .ico{width:45px;height:45px;flex:0 0 45px;border-radius:14px;display:grid;place-items:center;background:#e6f5f8;color:#14516b}
+.action.primary .ico{background:#bdf7eb;color:#075c63}
+.ico svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.action strong{display:block;font-size:.97rem;font-weight:800;margin-bottom:4px}
+.action small{display:block;color:#728796;font-size:.75rem;line-height:1.6}
+.action .arrow{margin-right:auto;color:#7895a4;font-size:1.1rem}
+.note{margin-top:23px;padding:14px 16px;border-radius:15px;background:#f2f8fa;color:#627d8d;font-size:.78rem;line-height:1.9;display:flex;gap:10px;align-items:flex-start}
+.note span{font-size:1.05rem}
+footer{text-align:center;color:#78909e;font-size:.75rem;margin:18px 0 0}
+footer strong{color:#31556a}
+.modal{position:fixed;inset:0;background:#061b2bd9;backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:16px;z-index:10}
+.modal.open{display:flex}
+.dialog{width:min(880px,100%);max-height:min(92vh,900px);overflow:auto;background:#f6fbfc;border-radius:24px;box-shadow:0 30px 90px #0005;animation:pop .22s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:22px 24px;background:linear-gradient(120deg,#102a43,#176276);color:white;position:sticky;top:0;z-index:2}
+.modal-head h2{font-size:1.3rem;margin:0 0 4px}
+.modal-head p{font-size:.8rem;color:#cce8ef;margin:0}
+.close{border:1px solid #ffffff45;background:#ffffff12;color:white;width:39px;height:39px;border-radius:12px;font-size:1.5rem;cursor:pointer;line-height:1}
+.cycle-intro{padding:20px 22px 0;color:#526d7d;font-size:.87rem;line-height:1.9}
+.cycle-map{padding:20px 22px 25px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.step{border:1px solid #dce9ed;background:white;border-radius:18px;padding:18px;position:relative;overflow:hidden}
+.step:last-child{grid-column:1/-1}
+.step:before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--accent,#00b9b9)}
+.step-top{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.step-num{width:34px;height:34px;border-radius:11px;background:var(--soft,#e1f8f5);color:var(--accent,#087b7b);display:grid;place-items:center;font-weight:900}
+.step h3{font-size:1rem;margin:0;color:#16384b}
+.step p{margin:0;font-size:.84rem;line-height:1.9;color:#5a7381}
+.step .tag{display:inline-block;margin-top:12px;padding:5px 9px;border-radius:8px;background:var(--soft,#e1f8f5);color:var(--accent,#087b7b);font-size:.72rem;font-weight:800}
+.cycle-footer{margin:0 22px 22px;background:#e7f5f7;border-radius:14px;padding:13px 16px;color:#335d6b;font-size:.8rem;line-height:1.8}
+@media(max-width:560px){body{padding:15px 10px}.card{border-radius:23px}.actions{grid-template-columns:1fr;gap:10px}.action{min-height:74px}.hero{padding-top:31px}.content{padding:22px 17px}.cycle-map{grid-template-columns:1fr;padding:16px}.step:last-child{grid-column:auto}.modal-head{padding:17px}.cycle-intro{padding:15px 17px 0}.cycle-footer{margin:0 16px 16px}.modal-head h2{font-size:1.1rem}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.exam-modal{position:fixed;inset:0;background:#061522;display:none;z-index:30;color:#102a43;overflow:auto}
+.exam-modal.open{display:block}
+.exam-screen{min-height:100vh;background:#f5f9fb;padding:clamp(10px,2vw,26px)}
+.exam-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#102a43;color:white;padding:12px 16px;border-radius:14px;margin-bottom:14px}
+.exam-toolbar h2{font-size:clamp(1rem,2vw,1.35rem);margin:0}
+.exam-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.exam-btn{border:1px solid #ffffff55;border-radius:9px;background:#ffffff16;color:white;padding:8px 12px;font:inherit;cursor:pointer}
+.timer{font-size:clamp(1.25rem,2.5vw,2rem);font-weight:900;direction:ltr;font-variant-numeric:tabular-nums;color:#9effe8;min-width:88px;text-align:center}
+.exam-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.exam-group{background:white;border:2px solid #d7e6ed;border-radius:16px;padding:clamp(14px,2vw,26px);box-shadow:0 5px 22px #15394b0c}
+.exam-group h3{margin:0 0 14px;padding-bottom:10px;border-bottom:3px solid #00b9b9;font-size:clamp(1.25rem,2vw,1.8rem)}
+.exam-q{font-size:clamp(.95rem,1.45vw,1.35rem);line-height:2.05;margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid #e7eef2}
+.exam-q:last-child{border-bottom:0;margin-bottom:0}
+.exam-q strong{color:#087e8b}
+.exam-total{font-size:.82em;color:#557282;font-weight:700;white-space:nowrap}
+@media(max-width:760px){.exam-columns{grid-template-columns:1fr}.exam-toolbar{align-items:flex-start}}
+@media (min-width:761px){.exam-modal.open .exam-screen{min-height:100vh}}
+@media print{body>*:not(#examModal){display:none!important}.exam-modal{display:block!important;position:static;background:white;overflow:visible}.exam-screen{padding:0;background:white}.exam-toolbar .exam-btn{display:none}.exam-columns{grid-template-columns:repeat(2,minmax(0,1fr))}.exam-group{box-shadow:none;break-inside:avoid}}
+
+</style>
+</head>
+<body>
+<main class="shell">
+  <div class="topline"><span class="dot"></span> مسیر یادگیری علوم تجربی <span>•</span> پایه نهم</div>
+  <section class="card">
+    <header class="hero">
+      <div class="eyebrow"><span>✦</span> یادگیری هوشمند و تعاملی</div>
+      <h1>درسنامه فصل اول<br>علوم نهم</h1>
+      <p class="subtitle">منابع و ابزارهای کمکی برای یادگیری بهتر</p>
+      <div class="teacher"><span class="avatar">ر</span><span>طراحی شده توسط <strong>استاد رشیدی</strong></span></div>
+    </header>
+    <div class="content">
+      <p class="section-label">برای ادامه یادگیری، یکی را انتخاب کن</p>
+      <div class="actions">
+        <button class="action primary" id="openCycle" type="button">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M4.5 15a8 8 0 0 0 13.2 2.1L20 14"/><path d="M4 17v-5h5"/><path d="M19.5 9A8 8 0 0 0 6.3 6.9L4 10"/></svg></span>
+          <span><strong>چرخه نیتروژن</strong><small>مشاهده مراحل و توضیحات</small></span><span class="arrow">←</span>
+        </button>
+        <a class="action" href="https://www.hadirah.ir/f2ed7d003ed762ab88890f6d10a21b4566241631-480p/">
+          <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg></span>
+          <span><strong>فیلم آزمایش صفحه ۳</strong><small>تماشای ویدئوی آزمایش</small></span><span class="arrow">←</span>
+        </a>
+        <a class="action" href="https://raol.ir/mnd">
+          <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg></span>
+          <span><strong>جدول تناوبی</strong><small>بررسی عناصر شیمیایی</small></span><span class="arrow">←</span>
+        </a>
+        <button class="action primary" id="openExam" type="button">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M8 4h8M9 3h6v3H9z"/><rect x="5" y="5" width="14" height="16" rx="2"/><path d="m8 12 2 2 5-5M8 17h8"/></svg></span>
+          <span><strong>آزمون فصل اول</strong><small>نمایش تمام‌صفحه سؤالات گروه A و B</small></span><span class="arrow">←</span>
+        </button>
+      </div>
+      <div class="note"><span>💡</span><div>پیشنهاد: ابتدا مراحل چرخه نیتروژن را مرور کن؛ سپس فیلم آزمایش و جدول تناوبی را بررسی کن.</div></div>
+    </div>
+  </section>
+  <footer>علوم نهم <span>•</span> <strong>استاد رشیدی</strong></footer>
+</main>
+
+<div class="modal" id="cycleModal" role="dialog" aria-modal="true" aria-labelledby="cycleTitle">
+  <section class="dialog">
+    <header class="modal-head">
+      <div><h2 id="cycleTitle">چرخهٔ نیتروژن در طبیعت</h2><p>حرکت نیتروژن میان هوا، خاک، گیاهان و جانوران</p></div>
+      <button class="close" id="closeCycle" aria-label="بستن پنجره" type="button">×</button>
+    </header>
+    <div class="cycle-intro">نیتروژن برای ساخت پروتئین‌ها ضروری است. در چرخهٔ نیتروژن، این عنصر میان هوا و جانداران جابه‌جا می‌شود و دوباره به محیط بازمی‌گردد.</div>
+    <div class="cycle-map">
+      <article class="step" style="--accent:#087f8c;--soft:#def8f5">
+        <div class="step-top"><span class="step-num">۱</span><h3>تثبیت نیتروژن</h3></div>
+        <p>باکتری‌های خاک و گرهک‌های ریشهٔ گیاهانی مانند باقلا، نیتروژن هوا را به ترکیبات نیتروژن‌دار تبدیل می‌کنند. صاعقه نیز به تشکیل ترکیبات نیتروژنی کمک می‌کند که با باران وارد خاک می‌شوند.</p>
+        <span class="tag">هوا ← خاک</span>
+      </article>
+      <article class="step" style="--accent:#34845b;--soft:#e4f6e8">
+        <div class="step-top"><span class="step-num">۲</span><h3>جذب توسط گیاهان</h3></div>
+        <p>گیاهان ترکیبات نیتروژن‌دار موجود در خاک را از راه ریشه جذب می‌کنند و از نیتروژن برای ساخت مواد آلی، از جمله پروتئین‌ها، استفاده می‌کنند.</p>
+        <span class="tag">خاک ← گیاه</span>
+      </article>
+      <article class="step" style="--accent:#b87524;--soft:#fff1d9">
+        <div class="step-top"><span class="step-num">۳</span><h3>انتقال به جانوران</h3></div>
+        <p>جانوران گیاه‌خوار با خوردن گیاهان، نیتروژن را دریافت می‌کنند. این نیتروژن وارد مولکول‌های بدن جانوران، از جمله پروتئین‌ها، می‌شود.</p>
+        <span class="tag">گیاه ← جانور</span>
+      </article>
+      <article class="step" style="--accent:#8057a5;--soft:#f0e8fb">
+        <div class="step-top"><span class="step-num">۴</span><h3>تجزیه و بازگشت به خاک</h3></div>
+        <p>پس از مرگ جانداران و همچنین از راه مواد دفعی، تجزیه‌کننده‌ها مواد آلی را تجزیه می‌کنند و ترکیبات نیتروژن‌دار به خاک بازمی‌گردند.</p>
+        <span class="tag">بقایای جانداران ← خاک</span>
+      </article>
+      <article class="step" style="--accent:#2873a7;--soft:#e2f1ff">
+        <div class="step-top"><span class="step-num">۵</span><h3>بازگشت نیتروژن به هوا</h3></div>
+        <p>برخی باکتری‌های خاک، در فرایند دنیتریفیکاسیون، ترکیبات نیتروژن‌دار را به گاز نیتروژن تبدیل می‌کنند و آن را به جو بازمی‌گردانند.</p>
+        <span class="tag">خاک ← هوا</span>
+      </article>
+    </div>
+    <div class="cycle-footer"><strong>جمع‌بندی:</strong> نیتروژن از هوا به خاک می‌رسد، وارد گیاهان و جانوران می‌شود و با فعالیت تجزیه‌کننده‌ها و برخی باکتری‌ها دوباره به خاک و هوا بازمی‌گردد.</div>
+  </section>
+</div>
+
+<div class="exam-modal" id="examModal" role="dialog" aria-modal="true" aria-labelledby="examTitle">
+  <div class="exam-screen">
+    <header class="exam-toolbar">
+      <h2 id="examTitle">آزمون فصل اول علوم نهم</h2>
+      <div class="exam-tools">
+        <span class="timer" id="examTimer" aria-live="off">۳۰:۰۰</span>
+        <button class="exam-btn" id="timerStart" type="button">شروع</button>
+        <button class="exam-btn" id="timerReset" type="button">شروع مجدد</button>
+        <button class="exam-btn" id="examFullscreen" type="button">تمام‌صفحه</button>
+        <button class="exam-btn" id="closeExam" type="button">بستن ✕</button>
+      </div>
+    </header>
+    <main class="exam-columns">
+      <section class="exam-group">
+        <h3>گروه A</h3>
+        <p class="exam-q"><strong>۱.</strong> از میان عناصر مس، روی و طلا، کدام یک برای استفاده در محیط‌های اسیدی مناسب نیست؟ چرا؟ <span class="exam-total">۲ نمره</span></p>
+        <p class="exam-q"><strong>۲.</strong> جدول تناوبی .............. گروه و ۷ دوره دارد و ................... گروه اصلی دارد. <span class="exam-total">۱ نمره</span><br>اتم N با عدد اتمی ۷ در ردیف ................... و ستون ..................... جدول تناوبی قرار دارد. <span class="exam-total">۱ نمره</span></p>
+        <p class="exam-q"><strong>۳.</strong> مدل اتمی بور عنصری که در ستون ۱۷ و ردیف ۲ جدول تناوبی قرار دارد را رسم کنید. در لایه ظرفیت این اتم چند الکترون وجود دارد؟ <span class="exam-total">۲ نمره</span></p>
+        <p class="exam-q"><strong>۴.</strong> واکنش‌پذیری فلز مس، آهن، منیزیم و روی را مقایسه کنید. دو مورد از کاربردهای فلز مس را بنویسید. <span class="exam-total">۲ نمره</span></p>
+        <p class="exam-q"><strong>۵.</strong> فرمول شیمیایی سولفوریک اسید و سه مورد از کاربردهای آن را بنویسید. <span class="exam-total">۲ نمره</span></p>
+      </section>
+      <section class="exam-group">
+        <h3>گروه B</h3>
+        <p class="exam-q"><strong>۱.</strong> اساس طبقه‌بندی عناصر در جدول تناوبی را بنویسید. عناصر هر گروه چه ویژگی مشترکی دارند؟ <span class="exam-total">۲ نمره</span></p>
+        <p class="exam-q"><strong>۲.</strong> هر مولکول گاز اوزون که دارای .............. اتم اکسیژن است، در ......................... و .................... یافت می‌شود. <span class="exam-total">۱٫۵ نمره</span><br>در فرمول شیمیایی سولفوریک اسید عناصر ................ و ................. و ................ شرکت دارند. <span class="exam-total">۱٫۵ نمره</span><br>واکنش‌پذیری آهن از مس .................. تر است. <span class="exam-total">۰٫۵ نمره</span></p>
+        <p class="exam-q"><strong>۳.</strong> مدل اتمی بور Mg با عدد اتمی ۱۲ را رسم کنید و موقعیت سطر و ستون آن را در جدول تناوبی بنویسید. <span class="exam-total">۱٫۵ نمره</span></p>
+        <p class="exam-q"><strong>۴.</strong> دو مورد از کاربردهای نیتروژن و دو مورد از کاربردهای کلر را بنویسید. <span class="exam-total">۲ نمره</span></p>
+        <p class="exam-q"><strong>۵.</strong> عناصری که در جدول تناوبی زیر هم قرار می‌گیرند چه ویژگی مشترکی در مدل اتمی خود دارند؟ <span class="exam-total">۱ نمره</span></p>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+(() => {
+ const modal = document.getElementById('cycleModal');
+ const open = document.getElementById('openCycle');
+ const close = document.getElementById('closeCycle');
+ function show(){ modal.classList.add('open'); document.body.style.overflow='hidden'; close.focus(); }
+ function hide(){ modal.classList.remove('open'); document.body.style.overflow=''; open.focus(); }
+ open.addEventListener('click', show);
+ close.addEventListener('click', hide);
+ modal.addEventListener('click', e => { if(e.target === modal) hide(); });
+ document.addEventListener('keydown', e => { if(e.key === 'Escape' && modal.classList.contains('open')) hide(); });
+
+  const examModal = document.getElementById('examModal');
+  const openExam = document.getElementById('openExam');
+  const closeExam = document.getElementById('closeExam');
+  const timerDisplay = document.getElementById('examTimer');
+  const timerStart = document.getElementById('timerStart');
+  const timerReset = document.getElementById('timerReset');
+  const fullscreenBtn = document.getElementById('examFullscreen');
+  let remaining = 30 * 60;
+  let timerInterval = null;
+  function toPersianDigits(value){ return String(value).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[Number(d)]); }
+  function renderTimer(){
+    const m = Math.floor(remaining / 60);
+    const sec = remaining % 60;
+    timerDisplay.textContent = toPersianDigits(String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0'));
+  }
+  function stopTimer(){ if(timerInterval){ clearInterval(timerInterval); timerInterval = null; } }
+  function toggleTimer(){
+    if(timerInterval){ stopTimer(); timerStart.textContent = 'ادامه'; return; }
+    if(remaining <= 0) return;
+    timerStart.textContent = 'توقف';
+    timerInterval = setInterval(() => {
+      remaining--;
+      renderTimer();
+      if(remaining <= 0){ stopTimer(); timerStart.textContent = 'پایان زمان'; }
+    }, 1000);
+  }
+  function resetTimer(){ stopTimer(); remaining = 30 * 60; renderTimer(); timerStart.textContent = 'شروع'; }
+  function showExam(){
+    examModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    resetTimer();
+    closeExam.focus();
+  }
+  function hideExam(){
+    examModal.classList.remove('open');
+    document.body.style.overflow = '';
+    stopTimer();
+    openExam.focus();
+  }
+  openExam.addEventListener('click', showExam);
+  closeExam.addEventListener('click', hideExam);
+  timerStart.addEventListener('click', toggleTimer);
+  timerReset.addEventListener('click', resetTimer);
+  fullscreenBtn.addEventListener('click', async () => {
+    try {
+      if (!document.fullscreenElement) await examModal.requestFullscreen();
+      else await document.exitFullscreen();
+    } catch (e) { /* Full-screen may be blocked by the browser. */ }
+  });
+  examModal.addEventListener('click', e => { if(e.target === examModal) hideExam(); });
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && examModal.classList.contains('open') && !document.fullscreenElement) hideExam();
+  });
+  renderTimer();
+
+})();
+</script>
+</body>
+</html>
