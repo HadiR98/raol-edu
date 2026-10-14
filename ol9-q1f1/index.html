@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>آزمون ۱ — گروه A و B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eef2f4;
+    --panel: #ffffff;
+    --ink: #10282e;
+    --muted: #55696f;
+    --line: #cfdadd;
+    --accent: #0b6e72;
+    --accent-soft: #d9efef;
+    --accent-ink: #ffffff;
+    --blank: #10282e;
+    --warn: #b86e00;
+    --danger: #c42b2b;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  :root[data-group="B"] { --accent: #4b3fa8; --accent-soft: #e4e1f7; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e1a1e; --panel: #15262b; --ink: #eaf3f4; --muted: #9db3b8; --line: #2a4248;
+      --accent: #4fc4c8; --accent-soft: #1b3a3d; --accent-ink: #06191b; --blank: #eaf3f4;
+      --warn: #f0a63a; --danger: #ff7a7a;
+    }
+    :root:not([data-theme="light"])[data-group="B"] { --accent: #a99cff; --accent-soft: #28244d; --accent-ink: #13102e; }
+    :root:not([data-theme="light"]) .col.colB { --accent: #a99cff; --accent-soft: #28244d; --accent-ink: #13102e; }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e1a1e; --panel: #15262b; --ink: #eaf3f4; --muted: #9db3b8; --line: #2a4248;
+    --accent: #4fc4c8; --accent-soft: #1b3a3d; --accent-ink: #06191b; --blank: #eaf3f4;
+    --warn: #f0a63a; --danger: #ff7a7a;
+  }
+  :root[data-theme="dark"][data-group="B"] { --accent: #a99cff; --accent-soft: #28244d; --accent-ink: #13102e; }
+  :root[data-theme="dark"] .col.colB { --accent: #a99cff; --accent-soft: #28244d; --accent-ink: #13102e; }
+
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); height: 100%; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; height: 100%; background: var(--bg); color: var(--ink);
+    font-family: "Vazirmatn", Tahoma, "Segoe UI", sans-serif;
+    line-height: 1.9; display: flex; flex-direction: column; overflow: hidden;
+  }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  header {
+    display: flex; align-items: center; gap: .8rem 1rem; flex-wrap: wrap;
+    padding: .6rem 1.4rem; background: var(--panel); border-bottom: 2px solid var(--line);
+  }
+  .title { font-weight: 800; font-size: clamp(1.1rem, 2.1vw, 1.8rem); margin: 0; }
+  .meta { color: var(--muted); font-size: clamp(.85rem, 1.3vw, 1.1rem); }
+  .tabs { display: flex; gap: .4rem; margin-inline-start: .5rem; }
+  .tab {
+    border: 2px solid var(--line); background: transparent; border-radius: 10px;
+    padding: .1rem 1rem; font-weight: 700; font-size: clamp(.95rem, 1.5vw, 1.3rem);
+  }
+  .tab[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .spacer { flex: 1; }
+
+  .timer { display: flex; align-items: center; gap: .6rem; }
+  .tlabel { color: var(--muted); font-weight: 600; font-size: clamp(.9rem, 1.4vw, 1.2rem); }
+  .clock {
+    font-weight: 800; font-size: clamp(1.7rem, 3.6vw, 3rem); letter-spacing: .04em;
+    font-variant-numeric: tabular-nums; min-width: 4.2ch; text-align: center; direction: ltr;
+  }
+  .clock.warn { color: var(--warn); }
+  .clock.danger { color: var(--danger); animation: pulse 1s steps(2, jump-none) infinite; }
+  @keyframes pulse { 50% { opacity: .45; } }
+  .btn {
+    border: 2px solid var(--line); background: var(--panel); border-radius: 10px;
+    padding: .25rem .9rem; font-weight: 600; font-size: clamp(.9rem, 1.4vw, 1.2rem);
+  }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn:hover { border-color: var(--accent); }
+
+  main { flex: 1; min-height: 0; display: flex; padding: clamp(.6rem, 1.6vw, 1.6rem); }
+
+  /* slide: one question, one or two groups */
+  .cols { flex: 1; min-height: 0; display: grid; gap: clamp(.6rem, 1.6vw, 1.5rem); grid-template-columns: 1fr; }
+  .cols.two { grid-template-columns: 1fr 1fr; }
+  .col {
+    min-height: 0; background: var(--panel); border: 2px solid var(--line);
+    border-top: 12px solid var(--accent); border-radius: 18px;
+    padding: clamp(.8rem, 2vw, 2rem) clamp(1rem, 2.6vw, 2.6rem);
+    display: flex; flex-direction: column; gap: 1rem; overflow-y: auto;
+  }
+  .col.colB { --accent: #4b3fa8; --accent-soft: #e4e1f7; }
+  .qhead { display: flex; align-items: center; gap: .9rem; }
+  .gtag { font-weight: 800; font-size: clamp(1.1rem, 2vw, 1.8rem); color: var(--accent); }
+  .qnum {
+    width: clamp(2.6rem, 5vw, 4.2rem); height: clamp(2.6rem, 5vw, 4.2rem); border-radius: 50%;
+    background: var(--accent); color: var(--accent-ink); display: grid; place-items: center;
+    font-weight: 800; font-size: clamp(1.4rem, 3vw, 2.4rem); flex: none; line-height: 1;
+  }
+  .points {
+    margin-inline-start: auto; background: var(--accent-soft); color: var(--ink);
+    border-radius: 999px; padding: .1rem 1rem; font-weight: 700; font-size: clamp(.95rem, 1.6vw, 1.4rem);
+  }
+  .qtext { font-size: clamp(1.25rem, 2.6vw, 2.5rem); font-weight: 500; margin: 0; line-height: 1.95; }
+  .parts { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+  .parts li { display: flex; gap: .7rem; font-size: clamp(1.15rem, 2.4vw, 2.3rem); line-height: 1.9; }
+  .parts .lbl { font-weight: 800; color: var(--accent); flex: none; }
+  .blank {
+    display: inline-block; width: 5ch; border-bottom: 3px solid var(--blank);
+    margin: 0 .25ch; transform: translateY(-.15em);
+  }
+  .formula { direction: ltr; unicode-bidi: isolate; display: inline-block; font-weight: 700; }
+
+  footer {
+    display: flex; align-items: center; gap: 1rem; padding: .6rem 1.4rem;
+    background: var(--panel); border-top: 2px solid var(--line);
+  }
+  .dots { display: flex; gap: .6rem; flex: 1; justify-content: center; flex-wrap: wrap; }
+  .dot {
+    width: 2.8rem; height: 2.8rem; border-radius: 50%; border: 2px solid var(--line);
+    background: transparent; font-weight: 700; font-size: 1.15rem; line-height: 1; position: relative;
+  }
+  .dot[aria-current="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .dot.running { border-color: var(--warn); box-shadow: 0 0 0 3px color-mix(in srgb, var(--warn) 35%, transparent); }
+  .dot.finished { border-color: var(--danger); }
+  .dot.finished::after {
+    content: ""; position: absolute; top: -3px; inset-inline-end: -3px; width: .8rem; height: .8rem;
+    border-radius: 50%; background: var(--danger);
+  }
+  .nav { font-size: clamp(1rem, 1.7vw, 1.4rem); min-width: 7rem; }
+  .nav[disabled] { opacity: .35; cursor: default; }
+
+  .done {
+    position: fixed; inset: 0; display: none; place-items: center; text-align: center;
+    background: color-mix(in srgb, var(--bg) 92%, transparent); z-index: 10; padding: 2rem;
+  }
+  .done.show { display: grid; }
+  .done h2 { font-size: clamp(2.4rem, 8vw, 6rem); margin: 0; color: var(--danger); }
+  .done p { font-size: clamp(1.1rem, 2.4vw, 2rem); color: var(--muted); margin: .5rem 0 1.5rem; }
+
+  .ans { border-top: 3px dashed var(--accent); padding-top: .8rem; display: grid; gap: .45rem; font-size: clamp(1rem, 1.9vw, 1.8rem); line-height: 1.85; }
+  .ans-h { font-weight: 800; color: var(--accent); }
+  .ans b { color: var(--accent); }
+  .bohr { display: block; width: clamp(120px, 15vw, 190px); height: auto; margin: .2rem 0; }
+  .bohr .orb { fill: none; stroke: var(--accent); stroke-width: 2; }
+  .bohr .nuc { fill: var(--accent); }
+  .bohr .el { fill: var(--ink); }
+  .bohr text { fill: var(--accent-ink); font-size: 15px; font-weight: 700; font-family: inherit; }
+  .gate {
+    position: fixed; inset: 0; display: none; place-items: center; z-index: 20; padding: 1.5rem;
+    background: color-mix(in srgb, var(--bg) 90%, transparent);
+  }
+  .gate.show { display: grid; }
+  .gatebox {
+    background: var(--panel); border: 2px solid var(--line); border-radius: 18px; padding: 1.6rem 2rem;
+    display: grid; gap: .8rem; text-align: center; min-width: min(90vw, 22rem);
+  }
+  .gatebox h2 { margin: 0; font-size: 1.5rem; }
+  .gatebox input {
+    font: inherit; font-size: 1.6rem; text-align: center; letter-spacing: .4em; direction: ltr;
+    padding: .4rem; border: 2px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--ink);
+  }
+  .gatebox input:focus { outline: 3px solid var(--accent); border-color: var(--accent); }
+  .gerr { color: var(--danger); min-height: 1.6em; font-weight: 600; }
+  .grow { display: flex; gap: .6rem; justify-content: center; }
+
+  @media (max-width: 820px) {
+    header { padding: .5rem .8rem; }
+    .cols.two { grid-template-columns: 1fr; overflow-y: auto; }
+    .nav { min-width: 5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .clock.danger { animation: none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 class="title" id="title">آزمون ۱ — گروه‌های A و B</h1>
+  <span class="meta">۴ دقیقه برای هر سؤال</span>
+  <div class="tabs" role="group" aria-label="انتخاب گروه">
+    <button class="tab" id="tabAB" aria-pressed="true">هر دو گروه</button>
+    <button class="tab" id="tabA" aria-pressed="false">فقط A</button>
+    <button class="tab" id="tabB" aria-pressed="false">فقط B</button>
+  </div>
+  <span class="spacer"></span>
+  <div class="timer">
+    <span class="tlabel" id="tlabel">سؤال ۱</span>
+    <div class="clock" id="clock">۰۴:۰۰</div>
+    <button class="btn primary" id="startBtn" title="کلید T">شروع</button>
+    <button class="btn" id="resetBtn">از اول</button>
+  </div>
+  <button class="btn" id="ansBtn" title="کلید K">🔒 پاسخنامه</button>
+  <button class="btn" id="fsBtn" title="کلید F">تمام‌صفحه</button>
+</header>
+
+<main id="main"></main>
+
+<footer>
+  <button class="btn nav" id="prevBtn">سؤال قبلی</button>
+  <div class="dots" id="dots"></div>
+  <button class="btn nav primary" id="nextBtn">سؤال بعدی</button>
+</footer>
+
+<div class="gate" id="gate" role="dialog" aria-label="ورود به پاسخنامه">
+  <div class="gatebox">
+    <h2>🔒 پاسخنامه</h2>
+    <div>رمز را وارد کنید</div>
+    <input type="password" id="pw" inputmode="numeric" autocomplete="off" maxlength=12>
+    <div class="gerr" id="gerr" aria-live="polite"></div>
+    <div class="grow">
+      <button class="btn primary" id="gok">ورود</button>
+      <button class="btn" id="gcancel">انصراف</button>
+    </div>
+  </div>
+</div>
+
+<div class="done" id="done" role="alertdialog" aria-label="پایان زمان سؤال">
+  <div>
+    <h2>زمان این سؤال تمام شد</h2>
+    <p>به سؤال بعد می‌رویم.</p>
+    <button class="btn primary" id="closeDone">بستن</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var Q_SECONDS = 4 * 60;
+  var BLANK = '<span class="blank"></span>';
+
+  var EXAMS = {
+    A: {
+      title: 'گروه A',
+      qs: [
+        { n: '۱', pts: '۲ نمره',
+          text: 'سه ظرف یکسان حاوی محلول سولفات مس هستند. در ظرف اول تکه‌ای منیزیم، در ظرف دوم تکه‌ای آهن و در ظرف سوم تکه‌ای طلا قرار می‌دهیم.',
+          parts: [['الف)', 'در کدام ظرف تغییر رنگ یا رسوب مس زودتر دیده می‌شود؟ چرا؟'],
+                  ['ب)', 'در کدام ظرف تقریباً تغییری مشاهده نمی‌شود؟ چرا؟']] },
+        { n: '۲', pts: '۱/۵ نمره',
+          text: 'جدول تناوبی عناصر بر اساس ' + BLANK + ' آن‌ها مرتب شده است. عناصری که در یک ستون قرار دارند، تعداد ' + BLANK + ' یکسانی دارند و خواص شیمیایی ' + BLANK + ' دارند.' },
+        { n: '۳', pts: '۲ نمره',
+          text: 'اتم سدیم <span class="formula">(Na)</span> با عدد اتمی ۱۱ را در نظر بگیرید.',
+          parts: [['الف)', 'مدل اتمی بور آن را رسم کنید.'],
+                  ['ب)', 'شماره گروه و دوره آن را در جدول تناوبی بنویسید.']] },
+        { n: '۴', pts: '۲ نمره',
+          text: 'برای ساخت بدنه هواپیما معمولاً از آلومینیم استفاده می‌شود، اما برای ساخت میله صاعقه‌گیر از مس.',
+          parts: [['الف)', 'یک ویژگی مشترک این دو فلز را بنویسید.'],
+                  ['ب)', 'علت انتخاب هر یک را با توجه به ویژگی آن فلز توضیح دهید.']] },
+        { n: '۵', pts: '۱/۵ نمره',
+          text: 'فرمول شیمیایی سولفوریک اسید را بنویسید و نام عناصر تشکیل‌دهنده آن را ذکر کنید. یک کاربرد این ماده را بنویسید.' },
+        { n: '۶', pts: '۲ نمره',
+          text: 'تفاوت بسپار و درشت‌مولکول‌ها را بیان کنید و دو مورد درشت‌مولکول نام ببرید.' }
+      ]
+    },
+    B: {
+      title: 'گروه B',
+      qs: [
+        { n: '۱', pts: '۲ نمره',
+          text: 'سه تکه فلز منیزیم، روی و طلا را در شرایط یکسان در معرض هوا قرار می‌دهیم.',
+          parts: [['الف)', 'کدام فلز سریع‌تر با اکسیژن ترکیب می‌شود؟ چرا؟'],
+                  ['ب)', 'کدام فلز در شرایط عادی با اکسیژن واکنش نمی‌دهد؟']] },
+        { n: '۲', pts: '۱/۵ نمره',
+          text: 'در جدول تناوبی، ردیف‌های افقی ' + BLANK + ' نام دارند و در هر ردیف، تعداد لایه‌های الکترونی اتم‌ها ' + BLANK + ' است. عناصر یک ستون تعداد ' + BLANK + ' برابری دارند.' },
+        { n: '۳', pts: '۲ نمره',
+          text: 'اتم کلر <span class="formula">(Cl)</span> با عدد اتمی ۱۷ را در نظر بگیرید.',
+          parts: [['الف)', 'مدل اتمی بور آن را رسم کنید.'],
+                  ['ب)', 'شماره گروه و دوره آن را در جدول تناوبی بنویسید.'],
+                  ['ج)', 'چند الکترون در لایه ظرفیت این اتم وجود دارد؟']] },
+        { n: '۴', pts: '۲ نمره',
+          text: 'از مس برای ساخت سیم برق و از آهن برای ساخت بدنه خودرو استفاده می‌شود.',
+          parts: [['الف)', 'یک ویژگی مشترک مس و آهن را بنویسید.'],
+                  ['ب)', 'علت انتخاب هر یک از این دو فلز برای کاربرد ذکرشده را توضیح دهید.']] },
+        { n: '۵', pts: '۱/۵ نمره',
+          text: 'فرمول شیمیایی اوزون را بنویسید و بنویسید که در کجا یافت می‌شود و چه فایده‌ای دارد؟' },
+        { n: '۶', pts: '۲ نمره',
+          text: 'تفاوت درشت‌مولکول و ریزمولکول را بنویسید و انواع بسپارها را نام ببرید.' }
+      ]
+    }
+  };
+  var ANSWERS = {
+    A: [
+      { h: '<div><b>الف)</b> ظرف اول (منیزیم)؛ چون منیزیم از مس واکنش‌پذیرتر است و سریع‌تر مس را از محلول جابه‌جا می‌کند (مس قرمز‌قهوه‌ای رسوب می‌کند و رنگ آبی محلول کم‌رنگ می‌شود).</div><div><b>ب)</b> ظرف سوم (طلا)؛ چون طلا از مس واکنش‌پذیری کمتری دارد و نمی‌تواند آن را جابه‌جا کند.</div>' },
+      { h: '<div><b>۱)</b> عدد اتمی &nbsp;—&nbsp; <b>۲)</b> الکترون‌های لایه ظرفیت &nbsp;—&nbsp; <b>۳)</b> مشابه</div>' },
+      { h: '<div><b>الف)</b> توزیع الکترون‌ها: ۲ – ۸ – ۱ (مدل بور در شکل)</div>', b: { n: 11, sh: [2, 8, 1] }, h2: '<div><b>ب)</b> گروه ۱ ، دوره ۳</div>' },
+      { h: '<div><b>الف)</b> هر دو فلز رسانای گرما و برق‌اند (چکش‌خوار و شکل‌پذیر هم هستند).</div><div><b>ب)</b> آلومینیم چگالی کمی دارد (سبک است)، پس برای بدنه هواپیما مناسب است. مس رسانایی الکتریکی بسیار خوبی دارد و جریان صاعقه را به زمین منتقل می‌کند.</div>' },
+      { h: '<div>فرمول: <span class="formula">H₂SO₄</span></div><div>عناصر: هیدروژن، گوگرد، اکسیژن</div><div>کاربرد (یکی از موارد): اسید باتری خودرو، ساخت کود شیمیایی، پاک‌کننده‌ها</div>' },
+      { h: '<div>بسپار از اتصال تعداد بسیار زیادی مولکول کوچک و یکسان (تکپار) ساخته می‌شود و واحدهای تکراری دارد؛ درشت‌مولکول به هر مولکول بسیار بزرگ گفته می‌شود. هر بسپار یک درشت‌مولکول است، اما هر درشت‌مولکولی بسپار نیست.</div><div>نمونه درشت‌مولکول (دو مورد): نشاسته، پروتئین، سلولز، پلاستیک‌ها (مثل پلی‌اتن)</div>' }
+    ],
+    B: [
+      { h: '<div><b>الف)</b> منیزیم؛ چون واکنش‌پذیری آن از روی و طلا بیشتر است و سریع‌تر با اکسیژن ترکیب می‌شود.</div><div><b>ب)</b> طلا</div>' },
+      { h: '<div><b>۱)</b> دوره &nbsp;—&nbsp; <b>۲)</b> یکسان (برابر) &nbsp;—&nbsp; <b>۳)</b> الکترون‌های لایه ظرفیت</div>' },
+      { h: '<div><b>الف)</b> توزیع الکترون‌ها: ۲ – ۸ – ۷ (مدل بور در شکل)</div>', b: { n: 17, sh: [2, 8, 7] }, h2: '<div><b>ب)</b> گروه ۱۷ ، دوره ۳</div><div><b>ج)</b> ۷ الکترون</div>' },
+      { h: '<div><b>الف)</b> هر دو رسانای گرما و برق‌اند (چکش‌خوار و شکل‌پذیر هم هستند).</div><div><b>ب)</b> مس رسانایی الکتریکی بسیار خوبی دارد، پس برای سیم برق مناسب است. آهن محکم و سخت و ارزان است، پس برای بدنه خودرو مناسب است.</div>' },
+      { h: '<div>فرمول: <span class="formula">O₃</span></div><div>در لایه‌ای از جو زمین به نام «لایه اوزون» یافت می‌شود.</div><div>فایده: پرتوهای فرابنفش مضر خورشید را جذب می‌کند و از موجودات زنده محافظت می‌کند.</div>' },
+      { h: '<div>درشت‌مولکول‌ها مولکول‌هایی با جرم بسیار بزرگ و شمار بسیار زیاد اتم‌اند (مثل نشاسته، پروتئین، پلاستیک)، ولی ریزمولکول‌ها کوچک‌اند و اتم‌های کمی دارند (مثل آب، کربن دی‌اکسید، گلوکز).</div><div>انواع بسپار: طبیعی (مثل نشاسته، پروتئین، سلولز) و مصنوعی (مثل پلی‌اتن، نایلون)</div>' }
+    ]
+  };
+  var COUNT = EXAMS.A.qs.length;
+
+  var state = { group: 'AB', idx: 0, unlocked: false, showAns: false };
+  var timers = [];
+  for (var i = 0; i < COUNT; i++) timers.push({ remaining: Q_SECONDS, endAt: 0, running: false, finished: false });
+
+  var root = document.documentElement;
+  var main = document.getElementById('main');
+  var dots = document.getElementById('dots');
+  var clock = document.getElementById('clock');
+  var startBtn = document.getElementById('startBtn');
+  var done = document.getElementById('done');
+
+  function fa(n) { return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  function bohrSVG(n, shells) {
+    var s = '<svg class="bohr" viewBox="0 0 200 200" role="img" aria-label="مدل بور">';
+    shells.forEach(function (m, k) {
+      var r = 38 + k * 22;
+      s += '<circle class="orb" cx="100" cy="100" r="' + r + '"/>';
+      for (var j = 0; j < m; j++) {
+        var a = (2 * Math.PI * j) / m + k * 0.6;
+        s += '<circle class="el" cx="' + (100 + r * Math.cos(a)).toFixed(1) + '" cy="' + (100 + r * Math.sin(a)).toFixed(1) + '" r="4.5"/>';
+      }
+    });
+    s += '<circle class="nuc" cx="100" cy="100" r="24"/><text x="100" y="100" text-anchor="middle" dominant-baseline="central">+' + n + '</text></svg>';
+    return s;
+  }
+
+  function ansHTML(g, i) {
+    var a = ANSWERS[g][i];
+    var h = '<div class="ans"><div class="ans-h">پاسخ</div>' + a.h;
+    if (a.b) h += bohrSVG(a.b.n, a.b.sh);
+    if (a.h2) h += a.h2;
+    return h + '</div>';
+  }
+
+  function colHTML(g, q) {
+    var h = '<section class="col col' + g + '">';
+    h += '<div class="qhead"><div class="qnum">' + q.n + '</div><div class="gtag">' + EXAMS[g].title + '</div><div class="points">' + q.pts + '</div></div>';
+    h += '<p class="qtext">' + q.text + '</p>';
+    if (q.parts) {
+      h += '<ul class="parts">';
+      q.parts.forEach(function (p) { h += '<li><span class="lbl">' + p[0] + '</span><span>' + p[1] + '</span></li>'; });
+      h += '</ul>';
+    }
+    if (state.unlocked && state.showAns) h += ansHTML(g, state.idx);
+    return h + '</section>';
+  }
+
+  function paintClock() {
+    var t = timers[state.idx];
+    var s = Math.max(0, Math.ceil(t.remaining));
+    clock.textContent = fa(pad(Math.floor(s / 60)) + ':' + pad(s % 60));
+    clock.className = 'clock' + (s <= 30 ? ' danger' : s <= 60 ? ' warn' : '');
+    startBtn.textContent = t.running ? 'توقف' : (t.remaining < Q_SECONDS && t.remaining > 0 ? 'ادامه' : 'شروع');
+    startBtn.disabled = t.remaining <= 0;
+    startBtn.style.opacity = startBtn.disabled ? .4 : 1;
+    document.getElementById('tlabel').textContent = 'سؤال ' + EXAMS.A.qs[state.idx].n;
+  }
+
+  function paintDots() {
+    Array.prototype.forEach.call(dots.children, function (b, i) {
+      b.className = 'dot' + (timers[i].running ? ' running' : '') + (timers[i].finished ? ' finished' : '');
+      if (i === state.idx) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+    });
+  }
+
+  function render() {
+    var groups = state.group === 'AB' ? ['A', 'B'] : [state.group];
+    root.setAttribute('data-group', groups[0]);
+    ['AB', 'A', 'B'].forEach(function (g) {
+      document.getElementById('tab' + g).setAttribute('aria-pressed', state.group === g);
+    });
+    main.innerHTML = '<div class="cols' + (groups.length === 2 ? ' two' : '') + '">' +
+      groups.map(function (g) { return colHTML(g, EXAMS[g].qs[state.idx]); }).join('') + '</div>';
+    document.getElementById('prevBtn').disabled = state.idx === 0;
+    document.getElementById('nextBtn').disabled = state.idx === COUNT - 1;
+    paintClock(); paintDots();
+  }
+
+  dots.innerHTML = '';
+  EXAMS.A.qs.forEach(function (q, i) {
+    var b = document.createElement('button');
+    b.className = 'dot'; b.textContent = q.n; b.setAttribute('aria-label', 'سؤال ' + q.n);
+    b.addEventListener('click', function () { state.idx = i; render(); });
+    dots.appendChild(b);
+  });
+
+  function go(d) {
+    state.idx = Math.max(0, Math.min(COUNT - 1, state.idx + d));
+    done.classList.remove('show');
+    render();
+  }
+  function setGroup(g) { state.group = g; render(); }
+
+  /* timers: each question keeps its own countdown */
+  var tick = null;
+  function ensureTick() {
+    if (tick) return;
+    tick = setInterval(function () {
+      var any = false, now = Date.now();
+      timers.forEach(function (t, i) {
+        if (!t.running) return;
+        t.remaining = (t.endAt - now) / 1000;
+        if (t.remaining <= 0) {
+          t.remaining = 0; t.running = false; t.finished = true;
+          if (i === state.idx) done.classList.add('show');
+        } else any = true;
+      });
+      paintClock(); paintDots();
+      if (!any) { clearInterval(tick); tick = null; }
+    }, 250);
+  }
+  function toggleTimer() {
+    var t = timers[state.idx];
+    if (t.remaining <= 0) return;
+    if (t.running) { t.remaining = (t.endAt - Date.now()) / 1000; t.running = false; }
+    else { t.endAt = Date.now() + t.remaining * 1000; t.running = true; ensureTick(); }
+    paintClock(); paintDots();
+  }
+  function resetTimer() {
+    var t = timers[state.idx];
+    t.running = false; t.finished = false; t.remaining = Q_SECONDS;
+    done.classList.remove('show'); paintClock(); paintDots();
+  }
+
+  function toggleFS() {
+    try {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else if (root.requestFullscreen) root.requestFullscreen();
+    } catch (e) {}
+  }
+
+  document.getElementById('tabAB').addEventListener('click', function () { setGroup('AB'); });
+  document.getElementById('tabA').addEventListener('click', function () { setGroup('A'); });
+  document.getElementById('tabB').addEventListener('click', function () { setGroup('B'); });
+  document.getElementById('prevBtn').addEventListener('click', function () { go(-1); });
+  document.getElementById('nextBtn').addEventListener('click', function () { go(1); });
+  startBtn.addEventListener('click', toggleTimer);
+  document.getElementById('resetBtn').addEventListener('click', resetTimer);
+  document.getElementById('fsBtn').addEventListener('click', toggleFS);
+  document.getElementById('closeDone').addEventListener('click', function () { done.classList.remove('show'); });
+
+  /* keyboard: in RTL, left = next, right = previous */
+  document.addEventListener('keydown', function (e) {
+    if (e.target && e.target.tagName === 'INPUT') return;
+    var k = e.key;
+    if (k === 'ArrowLeft' || k === 'PageDown') { go(1); }
+    else if (k === 'ArrowRight' || k === 'PageUp') { go(-1); }
+    else if (k === ' ' && !(e.target && e.target.tagName === 'BUTTON')) { e.preventDefault(); go(1); }
+    else if (k === 't' || k === 'T') { toggleTimer(); }
+    else if (k === 'r' || k === 'R') { resetTimer(); }
+    else if (k === 'f' || k === 'F') { toggleFS(); }
+    else if (k === 'g' || k === 'G') { setGroup('AB'); }
+    else if (k === 'a' || k === 'A') { setGroup('A'); }
+    else if (k === 'b' || k === 'B') { setGroup('B'); }
+    else if (k === 'k' || k === 'K') { ansToggle(); }
+    else if (k === 'l' || k === 'L') { if (state.unlocked) { state.unlocked = false; state.showAns = false; updAnsBtn(); render(); } }
+    else if (k === 'Escape') { done.classList.remove('show'); }
+  });
+
+  /* answer key behind a password */
+  var ansBtn = document.getElementById('ansBtn');
+  var gate = document.getElementById('gate');
+  var pw = document.getElementById('pw');
+  var gerr = document.getElementById('gerr');
+  function updAnsBtn() {
+    ansBtn.textContent = !state.unlocked ? '🔒 پاسخنامه' : (state.showAns ? 'پنهان‌کردن پاسخ' : 'نمایش پاسخ');
+  }
+  function openGate() { gerr.textContent = ''; pw.value = ''; gate.classList.add('show'); pw.focus(); }
+  function closeGate() { gate.classList.remove('show'); pw.value = ''; gerr.textContent = ''; }
+  function ansToggle() {
+    if (!state.unlocked) { openGate(); return; }
+    state.showAns = !state.showAns; updAnsBtn(); render();
+  }
+  function tryPw() {
+    if (pw.value === '5253') {
+      state.unlocked = true; state.showAns = true; closeGate(); updAnsBtn(); render();
+    } else {
+      gerr.textContent = 'رمز نادرست است'; pw.select();
+    }
+  }
+  ansBtn.addEventListener('click', ansToggle);
+  document.getElementById('gok').addEventListener('click', tryPw);
+  document.getElementById('gcancel').addEventListener('click', closeGate);
+  pw.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') tryPw();
+    else if (e.key === 'Escape') closeGate();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
