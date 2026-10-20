@@ -1,1 +1,533 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#29b6f6">
+<meta name="author" content="سید میثم حجت قمی">
+<title>قطار میلیاردی | ریاضی پنجم</title>
+<!-- طراح: سید میثم حجت قمی -->
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2d2a4a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{font-family:"Vazirmatn","Vazir",Tahoma,"Segoe UI",system-ui,sans-serif;background:linear-gradient(180deg,#fff3c4,#ffd6ec);color:var(--ink);touch-action:manipulation;overflow-x:hidden}
+button{font-family:inherit}
+.num{display:inline-block;direction:ltr;unicode-bidi:isolate}
+#app{max-width:480px;margin:0 auto;min-height:100dvh;position:relative;display:flex;flex-direction:column;background:#fffdf5;box-shadow:0 0 30px #0003;overflow:hidden}
 
+/* ---------- نوار بالا ---------- */
+.topbar{display:flex;align-items:center;gap:6px;padding:10px 10px 8px;background:#fff}
+.chip{flex:1;display:flex;align-items:center;justify-content:center;gap:4px;padding:6px 6px;border-radius:999px;font-size:13px;font-weight:700;color:#fff;white-space:nowrap}
+.chip b{font-size:16px;font-weight:900}
+.chip.c1{background:#1e88e5;flex:1.6}.chip.c2{background:#fb8c00}.chip.c3{background:#43a047}
+.roundbtn{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:#ede7f6;font-size:20px;cursor:pointer;box-shadow:0 3px 0 #b39ddb}
+.progress{height:10px;background:#e0e0e0}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffca28,#ef5350,#ab47bc);border-radius:0 8px 8px 0;transition:width .5s}
+
+/* ---------- صحنه ---------- */
+.scene{position:relative;height:190px;overflow:hidden;background:linear-gradient(#29b6f6 0%,#81d4fa 55%,#e1f5fe 100%);border-radius:0 0 30px 30px;flex:none}
+.sun{position:absolute;top:14px;left:18px;width:42px;height:42px;border-radius:50%;background:#ffee58;box-shadow:0 0 0 8px #fff59d88,0 0 30px 10px #fff176}
+.cloud{position:absolute;left:0;height:20px;width:64px;background:#fff;border-radius:20px;opacity:.95;animation:drift linear infinite}
+.cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cloud::before{width:30px;height:30px;top:-14px;left:10px}
+.cloud::after{width:24px;height:24px;top:-9px;left:32px}
+.cloud.a{top:22px;animation-duration:26s;animation-delay:-8s}
+.cloud.b{top:52px;transform-origin:left;animation-duration:38s;animation-delay:-20s;scale:.7}
+.cloud.c{top:34px;animation-duration:32s;animation-delay:-2s;scale:.85}
+@keyframes drift{from{transform:translateX(-120px)}to{transform:translateX(560px)}}
+@keyframes slide{from{background-position:0 100%}to{background-position:var(--p) 100%}}
+.hills{position:absolute;left:0;right:0;bottom:26px;background-repeat:repeat-x;background-position:0 100%;animation:slide linear infinite}
+.h2{height:100px;background-size:300px 100px;--p:300px;animation-duration:34s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='100' viewBox='0 0 300 100'%3E%3Cpath d='M0 60 Q75 10 150 60 T300 60 V100 H0 Z' fill='%23a5d6a7'/%3E%3C/svg%3E")}
+.h1{height:70px;background-size:400px 70px;--p:400px;animation-duration:14s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='70' viewBox='0 0 400 70'%3E%3Cpath d='M0 40 Q100 0 200 40 T400 40 V70 H0 Z' fill='%2366bb6a'/%3E%3Ccircle cx='60' cy='46' r='5' fill='%23ef5350'/%3E%3Ccircle cx='260' cy='44' r='5' fill='%23ffca28'/%3E%3C/svg%3E")}
+.ground{position:absolute;left:0;right:0;bottom:0;height:26px;background:repeating-linear-gradient(90deg,#6d4c41 0 12px,transparent 12px 30px),#bcaaa4;background-size:30px 100%,auto;animation:gslide .5s linear infinite}
+@keyframes gslide{from{background-position:0 0,0 0}to{background-position:30px 0,0 0}}
+.rail{position:absolute;left:0;right:0;bottom:22px;height:4px;background:#546e7a;box-shadow:0 2px 0 #263238}
+.trainwrap{position:absolute;left:8px;bottom:26px;transform-origin:left bottom;transition:transform .6s ease}
+.train{display:flex;flex-wrap:nowrap;width:max-content;direction:ltr}
+.car{position:relative;flex:none}
+.car svg{display:block;animation:bob .5s ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.6px)}}
+.wh{transform-box:fill-box;transform-origin:center;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.car.new{animation:wagonIn .95s cubic-bezier(.2,1.25,.4,1) both}
+.car.new svg{animation:bob .5s ease-in-out infinite,glow 1.8s ease-out 1}
+@keyframes wagonIn{0%{transform:translate(260px,-90px) rotate(25deg) scale(.3);opacity:0}55%{opacity:1}100%{transform:none;opacity:1}}
+@keyframes glow{0%,45%{filter:drop-shadow(0 0 10px #ffeb3b) drop-shadow(0 0 18px #fff)}100%{filter:none}}
+.sp{position:absolute;left:40%;top:25%;font-size:18px;opacity:0;pointer-events:none;animation:burst 1s ease-out .75s both}
+@keyframes burst{0%{opacity:1;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.5)}}
+.puff{position:absolute;left:14px;top:-2px;width:14px;height:14px;border-radius:50%;background:#fff;opacity:0;animation:puff 1.8s ease-out infinite;pointer-events:none}
+@keyframes puff{0%{opacity:.95;transform:translate(0,0) scale(.6)}100%{opacity:0;transform:translate(46px,-50px) scale(2.6)}}
+.toast{position:absolute;top:48%;left:50%;transform:translate(-50%,0);background:#fff;color:#2e7d32;font-weight:900;font-size:17px;padding:8px 18px;border-radius:999px;box-shadow:0 6px 18px #0003;opacity:0;pointer-events:none;white-space:nowrap;z-index:5}
+.toast.go{animation:toast 1.8s ease-out both}
+@keyframes toast{0%{opacity:0;transform:translate(-50%,20px) scale(.6)}15%{opacity:1;transform:translate(-50%,0) scale(1.1)}70%{opacity:1;transform:translate(-50%,-14px) scale(1)}100%{opacity:0;transform:translate(-50%,-34px)}}
+.parked .car svg,.parked .wh,.parked .puff{animation:none}
+.parked .puff{display:none}
+
+/* ---------- کارت سوال ---------- */
+.card{flex:1;padding:18px 16px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column}
+.qtext{background:#fff;border:3px dashed #ffb74d;border-radius:26px;padding:16px 14px;text-align:center;font-size:20px;font-weight:800;line-height:2;margin-bottom:16px;box-shadow:0 4px 14px #0001}
+.opt{display:flex;align-items:center;gap:12px;width:100%;min-height:62px;margin:0 0 12px;padding:8px 12px;border:0;border-radius:34px;font-size:20px;font-weight:900;color:#fff;cursor:pointer;box-shadow:0 6px 0 rgba(0,0,0,.25);transition:transform .1s,box-shadow .1s;text-align:center;animation:popUp .45s both}
+.opt:nth-child(1){background:#ef5350;animation-delay:.02s}
+.opt:nth-child(2){background:#29b6f6;animation-delay:.1s}
+.opt:nth-child(3){background:#fb8c00;animation-delay:.18s}
+.opt:nth-child(4){background:#43a047;animation-delay:.26s}
+.opt:active:not(:disabled){transform:translateY(5px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.opt .badge{flex:none;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.32);display:grid;place-items:center;font-size:18px}
+.opt .otxt{flex:1;padding-left:40px}
+.opt:disabled{cursor:default}
+.opt.dim{opacity:.5}
+.opt.right{background:#2e7d32!important;outline:5px solid #fff176;opacity:1;animation:pulse .6s ease 2}
+.opt.wrong{background:#b71c1c!important;opacity:1;animation:shakeX .5s}
+@keyframes popUp{from{opacity:0;transform:translateY(24px) scale(.9)}to{opacity:1;transform:none}}
+@keyframes pulse{50%{transform:scale(1.05)}}
+@keyframes shakeX{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-8px)}80%{transform:translateX(8px)}}
+.card.shake{animation:shakeX .5s}
+.designer{margin-top:auto;padding-top:10px;text-align:center;font-size:12px;color:#8d6e9a;font-weight:700}
+
+/* ---------- پنل بازخورد ---------- */
+.sheet{position:fixed;left:0;right:0;bottom:0;max-width:480px;margin:0 auto;transform:translateY(115%);transition:transform .38s cubic-bezier(.2,.9,.3,1.15);z-index:40;padding:18px 18px calc(18px + env(safe-area-inset-bottom));border-radius:32px 32px 0 0;color:#fff;box-shadow:0 -8px 30px #0004}
+.sheet.show{transform:none}
+.sheet.ok{background:linear-gradient(135deg,#43a047,#1b5e20)}
+.sheet.bad{background:linear-gradient(135deg,#ef5350,#b71c1c)}
+.sheet h3{margin:0 0 6px;font-size:22px;font-weight:900}
+.sheet p{margin:0 0 14px;font-size:16px;line-height:1.9;font-weight:600}
+.nextbtn{width:100%;min-height:58px;border:0;border-radius:32px;background:#fff;font-size:20px;font-weight:900;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.25)}
+.sheet.ok .nextbtn{color:#2e7d32}.sheet.bad .nextbtn{color:#c62828}
+.nextbtn:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+
+/* ---------- اخطار / ستاره ---------- */
+.warn{position:fixed;inset:0;display:grid;place-items:center;pointer-events:none;z-index:70;opacity:0}
+.warn .box{text-align:center;color:#fff;font-weight:900;font-size:30px;text-shadow:0 4px 12px #0008}
+.warn .tri{font-size:110px;line-height:1;filter:drop-shadow(0 6px 10px #0006)}
+.warn.go{animation:warnAnim 1.4s ease-out both}
+@keyframes warnAnim{0%{opacity:0;background:rgba(229,57,53,.0)}10%{opacity:1;background:rgba(229,57,53,.45)}25%{background:rgba(229,57,53,.2)}40%{background:rgba(229,57,53,.45)}100%{opacity:0;background:rgba(229,57,53,0)}}
+.warn.go .tri{animation:warnPop .7s cubic-bezier(.2,1.5,.4,1) both,warnShake .5s .4s 2}
+@keyframes warnPop{from{transform:scale(.1) rotate(-30deg)}to{transform:scale(1)}}
+@keyframes warnShake{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg)}75%{transform:rotate(12deg)}}
+.stars{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:80}
+.star{position:absolute;top:0;animation:fall linear forwards;filter:drop-shadow(0 0 6px #ffe082)}
+@keyframes fall{0%{transform:translateY(-12vh) rotate(0);opacity:1}100%{transform:translateY(112vh) rotate(420deg);opacity:.9}}
+
+/* ---------- صفحه شروع و پایان ---------- */
+.overlay{position:fixed;inset:0;z-index:90;overflow-y:auto;background:linear-gradient(180deg,#29b6f6 0%,#81d4fa 45%,#fff59d 100%)}
+.overlay.hidden{display:none}
+.panel{max-width:480px;margin:0 auto;min-height:100%;padding:26px 18px calc(22px + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center;text-align:center}
+.title{font-size:40px;font-weight:900;color:#fff;margin:6px 0 0;text-shadow:0 4px 0 #1565c0,0 8px 16px #0004;line-height:1.4}
+.sub{font-size:17px;font-weight:800;color:#0d47a1;margin:4px 0 14px}
+.hero{margin:10px 0 6px;animation:roll 2.4s cubic-bezier(.2,.8,.3,1) both;transform-origin:center bottom}
+@keyframes roll{from{transform:translateX(-120%)}to{transform:none}}
+.rules{background:#fff;border-radius:26px;padding:14px 18px;text-align:right;font-size:16px;line-height:2;font-weight:700;box-shadow:0 6px 0 #0002;width:100%;margin:10px 0 18px}
+.bigbtn{width:100%;min-height:68px;border:0;border-radius:40px;background:linear-gradient(180deg,#ffca28,#fb8c00);color:#fff;font-size:26px;font-weight:900;cursor:pointer;box-shadow:0 8px 0 #c66900,0 12px 20px #0003;text-shadow:0 2px 0 #c66900;animation:beat 1.3s ease-in-out infinite}
+.bigbtn:active{transform:translateY(6px);box-shadow:0 2px 0 #c66900}
+@keyframes beat{50%{transform:scale(1.04)}}
+.credit{margin-top:auto;padding-top:22px;font-size:14px;font-weight:800;color:#0d47a1}
+.final .panel{background:none}
+.scorering{width:150px;height:150px;border-radius:50%;background:#fff;border:10px solid #ffca28;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 8px 0 #0002;animation:popUp .6s both}
+.scorering b{font-size:52px;line-height:1;color:#e65100}
+.scorering span{font-size:15px;font-weight:800;color:#6a1b9a}
+.msg{font-size:24px;font-weight:900;color:#fff;margin:14px 0 4px;text-shadow:0 3px 0 #1565c0}
+.stats{display:flex;gap:8px;width:100%;margin:8px 0 12px}
+.stats div{flex:1;background:#fff;border-radius:20px;padding:8px 4px;font-weight:800;font-size:14px;box-shadow:0 4px 0 #0002}
+.stats b{display:block;font-size:24px}
+.ftrain{width:100%;background:#e1f5fe;border-radius:24px;padding:14px 8px 10px;margin-bottom:16px;box-shadow:inset 0 0 0 4px #fff,0 6px 0 #0002}
+.ftrain h4{margin:0 0 10px;font-size:17px;color:#0d47a1}
+.frows{display:flex;flex-wrap:wrap;direction:ltr;justify-content:flex-start;background:repeating-linear-gradient(to bottom,transparent 0,transparent 56px,#546e7a 56px,#546e7a 60px)}
+.frows .car{height:60px;opacity:0;animation:popIn .5s cubic-bezier(.2,1.4,.4,1) forwards;animation-delay:var(--fd,0s)}
+@keyframes popIn{from{opacity:0;transform:translateY(-30px) scale(.3)}to{opacity:1;transform:none}}
+.frows .car svg{animation:none}.frows .wh{animation:none}.frows .puff{display:none}
+.ghost{background:none!important}
+@media (prefers-reduced-motion:reduce){.cloud,.hills,.ground{animation:none}}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="topbar">
+    <div class="chip c1">❓ سوال <b id="qn">۱</b> از <b>۲۰</b></div>
+    <div class="chip c2">⭐ <b id="sc">۰</b></div>
+    <div class="chip c3">🚃 <b id="wg">۰</b></div>
+    <button class="roundbtn" id="mute" aria-label="قطع و وصل صدا">🔊</button>
+  </div>
+  <div class="progress"><i id="bar"></i></div>
+
+  <div class="scene" id="scene">
+    <div class="sun"></div>
+    <div class="cloud a"></div><div class="cloud b"></div><div class="cloud c"></div>
+    <div class="hills h2"></div><div class="hills h1"></div>
+    <div class="ground"></div><div class="rail"></div>
+    <div class="trainwrap" id="trainwrap"><div class="train" id="train"></div></div>
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <main class="card" id="card">
+    <div class="qtext" id="qtext"></div>
+    <div id="opts"></div>
+    <div class="designer">طراح: سید میثم حجت قمی</div>
+  </main>
+</div>
+
+<div class="sheet" id="sheet">
+  <h3 id="sheetTitle"></h3>
+  <p id="sheetText"></p>
+  <button class="nextbtn" id="nextBtn">سوال بعدی ◀</button>
+</div>
+
+<div class="warn" id="warn"><div class="box"><div class="tri">⚠️</div>اخطار!</div></div>
+<div class="stars" id="stars"></div>
+
+<!-- صفحه شروع -->
+<div class="overlay" id="startScreen">
+  <div class="panel">
+    <h1 class="title">🚂 قطار میلیاردی</h1>
+    <div class="sub">ریاضی پنجم ابتدایی · درس میلیارد</div>
+    <div class="hero" id="heroLoco"></div>
+    <div class="rules">
+      🧑‍✈️ تو راننده‌ی قطار هستی!<br>
+      ✅ هر جواب درست = یک واگن رنگی تازه 🚃<br>
+      ⚠️ جواب اشتباه = اخطار (واگن اضافه نمی‌شود)<br>
+      ❓ ۲۰ سوال داری؛ ببین چند واگن می‌بندی!<br>
+      🔊 صدای گوشی را روشن کن.
+    </div>
+    <button class="bigbtn" id="startBtn">شروع سفر 🚂</button>
+    <div class="credit">طراح: سید میثم حجت قمی</div>
+  </div>
+</div>
+
+<!-- صفحه پایان -->
+<div class="overlay final hidden" id="endScreen">
+  <div class="panel">
+    <div class="scorering"><b id="fScore">۰</b><span>از ۱۰۰ امتیاز</span></div>
+    <div class="msg" id="fMsg"></div>
+    <div class="stats">
+      <div>✅ درست<b id="fRight">۰</b></div>
+      <div>❌ نادرست<b id="fWrong">۰</b></div>
+      <div>🚃 واگن<b id="fWag">۰</b></div>
+    </div>
+    <div class="ftrain">
+      <h4 id="fTrainTitle"></h4>
+      <div class="frows" id="frows"></div>
+    </div>
+    <button class="bigbtn" id="againBtn">بازی دوباره 🔄</button>
+    <div class="credit">طراح: سید میثم حجت قمی</div>
+  </div>
+</div>
+
+<script>
+/* ===================== ابزارهای فارسی ===================== */
+const P='۰۱۲۳۴۵۶۷۸۹';
+const faN=n=>String(n).replace(/\d/g,d=>P[d]);
+const fa=s=>String(s).replace(/\d[\d,]*/g,m=>'<span class="num">'+m.replace(/\d/g,d=>P[d]).replace(/,/g,'٬')+'</span>');
+const $=id=>document.getElementById(id);
+
+/* ===================== سوال‌ها (گزینه‌ی اول، درست است) ===================== */
+const Q=[
+ {q:"هزارتا هزارتایی چند می‌شود؟",o:["یک میلیون","صد هزار","ده میلیون","یک میلیارد"],e:"1000 × 1000 = 1,000,000 که می‌شود «یک میلیون»."},
+ {q:"هزار میلیون برابر است با:",o:["یک میلیارد","صد میلیون","ده میلیارد","یک میلیون"],e:"1000 میلیون = یک میلیارد."},
+ {q:"عدد 1,000,000,000 را چگونه می‌خوانیم؟",o:["یک میلیارد","صد میلیون","ده میلیارد","یک میلیون"],e:"این عدد ۹ صفر دارد و می‌خوانیم: یک میلیارد."},
+ {q:"عدد «یک میلیارد» چند صفر دارد؟",o:["9 صفر","6 صفر","7 صفر","8 صفر"],e:"هزار ۳ صفر، میلیون ۶ صفر و میلیارد ۹ صفر دارد."},
+ {q:"کدام عدد از همه بزرگ‌تر است؟",o:["1,000,000,000","999,999,999","998,000,000","900,000,000"],e:"یک میلیارد ۱۰ رقم دارد و بقیه ۹ رقمی هستند؛ پس از همه بزرگ‌تر است."},
+ {q:"عدد «سه میلیارد و دویست میلیون» را با رقم بنویس:",o:["3,200,000,000","3,020,000,000","3,200,000","32,000,000,000"],e:"3 میلیارد = 3,000,000,000 و 200 میلیون = 200,000,000؛ جمعشان: 3,200,000,000."},
+ {q:"در عدد 4,567,890,123 رقم 4 در کدام جایگاه است؟",o:["میلیارد","صد میلیون","ده میلیارد","میلیون"],e:"این عدد ۱۰ رقم دارد؛ رقم اولِ سمت چپ در جایگاه «میلیارد» است."},
+ {q:"ارزش رقم 7 در عدد 2,700,000,000 چقدر است؟",o:["700,000,000","70,000,000","7,000,000","7,000,000,000"],e:"رقم 7 در جایگاه «صد میلیون» است؛ پس ارزشش هفتصد میلیون است."},
+ {q:"عدد بعد از 999,999,999 کدام است؟",o:["1,000,000,000","999,999,990","1,000,000","10,000,000,000"],e:"اگر ۱ واحد به 999,999,999 اضافه کنیم، می‌شود یک میلیارد."},
+ {q:"عدد قبل از 1,000,000,000 کدام است؟",o:["999,999,999","999,999,000","99,999,999","900,000,000"],e:"اگر ۱ واحد از یک میلیارد کم کنیم، ۹ تا رقم ۹ می‌ماند."},
+ {q:"عدد 5,000,000,000 چند میلیون است؟",o:["5000 میلیون","500 میلیون","50 میلیون","50000 میلیون"],e:"هر میلیارد 1000 میلیون است؛ پس 5 میلیارد = 5000 میلیون."},
+ {q:"حاصل 200 میلیون + 800 میلیون چیست؟",o:["یک میلیارد","صد میلیون","ده میلیارد","ده میلیون"],e:"200 + 800 = 1000؛ و 1000 میلیون یعنی یک میلیارد."},
+ {q:"یک میلیارد منهای 900 میلیون چقدر می‌شود؟",o:["100 میلیون","10 میلیون","900 میلیون","1000 میلیون"],e:"1000 میلیون − 900 میلیون = 100 میلیون."},
+ {q:"عدد 2,470,000,000 را به نزدیک‌ترین میلیارد گرد کن:",o:["2,000,000,000","3,000,000,000","2,500,000,000","1,000,000,000"],e:"470 میلیون کمتر از 500 میلیون است؛ پس به سمت پایین گرد می‌شود: ۲ میلیارد."},
+ {q:"دو عدد 3,500,000,000 و 3,050,000,000 را مقایسه کن. کدام عبارت درست است؟",o:["عدد اول بزرگ‌تر است","عدد دوم بزرگ‌تر است","هر دو برابرند","نمی‌شود مقایسه کرد"],e:"۳ میلیارد و ۵۰۰ میلیون از ۳ میلیارد و ۵۰ میلیون بزرگ‌تر است."},
+ {q:"عدد «هفت میلیارد» را با رقم بنویس:",o:["7,000,000,000","7,000,000","700,000,000","70,000,000,000"],e:"رقم 7 را می‌نویسیم و بعدش ۹ تا صفر."},
+ {q:"جمعیت جهان حدود هشت میلیارد نفر است. عدد «هشت میلیارد» چند رقم دارد؟",o:["10 رقم","9 رقم","11 رقم","8 رقم"],e:"8,000,000,000 یک رقم 8 و ۹ صفر دارد؛ جمعاً ۱۰ رقم."},
+ {q:"ده برابر «صد میلیون» کدام عدد است؟",o:["1,000,000,000","10,000,000","100,000,000","10,000,000,000"],e:"100,000,000 × 10 = 1,000,000,000 (یک میلیارد)."},
+ {q:"کدام عدد «دو میلیارد و پنج میلیون» است؟",o:["2,005,000,000","2,000,005,000","2,050,000,000","2,000,000,005"],e:"2 میلیارد = 2,000,000,000 و 5 میلیون = 5,000,000؛ جمعشان: 2,005,000,000."},
+ {q:"کارخانه‌ای سال اول 3 میلیارد تومان و سال دوم 2 میلیارد تومان فروش داشت. فروش دو سال چند میلیارد تومان است؟",o:["5 میلیارد تومان","6 میلیارد تومان","1 میلیارد تومان","5 میلیون تومان"],e:"3 + 2 = 5؛ پس فروش دو سال ۵ میلیارد تومان است."}
+];
+
+/* ===================== موتور صدا (Web Audio) ===================== */
+const Snd=(()=>{
+  let ctx,master,bg,sfx,noise,muted=false,timer=null,next=0,beat=0;
+  function init(){
+    if(ctx){ if(ctx.state==='suspended') ctx.resume(); return; }
+    try{ ctx=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ return; }
+    master=ctx.createGain(); master.gain.value=muted?0:1; master.connect(ctx.destination);
+    bg=ctx.createGain(); bg.gain.value=.5; bg.connect(master);
+    sfx=ctx.createGain(); sfx.gain.value=1; sfx.connect(master);
+    const L=ctx.sampleRate*2, b=ctx.createBuffer(1,L,ctx.sampleRate), d=b.getChannelData(0);
+    for(let i=0;i<L;i++) d[i]=Math.random()*2-1;
+    noise=b;
+  }
+  function nb(t,dur,freq,q,vol,type,dest,att){
+    const s=ctx.createBufferSource(); s.buffer=noise;
+    const f=ctx.createBiquadFilter(); f.type=type||'bandpass'; f.frequency.value=freq; f.Q.value=q;
+    const g=ctx.createGain(); att=att||.01;
+    g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(vol,t+att); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    s.connect(f); f.connect(g); g.connect(dest);
+    s.start(t,Math.random()*1.5); s.stop(t+dur+.05);
+  }
+  function tone(f,t,dur,type,vol,dest,f2){
+    const o=ctx.createOscillator(), g=ctx.createGain();
+    o.type=type; o.frequency.setValueAtTime(f,t);
+    if(f2) o.frequency.exponentialRampToValueAtTime(f2,t+dur);
+    g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(vol,t+.015); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(g); g.connect(dest); o.start(t); o.stop(t+dur+.05);
+  }
+  /* صدای قطار: چاه‌چاه بخار + تق‌تق ریل */
+  function sched(){
+    if(!ctx) return;
+    while(next<ctx.currentTime+.35){
+      const acc=beat%4===0;
+      nb(next,.14,acc?650:500,.9,acc?.5:.34,'bandpass',bg);
+      tone(70,next,.12,'sine',.45,bg,45);
+      nb(next+.02,.025,3000,3,.12,'bandpass',bg);
+      nb(next+.15,.025,3400,3,.1,'bandpass',bg);
+      beat++; next+=.27;
+    }
+  }
+  function startBg(){ if(!ctx||timer) return; next=ctx.currentTime+.05; beat=0; timer=setInterval(sched,100); }
+  function stopBg(){ if(timer){ clearInterval(timer); timer=null; } }
+  function whistle(){
+    if(!ctx) return; const t=ctx.currentTime;
+    [523,659].forEach(f=>{
+      const o=ctx.createOscillator(), g=ctx.createGain(), l=ctx.createOscillator(), lg=ctx.createGain();
+      l.frequency.value=7; lg.gain.value=6; l.connect(lg); lg.connect(o.frequency);
+      o.type='triangle'; o.frequency.value=f;
+      g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.2,t+.06);
+      g.gain.setValueAtTime(.2,t+.5); g.gain.exponentialRampToValueAtTime(.0001,t+.9);
+      o.connect(g); g.connect(sfx); o.start(t); l.start(t); o.stop(t+1); l.stop(t+1);
+    });
+    nb(t,.9,2600,2,.05,'bandpass',sfx);
+  }
+  function cheer(){
+    if(!ctx) return; const t=ctx.currentTime;
+    for(let i=0;i<100;i++){
+      const tt=t+Math.random()*1.8*(.35+Math.random());
+      nb(tt,.02+Math.random()*.05,1200+Math.random()*3500,.7,.09+Math.random()*.12,'bandpass',sfx);
+    }
+    nb(t,1.8,2200,.5,.1,'highpass',sfx,.5);
+    [523.25,659.25,783.99,1046.5].forEach((f,k)=>tone(f,t+k*.09,.38,'triangle',.18,sfx));
+    tone(1318.5,t+.42,.5,'sine',.15,sfx);
+  }
+  function wrong(){
+    if(!ctx) return; const t=ctx.currentTime;
+    [0,.18,.36].forEach(d=>tone(880,t+d,.12,'square',.1,sfx));
+    tone(220,t+.6,.5,'sawtooth',.14,sfx,110);
+  }
+  function couple(){
+    if(!ctx) return; const t=ctx.currentTime+.7;
+    nb(t,.12,220,1,.6,'lowpass',sfx);
+    tone(110,t,.16,'sine',.5,sfx,60);
+    tone(1760,t+.05,.4,'sine',.1,sfx);
+  }
+  function fanfare(){
+    if(!ctx) return; const t=ctx.currentTime;
+    [[523,0,.2],[659,.18,.2],[784,.36,.2],[1047,.54,.5],[784,.95,.2],[1047,1.15,.7]].forEach(([f,d,l])=>{
+      tone(f,t+d,l,'triangle',.2,sfx); tone(f/2,t+d,l,'square',.05,sfx);
+    });
+  }
+  function setMuted(m){ muted=m; if(master) master.gain.value=m?0:1; }
+  document.addEventListener('visibilitychange',()=>{
+    if(!ctx) return;
+    if(document.hidden) ctx.suspend(); else ctx.resume();
+  });
+  return {init,startBg,stopBg,whistle,cheer,wrong,couple,fanfare,setMuted,get muted(){return muted}};
+})();
+
+/* ===================== تصویر لوکوموتیو و واگن ===================== */
+const COLORS=['#ef5350','#ff9800','#fdd835','#66bb6a','#26c6da','#42a5f5','#ab47bc','#ec407a','#9ccc65','#ff7043'];
+function wheel(cx,cy,r){
+  return `<g class="wh"><circle cx="${cx}" cy="${cy}" r="${r}" fill="#37474f"/><circle cx="${cx}" cy="${cy}" r="${r*.38}" fill="#cfd8dc"/><line x1="${cx}" y1="${cy-r+1.2}" x2="${cx}" y2="${cy+r-1.2}" stroke="#cfd8dc" stroke-width="1.5"/></g>`;
+}
+function wagonSVG(color,num){
+  return `<svg viewBox="0 0 60 56" width="60" height="56" aria-hidden="true">
+  <rect x="0" y="36" width="8" height="3.5" rx="1" fill="#37474f"/><rect x="52" y="36" width="8" height="3.5" rx="1" fill="#37474f"/>
+  <rect x="5" y="11" width="50" height="31" rx="7" fill="${color}" stroke="rgba(0,0,0,.28)" stroke-width="1.5"/>
+  <rect x="3" y="7" width="54" height="8" rx="4" fill="rgba(0,0,0,.28)"/>
+  <rect x="10" y="19" width="11" height="10" rx="3" fill="#fffde7"/><rect x="24.5" y="19" width="11" height="10" rx="3" fill="#fffde7"/><rect x="39" y="19" width="11" height="10" rx="3" fill="#fffde7"/>
+  <text x="30" y="39" text-anchor="middle" font-size="8.5" font-weight="900" fill="#fff" stroke="rgba(0,0,0,.5)" stroke-width="1.6" paint-order="stroke" font-family="Vazirmatn,Tahoma,sans-serif">${faN(num)}</text>
+  ${wheel(17,49,7)}${wheel(43,49,7)}
+  </svg>`;
+}
+const LOCO=`<svg viewBox="0 0 92 56" width="92" height="56" aria-hidden="true">
+  <rect x="86" y="36" width="6" height="3.5" rx="1" fill="#37474f"/>
+  <polygon points="0,56 11,40 11,56" fill="#ffb300"/>
+  <rect x="13" y="3" width="13" height="5" rx="2" fill="#263238"/><rect x="16" y="7" width="7" height="14" fill="#37474f"/>
+  <rect x="8" y="19" width="46" height="25" rx="11" fill="#e53935" stroke="rgba(0,0,0,.28)" stroke-width="1.5"/>
+  <rect x="9" y="30" width="44" height="4" fill="#ffd54f"/>
+  <circle cx="10" cy="31" r="5" fill="#fff59d" stroke="#f9a825"/>
+  <circle cx="37" cy="19" r="6" fill="#ffca28" stroke="rgba(0,0,0,.28)"/>
+  <rect x="53" y="8" width="35" height="36" rx="6" fill="#1e88e5" stroke="rgba(0,0,0,.28)" stroke-width="1.5"/>
+  <rect x="50" y="4" width="41" height="8" rx="4" fill="#0d47a1"/>
+  <rect x="59" y="15" width="21" height="16" rx="4" fill="#e3f2fd"/>
+  <rect x="64" y="28" width="11" height="3" fill="#43a047"/>
+  <circle cx="69.5" cy="25" r="4.5" fill="#ffcc80"/>
+  <path d="M64.6 23.5 A4.9 4.9 0 0 1 74.4 23.5 Z" fill="#fb8c00"/>
+  <circle cx="67.8" cy="25" r=".8" fill="#4e342e"/><circle cx="71.2" cy="25" r=".8" fill="#4e342e"/>
+  <path d="M67.6 27 q1.9 1.6 3.8 0" stroke="#6d4c41" stroke-width=".9" fill="none"/>
+  <rect x="6" y="42" width="82" height="5" rx="2" fill="#455a64"/>
+  ${wheel(20,50,6)}${wheel(38,50,6)}${wheel(70,47,9)}
+</svg>`;
+const SMOKE='<i class="puff"></i><i class="puff" style="animation-delay:.6s"></i><i class="puff" style="animation-delay:1.2s"></i>';
+
+/* ===================== وضعیت بازی ===================== */
+const st={i:0,score:0,wagons:0,locked:false};
+const trainEl=$('train'), wrapEl=$('trainwrap'), sceneEl=$('scene');
+
+function makeCar(svg,cls,idx,isNew){
+  const d=document.createElement('div');
+  d.className='car '+cls+(isNew?' new':'');
+  d.style.setProperty('--d',(idx*.07)+'s');
+  d.innerHTML=svg+(cls==='loco'?SMOKE:'');
+  if(isNew){
+    const dirs=[[-40,-50],[30,-60],[60,-20],[-60,-10],[0,-70],[45,-45]];
+    dirs.forEach(([dx,dy])=>{
+      const s=document.createElement('b'); s.className='sp'; s.textContent='✨';
+      s.style.setProperty('--dx',dx+'px'); s.style.setProperty('--dy',dy+'px'); d.appendChild(s);
+    });
+  }
+  return d;
+}
+function fit(){
+  const avail=sceneEl.clientWidth-14, w=trainEl.offsetWidth||92;
+  const s=Math.max(.25,Math.min(1.25,avail/w));
+  wrapEl.style.transform='scale('+s+')';
+}
+function renderTrain(){
+  trainEl.innerHTML='';
+  trainEl.appendChild(makeCar(LOCO,'loco',0));
+  for(let i=0;i<st.wagons;i++) trainEl.appendChild(makeCar(wagonSVG(COLORS[i%10],i+1),'',i+1));
+  fit();
+}
+function addWagon(){
+  const n=st.wagons;
+  trainEl.appendChild(makeCar(wagonSVG(COLORS[(n-1)%10],n),'',0,true));
+  fit();
+  Snd.couple();
+  const t=$('toast'); t.textContent='🚃 واگن شماره‌ی '+faN(n)+' اضافه شد!';
+  t.classList.remove('go'); void t.offsetWidth; t.classList.add('go');
+  setTimeout(()=>{ if(!document.hidden) Snd.whistle(); },450);
+}
+window.addEventListener('resize',fit);
+
+function updateChips(){
+  $('qn').textContent=faN(Math.min(st.i+1,Q.length));
+  $('sc').textContent=faN(st.score);
+  $('wg').textContent=faN(st.wagons);
+  $('bar').style.width=(st.i/Q.length*100)+'%';
+}
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function showQ(){
+  const q=Q[st.i]; st.locked=false; updateChips();
+  $('qtext').innerHTML=fa(q.q);
+  const opts=shuffle(q.o.map((t,k)=>({t,ok:k===0})));
+  const box=$('opts'); box.innerHTML='';
+  opts.forEach((o,k)=>{
+    const b=document.createElement('button'); b.className='opt'; b.type='button';
+    b.innerHTML=`<span class="badge">${faN(k+1)}</span><span class="otxt">${fa(o.t)}</span>`;
+    b.dataset.ok=o.ok?'1':'0';
+    b.addEventListener('click',()=>pick(b,o.ok));
+    box.appendChild(b);
+  });
+  $('card').classList.remove('shake');
+}
+
+function starRain(n){
+  const L=['⭐','🌟','✨','⭐','🌟'], layer=$('stars');
+  for(let i=0;i<(n||36);i++){
+    const s=document.createElement('span'); s.className='star'; s.textContent=L[Math.floor(Math.random()*L.length)];
+    s.style.left=Math.random()*96+'vw'; s.style.fontSize=(16+Math.random()*28)+'px';
+    s.style.animationDuration=(1.7+Math.random()*1.5)+'s'; s.style.animationDelay=(Math.random()*.6)+'s';
+    layer.appendChild(s); setTimeout(()=>s.remove(),4000);
+  }
+}
+function warn(){
+  const w=$('warn'); w.classList.remove('go'); void w.offsetWidth; w.classList.add('go');
+  const c=$('card'); c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake');
+  if(navigator.vibrate) navigator.vibrate([120,60,120]);
+}
+
+function pick(btn,ok){
+  if(st.locked) return; st.locked=true;
+  const q=Q[st.i];
+  document.querySelectorAll('.opt').forEach(b=>{
+    b.disabled=true;
+    if(b.dataset.ok==='1') b.classList.add('right'); else if(b!==btn) b.classList.add('dim');
+  });
+  const sheet=$('sheet');
+  if(ok){
+    st.score+=5; st.wagons++;
+    $('sc').textContent=faN(st.score); $('wg').textContent=faN(st.wagons);
+    Snd.cheer(); starRain(); addWagon();
+    $('sheetTitle').textContent='آفرین! درست بود 🎉';
+    $('sheetText').innerHTML=fa(q.e);
+    sheet.className='sheet ok';
+  }else{
+    btn.classList.add('wrong');
+    Snd.wrong(); warn();
+    $('sheetTitle').textContent='اخطار! جواب درست این بود ⚠️';
+    $('sheetText').innerHTML='<b>'+fa(q.o[0])+'</b><br>'+fa(q.e);
+    sheet.className='sheet bad';
+  }
+  $('nextBtn').textContent=(st.i===Q.length-1)?'دیدن نتیجه 🏁':'سوال بعدی ◀';
+  setTimeout(()=>sheet.classList.add('show'),ok?900:700);
+}
+
+$('nextBtn').addEventListener('click',()=>{
+  $('sheet').classList.remove('show');
+  st.i++;
+  if(st.i>=Q.length) finish(); else setTimeout(showQ,250);
+});
+
+/* ===================== پایان بازی ===================== */
+function finish(){
+  Snd.stopBg(); Snd.fanfare(); setTimeout(()=>Snd.whistle(),900);
+  const right=st.wagons, wrong=Q.length-right;
+  $('fScore').textContent=faN(st.score);
+  $('fRight').textContent=faN(right); $('fWrong').textContent=faN(wrong); $('fWag').textContent=faN(right);
+  let m;
+  if(right===20) m='🏆 راننده‌ی افسانه‌ای! قطار کامل شد!';
+  else if(right>=16) m='🌟 عالی! تو استاد میلیارد هستی!';
+  else if(right>=11) m='👏 آفرین! کم‌کم استاد می‌شوی!';
+  else if(right>=6) m='🙂 خوب بود! کمی دیگر تمرین کن.';
+  else m='💪 نگران نباش؛ دوباره سفر کن!';
+  $('fMsg').textContent=m;
+  $('fTrainTitle').textContent=right>0?('🚂 قطار تو '+faN(right)+' واگن رنگی دارد!'):'🚂 فقط لوکوموتیو ماند؛ دوباره امتحان کن!';
+  const rows=$('frows'); rows.innerHTML='';
+  const lo=makeCar(LOCO,'loco',0); lo.style.setProperty('--fd','0s'); rows.appendChild(lo);
+  for(let i=0;i<right;i++){
+    const c=makeCar(wagonSVG(COLORS[i%10],i+1),'',i+1);
+    c.style.setProperty('--fd',((i+1)*.12)+'s'); rows.appendChild(c);
+  }
+  rows.classList.add('parked');
+  $('endScreen').classList.remove('hidden'); $('endScreen').scrollTop=0;
+  if(right>=11){ starRain(50); setTimeout(()=>starRain(40),1800); Snd.cheer(); }
+}
+
+function startGame(){
+  st.i=0; st.score=0; st.wagons=0; st.locked=false;
+  $('sheet').classList.remove('show');
+  renderTrain(); showQ();
+  Snd.startBg();
+}
+$('startBtn').addEventListener('click',()=>{
+  Snd.init(); Snd.whistle();
+  $('startScreen').classList.add('hidden');
+  startGame();
+});
+$('againBtn').addEventListener('click',()=>{
+  Snd.init(); Snd.whistle();
+  $('endScreen').classList.add('hidden');
+  startGame();
+});
+$('mute').addEventListener('click',()=>{
+  const m=!Snd.muted; Snd.setMuted(m); $('mute').textContent=m?'🔇':'🔊';
+});
+
+/* آماده‌سازی اولیه */
+$('heroLoco').innerHTML=LOCO.replace('width="92" height="56"','width="190" height="116"');
+renderTrain();
+updateChips();
+</script>
+</body>
+</html>
