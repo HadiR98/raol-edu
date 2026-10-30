@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>آزمون علوم — پیوند یونی، آرایش الکترونی و بسپارها</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      :root {
+        --ink: #1b1f2a;
+        --line: #9aa3b2;
+        --soft: #eef1f6;
+        --accent: #1f3a6e;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+      body {
+        background: #cfd4dc;
+        font-family: Vazirmatn, Tahoma, "Segoe UI", sans-serif;
+        color: var(--ink);
+        font-size: 9.4pt;
+        line-height: 1.5;
+      }
+      .page {
+        width: 210mm;
+        height: 297mm;
+        margin: 8mm auto;
+        padding: 9mm 11mm;
+        background: #fff;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+      }
+      .page::after {
+        content: attr(data-n);
+        position: absolute;
+        bottom: 4mm;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 8pt;
+        color: #667;
+      }
+      .hd {
+        border: 1.4px solid var(--ink);
+        border-radius: 3px;
+        padding: 2mm 3mm;
+        margin-bottom: 2.5mm;
+      }
+      .hd h1 {
+        margin: 0 0 1mm;
+        font-size: 12.5pt;
+        font-weight: 800;
+        text-align: center;
+        color: var(--accent);
+      }
+      .hd .r {
+        display: flex;
+        justify-content: space-between;
+        gap: 4mm;
+        font-size: 9pt;
+      }
+      .sec {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--soft);
+        border-right: 3px solid var(--accent);
+        padding: 0.6mm 3mm;
+        margin: 2.3mm 0 1.2mm;
+        font-weight: 700;
+        font-size: 9.4pt;
+      }
+      .q {
+        margin: 0 0 1.6mm;
+        display: flex;
+        gap: 1.8mm;
+        break-inside: avoid;
+      }
+      .q > b {
+        flex: none;
+        min-width: 5mm;
+      }
+      .q > div {
+        flex: 1;
+      }
+      .m {
+        color: #556;
+        font-size: 8.4pt;
+        white-space: nowrap;
+      }
+      .o {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 4mm;
+        margin-top: 0.4mm;
+      }
+      .sub {
+        margin: 0.5mm 0;
+        display: flex;
+        justify-content: space-between;
+        gap: 3mm;
+      }
+      .dot {
+        display: inline-block;
+        min-width: 22mm;
+        border-bottom: 1px dotted #444;
+      }
+      .tf {
+        display: flex;
+        justify-content: space-between;
+        gap: 3mm;
+        margin: 0.4mm 0;
+      }
+      .tf i {
+        font-style: normal;
+        border: 1px solid #444;
+        min-width: 13mm;
+        text-align: center;
+        border-radius: 2px;
+      }
+      .mt {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1mm 10mm;
+        margin-top: 1mm;
+        max-width: 150mm;
+      }
+      .mt .h {
+        font-weight: 700;
+        border-bottom: 1px solid var(--line);
+      }
+      .mt span.n {
+        display: inline-block;
+        min-width: 8mm;
+        border-bottom: 1px solid #444;
+        margin-left: 2mm;
+      }
+      .fig {
+        display: block;
+        margin: 1mm auto;
+        border: 1px dashed var(--line);
+        border-radius: 3px;
+        padding: 1mm;
+        background: #fbfcfe;
+      }
+      .fig text {
+        font-family: Vazirmatn, Tahoma, sans-serif;
+      }
+      .ans {
+        border-bottom: 1px dotted #777;
+        height: 5.3mm;
+      }
+      .key h2 {
+        margin: 0 0 2mm;
+        text-align: center;
+        color: var(--accent);
+        font-size: 13pt;
+      }
+      .key ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .key li {
+        margin: 0 0 1.6mm;
+        padding-bottom: 1.2mm;
+        border-bottom: 1px solid #e1e5ec;
+        font-size: 9.2pt;
+      }
+      .key li b {
+        color: var(--accent);
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          break-after: page;
+        }
+        .page:last-child {
+          break-after: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- صفحه ۱ -->
+    <section class="page" data-n="صفحه ۱ از ۲ — ادامه در پشت برگه">
+      <div class="hd">
+        <h1>آزمون علوم تجربی</h1>
+        <div class="r">
+          <span>نام و نام خانوادگی: ....................</span
+          ><span>کلاس: ............</span><span>تاریخ: ............</span>
+        </div>
+        <div class="r" style="margin-top: 0.8mm">
+          <span>مدت آزمون: ۶۰ دقیقه</span><span>بارم کل: ۲۰ نمره</span>
+        </div>
+      </div>
+
+      <div class="sec">
+        <span>سؤالات چهارگزینه‌ای</span><span class="m">۶ نمره</span>
+      </div>
+      <div class="q">
+        <b>۱.</b>
+        <div>
+          کدام گزینه دربارهٔ واکنش‌پذیری فلزها درست است؟
+          <span class="m">(1 نمره)</span>
+          <div class="o">
+            <span>الف) همهٔ فلزها به‌یک‌اندازه با آب واکنش می‌دهند.</span
+            ><span>ب) واکنش‌پذیری همهٔ فلزها با اکسیژن یکسان است.</span
+            ><span
+              >ج) با بررسی رفتار فلزها می‌توان واکنش‌پذیری آن‌ها را مقایسه
+              کرد.</span
+            ><span>د) فلزها فقط با اسیدها واکنش می‌دهند.</span>
+          </div>
+        </div>
+      </div>
+      <div class="q">
+        <b>۲.</b>
+        <div>
+          کدام گزینه مربوط به جایگاه عنصر آلومینیوم با عدد اتمی ۱۳ درست است؟
+          <span class="m">(1 نمره)</span>
+          <div class="o">
+            <span>الف) دوره ۳ ، گروه ۳</span><span>ب) دوره ۱۳ ، گروه ۳</span
+            ><span>ج) دوره ۳ ، گروه ۱۳</span><span>د) دوره ۱۳ ، گروه ۱۳</span>
+          </div>
+        </div>
+      </div>
+      <div class="q">
+        <b>۳.</b>
+        <div>
+          کدام مورد از کاربردهای آمونیاک است؟ <span class="m">(1 نمره)</span>
+          <div class="o">
+            <span>الف) تولید کودهای کشاورزی</span><span>ب) چرم‌سازی</span
+            ><span>ج) ضدعفونی‌کنندهٔ آب</span><span>د) کبریت‌سازی</span>
+          </div>
+        </div>
+      </div>
+      <div class="q">
+        <b>۴.</b>
+        <div>
+          کدام ترکیب از داد و ستد الکترون بین اتم‌ها تشکیل می‌شود؟
+          <span class="m">(1 نمره)</span>
+          <div class="o">
+            <span>الف) ترکیب کووالانسی</span><span>ب) ترکیب یونی</span
+            ><span>ج) مولکول آب</span><span>د) مولکول اکسیژن</span>
+          </div>
+        </div>
+      </div>
+      <div class="q">
+        <b>۵.</b>
+        <div>
+          در پیوند یونی، اتم‌ها چگونه به پایداری می‌رسند؟
+          <span class="m">(1 نمره)</span>
+          <div class="o">
+            <span>الف) نوترون به اشتراک می‌گذارند</span
+            ><span>ب) پروتون می‌گیرند</span
+            ><span>ج) الکترون‌ها را به‌اشتراک می‌گذارند</span
+            ><span>د) الکترون مبادله می‌کنند</span>
+          </div>
+        </div>
+      </div>
+      <div class="q">
+        <b>۶.</b>
+        <div>
+          فراوان‌ترین عنصر در پوستهٔ زمین .......... است.
+          <span class="m">(1 نمره)</span>
+          <div class="o">
+            <span>الف) اکسیژن</span><span>ب) سیلیسیم</span><span>ج) کربن</span
+            ><span>د) آلومینیوم</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <span>جای خالی</span><span class="m">۲/۵ نمره</span>
+      </div>
+      <div class="q">
+        <b>۷.</b>
+        <div>
+          عبارت‌های زیر را با واژه‌های مناسب کامل کنید.
+          <span class="m">(هر مورد ۰/۵ نمره)</span>
+          <div class="sub">
+            <span
+              >الف) عنصر <span class="dot"></span> در ساختار هموگلوبین خون مؤثر
+              است.</span
+            >
+          </div>
+          <div class="sub">
+            <span
+              >ب) عنصرهایی که تعداد الکترون‌های مدار آخر یکسانی دارند، معمولاً
+              <span class="dot"></span> مشابهی دارند.</span
+            >
+          </div>
+          <div class="sub">
+            <span
+              >ج) عنصر <span class="dot"></span> یکی از موادی است که به
+              خمیردندان می‌افزایند تا از پوسیدگی دندان جلوگیری شود.</span
+            >
+          </div>
+          <div class="sub">
+            <span
+              >د) اتمی که در ترکیبات یونی الکترون از دست می‌دهد، به
+              <span class="dot"></span> مثبت تبدیل می‌شود.</span
+            >
+          </div>
+
+          <div class="sub">
+            <span
+              >و) محلول پتاسیم پرمنگنات در آب رسانای جریان الکتریکی
+              <span class="dot"></span> .</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <span>درست / نادرست</span><span class="m">۲ نمره</span>
+      </div>
+      <div class="q">
+        <b>۸.</b>
+        <div>
+          درستی یا نادرستی هر عبارت را مشخص کنید.
+          <span class="m">(هر مورد ۰/۵ نمره)</span>
+          <div class="tf">
+            <span
+              >الف) همهٔ فلزها در برابر اکسیژن واکنش‌پذیری یکسانی دارند.</span
+            ><i>&nbsp;</i>
+          </div>
+          <div class="tf">
+            <span
+              >ب) واکنش شیمیایی گاز سمی کلر و فلز سدیم سبب تشکیل نمک خوراکی
+              می‌شود.</span
+            ><i>&nbsp;</i>
+          </div>
+          <div class="tf">
+            <span
+              >ج) در هر واکنش شیمیایی، جرم مواد پیش و پس از واکنش تغییر
+              می‌کند.</span
+            ><i>&nbsp;</i>
+          </div>
+          <div class="tf">
+            <span
+              >د) ترکیب‌های یونی معمولاً در حالت جامد، رسانای خوب جریان برق
+              هستند.</span
+            ><i>&nbsp;</i>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <span>تطبیق دادن</span><span class="m">۲ نمره</span>
+      </div>
+      <div class="q">
+        <b>۹.</b>
+        <div>
+          موارد ستون الف را به ستون ب وصل کنید.
+          <span class="m">(هر مورد ۰/۵ نمره)</span>
+          <div class="mt">
+            <div class="h">ستون الف</div>
+            <div class="h">ستون ب</div>
+            <div>۱. سلولوز <span class="n"></span></div>
+            <div>الف) ضدعفونی کردن بیمارستان‌ها</div>
+            <div>۲. اتانول <span class="n"></span></div>
+            <div>ب) ضدیخ رادیاتور</div>
+            <div>۳. یون سدیم <span class="n"></span></div>
+            <div>ج) نقش مهم در کار بدن و انتقال پیام‌های عصبی</div>
+            <div>۴. اتیلن گلیکول <span class="n"></span></div>
+            <div>د) یک بسپار طبیعی</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- صفحه ۲ -->
+    <section class="page" data-n="صفحه ۲ از ۲ — موفق باشید">
+      <div class="sec" style="margin-top: 0">
+        <span>تحلیل شکل و نمودار</span><span class="m">۲ نمره</span>
+      </div>
+      <div class="q">
+        <b>۱۰.</b>
+        <div>
+          شکل زیر را در نظر بگیرید.
+          <svg
+            class="fig"
+            width="190"
+            height="150"
+            viewBox="0 0 220 175"
+            role="img"
+            aria-label="اتم با ۱۱ پروتون و ۱۲ نوترون و سه لایهٔ الکترونی"
+          >
+            <g fill="none" stroke="#1f3a6e" stroke-width="1.2">
+              <circle cx="110" cy="87" r="30" />
+              <circle cx="110" cy="87" r="55" />
+              <circle cx="110" cy="87" r="80" />
+            </g>
+            <circle cx="110" cy="87" r="20" fill="#e9eef8" stroke="#1f3a6e" />
+            <text
+              x="110"
+              y="85"
+              font-size="8"
+              text-anchor="middle"
+              fill="#1b1f2a"
+            >
+              ۱۱ پروتون
+            </text>
+            <text
+              x="110"
+              y="96"
+              font-size="8"
+              text-anchor="middle"
+              fill="#1b1f2a"
+            >
+              ۱۲ نوترون
+            </text>
+            <g fill="#c0392b">
+              <circle cx="140" cy="87" r="3.5" />
+              <circle cx="80" cy="87" r="3.5" />
+              <circle cx="165" cy="87" r="3.5" />
+              <circle cx="55" cy="87" r="3.5" />
+              <circle cx="110" cy="32" r="3.5" />
+              <circle cx="110" cy="142" r="3.5" />
+              <circle cx="148.9" cy="48.1" r="3.5" />
+              <circle cx="71.1" cy="125.9" r="3.5" />
+              <circle cx="148.9" cy="125.9" r="3.5" />
+              <circle cx="71.1" cy="48.1" r="3.5" />
+              <circle cx="190" cy="87" r="3.5" />
+            </g>
+          </svg>
+          <div class="sub">
+            <span
+              >الف) این اتم برای رسیدن به آرایش الکترونی پایدار، چند الکترون از
+              دست می‌دهد یا می‌گیرد؟</span
+            ><span class="m">(۰/۵ نمره)</span>
+          </div>
+          <div class="sub">
+            <span
+              >ب) این عنصر با کدام‌یک از عنصرهای فلوئور (۹) و آلومینیوم (۱۳)
+              واکنش می‌دهد و ترکیب می‌شود؟</span
+            ><span class="m">(۰/۵ نمره)</span>
+          </div>
+          <div class="sub">
+            <span
+              >ج) در اثر ترکیب شدن با عنصر انتخابی، آیا این ترکیب در حالت محلول
+              رسانای جریان الکتریکی خواهد بود؟ چرا؟</span
+            ><span class="m">(۱ نمره)</span>
+          </div>
+          <div class="ans"></div>
+        </div>
+      </div>
+
+      <div class="q">
+        <b>۱۱.</b>
+        <div>
+          نمودار زیر را بررسی کنید.
+          <svg
+            class="fig"
+            width="330"
+            height="125"
+            viewBox="0 0 460 170"
+            role="img"
+            aria-label="چرخهٔ نیتروژن"
+          >
+            <defs>
+              <marker
+                id="ar"
+                markerWidth="8"
+                markerHeight="8"
+                refX="7"
+                refY="4"
+                orient="auto"
+              >
+                <path d="M0,0 L8,4 L0,8z" fill="#1f3a6e" />
+              </marker>
+            </defs>
+            <g fill="#eef1f6" stroke="#1f3a6e" stroke-width="1.2">
+              <rect x="180" y="5" width="100" height="28" rx="5" />
+              <rect x="20" y="70" width="90" height="28" rx="5" />
+              <rect x="185" y="70" width="90" height="28" rx="5" />
+              <rect x="350" y="70" width="90" height="28" rx="5" />
+              <rect x="170" y="135" width="120" height="28" rx="5" />
+              <rect x="350" y="135" width="90" height="28" rx="5" />
+            </g>
+            <g font-size="13" text-anchor="middle" fill="#1b1f2a">
+              <text x="230" y="24">هوا</text>
+              <text x="65" y="89">جانوران</text>
+              <text x="230" y="89">گیاهان</text>
+              <text x="395" y="89">خاک</text>
+              <text x="230" y="154">تجزیه‌کنندگان</text>
+              <text x="395" y="154">باکتری‌ها</text>
+            </g>
+            <g
+              stroke="#1f3a6e"
+              stroke-width="1.5"
+              fill="none"
+              marker-end="url(#ar)"
+            >
+              <path d="M280,24 L385,68" />
+              <path d="M350,84 L277,84" />
+              <path d="M185,84 L112,84" />
+              <path d="M65,98 L172,145" />
+              <path d="M230,98 L230,133" />
+              <path d="M290,149 L348,149" />
+              <path d="M395,135 L395,100" />
+            </g>
+          </svg>
+          <div class="sub">
+            <span>الف) نقش تجزیه‌کنندگان در چرخهٔ نیتروژن چیست؟</span
+            ><span class="m">(۱ نمره)</span>
+          </div>
+          <div class="ans"></div>
+          <div class="sub">
+            <span>ب) نیتروژن موجود در هوا از چه راه‌هایی وارد خاک می‌شود؟</span
+            ><span class="m">(۱ نمره)</span>
+          </div>
+          <div class="ans"></div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <span>پاسخ کوتاه</span><span class="m">۲ نمره</span>
+      </div>
+      <div class="q">
+        <b>۱۲.</b>
+        <div>
+          <div class="sub">
+            <span>دو تفاوت پیوند یونی و پیوند کووالانسی را بنویسید.</span
+            ><span class="m">(۱ نمره)</span>
+          </div>
+          <div class="ans"></div>
+          <div class="ans"></div>
+        </div>
+      </div>
+      <div class="q">
+        <b>۱۳.</b>
+        <div>
+          <div class="sub">
+            <span
+              >چرا وقتی در یک طرف ظرف شیشه‌ای پر از آب، کات کبود و در طرف دیگر
+              سدیم هیدروکسید قرار می‌دهیم، پس از مدتی در وسط ظرف تغییر رنگ
+              مشاهده می‌کنیم؟</span
+            ><span class="m">(۱ نمره)</span>
+          </div>
+          <div class="ans"></div>
+          <div class="ans"></div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <span>حل مسئله</span><span class="m">۱/۵ نمره</span>
+      </div>
+      <div class="q">
+        <b>۱۴.</b>
+        <div>
+          در یک واکنش شیمیایی، ۴ گرم هیدروژن با ۳۲ گرم اکسیژن واکنش می‌دهد و آب
+          تولید می‌شود.
+          <div class="sub">
+            <span>الف) طبق قانون پایستگی جرم، جرم آب تولیدشده چقدر است؟</span
+            ><span class="m">(۰/۵ نمره)</span>
+          </div>
+          <div class="ans"></div>
+          <div class="sub">
+            <span
+              >ب) اگر در آزمایشی ۹ گرم آب به دست آمد، آیا تمام مواد اولیه واکنش
+              داده‌اند؟ دلیل بیاورید.</span
+            ><span class="m">(۱ نمره)</span>
+          </div>
+          <div class="ans"></div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <span>سؤال تشریحی</span><span class="m">۱ نمره</span>
+      </div>
+      <div class="q">
+        <b>۱۵.</b>
+        <div>
+          <div class="sub">
+            <span
+              >فرمول شیمیایی سولفوریک اسید را نوشته و یک کاربرد آن در صنعت را
+              نام ببرید.</span
+            ><span class="m">(۱ نمره)</span>
+          </div>
+          <div class="ans"></div>
+          <div class="ans"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- صفحه ۳ -->
+    <section class="page key" data-n="پاسخنامه — مخصوص مصحح">
+      <h2>پاسخنامهٔ آزمون</h2>
+      <ol>
+        <li>
+          <b>۱–۶ (چهارگزینه‌ای):</b> ۱) ج ـ ۲) ج ـ ۳) الف ـ ۴) ب ـ ۵) د ـ ۶) الف
+        </li>
+        <li>
+          <b>۷ (جای خالی):</b> الف) آهن ـ ب) خواص شیمیایی ـ ج) فلوئور ـ د) یون
+          (کاتیون) ـ هـ) مثبت و منفی ـ و) است (رسانا است، چون ترکیب یونی است)
+        </li>
+        <li>
+          <b>۸ (درست/نادرست):</b> الف) نادرست ـ ب) درست ـ ج) نادرست (جرم کل ثابت
+          می‌ماند) ـ د) نادرست (در حالت جامد یون‌ها جابه‌جا نمی‌شوند؛ در حالت
+          مذاب یا محلول رسانا هستند)
+        </li>
+        <li>
+          <b>۹ (تطبیق):</b> سلولوز ← د ـ اتانول ← الف ـ یون سدیم ← ج ـ اتیلن
+          گلیکول ← ب
+        </li>
+        <li>
+          <b>۱۰:</b> الف) ۱ الکترون از دست می‌دهد (آرایش ۲ و ۸ و ۱ ← ۲ و ۸). ب)
+          فلوئور (نافلز؛ سدیم فلز است و با آلومینیوم که آن هم فلز است ترکیب یونی
+          نمی‌دهد). ج) بله؛ در محلول، یون‌های سدیم و فلوئورید آزادانه حرکت
+          می‌کنند و جریان برق را عبور می‌دهند. د) Na⁺ ؛ بار ۱+
+        </li>
+        <li>
+          <b>۱۱:</b> الف) تجزیه‌کنندگان بقایای جانداران مرده و مواد دفعی را
+          تجزیه می‌کنند و ترکیب‌های نیتروژن‌دار را به خاک برمی‌گردانند تا دوباره
+          در دسترس گیاهان قرار گیرند. ب) برق‌وباران (تبدیل نیتروژن هوا به
+          اکسیدهای نیتروژن که با باران وارد خاک می‌شوند) و فعالیت باکتری‌های
+          تثبیت‌کنندهٔ نیتروژن.
+        </li>
+        <li>
+          <b>۱۲:</b> (دو مورد) ۱) یونی: انتقال الکترون بین فلز و نافلز؛
+          کووالانسی: اشتراک الکترون بین نافلزها. ۲) ترکیب یونی: نقطهٔ ذوب بالا و
+          در حالت مذاب/محلول رسانا؛ ترکیب کووالانسی: معمولاً نقطهٔ ذوب پایین و
+          نارسانا.
+        </li>
+        <li>
+          <b>۱۳:</b> یون‌های مس (آبی) و هیدروکسید در آب پخش می‌شوند و به سمت هم
+          حرکت می‌کنند؛ در وسط ظرف به هم می‌رسند و واکنش داده، رسوب مس (II)
+          هیدروکسید آبی‌رنگ تشکیل می‌شود (تغییر رنگ).
+        </li>
+        <li>
+          <b>۱۴:</b> الف) ۴ + ۳۲ = <b>۳۶ گرم</b> آب. ب) خیر؛ مقدار آب ممکن ۳۶
+          گرم است ولی فقط ۹ گرم (یک‌چهارم) به دست آمده است؛ پس فقط ۱ گرم هیدروژن
+          و ۸ گرم اکسیژن واکنش داده و بقیه واکنش نداده‌اند.
+        </li>
+        <li>
+          <b>۱۵:</b> (نمونه) ۱) بازیافت و استفاده‌ی مجدد از پلاستیک‌ها ← مصرف
+          مواد خام و حجم زباله کم می‌شود. ۲) کاهش مصرف ظرف‌ها و کیسه‌های
+          یک‌بارمصرف (استفاده از کیسهٔ پارچه‌ای) ← پلاستیک دیرتجزیه است و کمتر
+          وارد طبیعت و دریا می‌شود.
+        </li>
+        <li>
+          <b>۱۶:</b> H₂SO₄ ؛ کاربرد: تولید کودهای شیمیایی، باتری خودرو، ساخت
+          مواد شوینده یا رنگ (یک مورد کافی است).
+        </li>
+      </ol>
+    </section>
+  </body>
+</html>

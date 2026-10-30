@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ورقهٔ آزمون ۲</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111;
+    --soft:#555;
+    --rule:#888;
+    --band:#e9e9e9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:#cfcfcf}
+  body{
+    font-family:"Vazirmatn","B Nazanin","Vazir","Tahoma",sans-serif;
+    color:var(--ink);
+    line-height:1.75;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+
+  /* ---------- A4 pages ---------- */
+  .page{
+    width:210mm;
+    height:296mm;              /* a hair under 297mm so no blank third sheet appears */
+    margin:8mm auto;
+    padding:9mm 12mm 9mm;
+    background:#fff;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 2px 14px rgba(0,0,0,.25);
+    display:flex;flex-direction:column;
+  }
+  .content{flex:1 1 auto;min-height:0;overflow:hidden;font-size:11pt}
+  .foot{
+    flex:0 0 auto;
+    display:flex;justify-content:space-between;
+    border-top:1px solid var(--rule);
+    padding-top:1.2mm;margin-top:2mm;
+    font-size:8pt;color:var(--soft);
+  }
+
+  @page{size:A4;margin:0}
+  @media print{
+    html{background:#fff}
+    .page{margin:0;box-shadow:none;break-after:page;page-break-after:always}
+    .page:last-child{break-after:auto;page-break-after:auto}
+  }
+
+  /* ---------- header ---------- */
+  .head{
+    border:1.4px solid var(--ink);
+    border-radius:6px;
+    display:grid;
+    grid-template-columns:1fr auto;
+    margin-bottom:.7em;
+  }
+  .head .fields{
+    display:grid;grid-template-columns:2.2fr 1fr 1.2fr;
+    gap:0 .8em;padding:.45em .8em;
+    border-inline-end:1.4px solid var(--ink);
+    font-weight:500;
+  }
+  .head .fields span{white-space:nowrap}
+  .head .fields .dots{display:inline-block;width:calc(100% - 4.6em);border-bottom:1px dotted var(--ink);height:.8em}
+  .head .fields .dots.sm{width:calc(100% - 3.2em)}
+  .head .meta{
+    display:flex;flex-direction:column;justify-content:center;
+    padding:.3em 1em;font-size:.88em;font-weight:500;line-height:1.5;
+    min-width:44mm;
+  }
+  .head .meta b{font-weight:800}
+  .head .grade{
+    grid-column:1 / -1;
+    border-top:1.4px solid var(--ink);
+    display:flex;align-items:center;gap:.8em;
+    padding:.3em .8em;font-size:.88em;color:var(--soft);
+  }
+  .head .grade i{
+    margin-inline-start:auto;font-style:normal;
+    border:1px solid var(--ink);border-radius:4px;
+    padding:0 1.6em;color:var(--ink);font-weight:700;
+  }
+
+  /* ---------- sections ---------- */
+  .sec{
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--band);
+    border-inline-start:4px solid var(--ink);
+    padding:.08em .7em;
+    margin:.75em 0 .4em;
+    font-weight:800;font-size:1.02em;
+  }
+  .sec:first-child{margin-top:0}
+  .sec small{font-weight:700;font-size:.85em}
+
+  .q{margin-bottom:.45em}
+  .qh{display:flex;gap:.45em;align-items:flex-start}
+  .qh .n{font-weight:800;flex:0 0 auto;min-width:1.4em}
+  .qh .t{flex:1 1 auto}
+  .pt{
+    flex:0 0 auto;margin-inline-start:auto;
+    font-size:.82em;font-weight:700;color:var(--soft);
+    border:1px solid var(--rule);border-radius:10px;
+    padding:0 .6em;line-height:1.5;margin-top:.25em;white-space:nowrap;
+  }
+  .sub{margin-inline-start:1.85em}
+
+  /* multiple choice */
+  .mcq{display:grid;grid-template-columns:1fr 1fr;gap:.35em 1.4em}
+  .mcq .q{margin:0;padding-bottom:.35em;border-bottom:1px dotted var(--rule)}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:0 .6em;margin:.1em 0 0 0;margin-inline-start:1.85em;font-size:.94em}
+
+  /* fill in */
+  .blank{display:inline-block;min-width:4.2em;border-bottom:1px dotted var(--ink);height:1em;vertical-align:baseline}
+  .blank.w{min-width:6.5em}
+
+  /* true / false */
+  .tf{display:grid;grid-template-columns:1fr 1fr;gap:.2em 1.4em}
+  .tf .row{display:flex;gap:.5em;align-items:flex-start;padding:.1em 0;border-bottom:1px dotted var(--rule)}
+  .tf .row .tx{flex:1}
+  .box{
+    flex:0 0 auto;width:2.6em;height:1.45em;margin-top:.2em;
+    border:1.2px solid var(--ink);border-radius:4px;
+  }
+
+  /* matching */
+  .match{
+    display:grid;grid-template-columns:1fr 3.2em 1fr;
+    margin-inline-start:1.85em;margin-top:.2em;
+  }
+  .match ol,.match ul{list-style:none;display:flex;flex-direction:column;gap:.25em}
+  .match li{
+    border:1.2px solid var(--ink);border-radius:5px;
+    padding:.05em .6em;line-height:1.55;
+    display:flex;gap:.45em;align-items:center;flex:1;
+  }
+  .match li b{font-weight:800}
+  .match .gap{
+    position:relative;
+  }
+  .match .col-h{font-weight:800;font-size:.9em;text-align:center;margin-bottom:.2em}
+
+  /* figures */
+  .fig-row{display:grid;gap:.9em;align-items:center;margin-inline-start:0}
+  .fig-row.a{grid-template-columns:1fr 47mm}
+  .fig-row.b{grid-template-columns:1fr 78mm}
+  figure{text-align:center}
+  figure svg{display:block;width:100%;height:auto;border:1px solid var(--rule);border-radius:6px;background:#fff}
+  figcaption{font-size:.78em;color:var(--soft);margin-top:.1em}
+  .parts .p{display:flex;gap:.4em;align-items:flex-start;margin-bottom:.15em}
+  .parts .p .ptx{flex:1}
+  .ans{border-bottom:1px dotted var(--ink);height:1.75em}
+  .ans-block{margin:.1em 0 .25em 0;margin-inline-start:1.85em}
+  .ans-block .ans:first-child{margin-top:.1em}
+  .ans-inline{display:inline-block;width:9em;border-bottom:1px dotted var(--ink);height:1em;vertical-align:baseline}
+
+  /* ---------- answer key (page 3) ---------- */
+  .keytitle{
+    display:flex;align-items:center;justify-content:space-between;
+    border:1.4px solid var(--ink);border-radius:6px;
+    padding:.3em .9em;margin-bottom:.6em;
+  }
+  .keytitle b{font-size:1.25em;font-weight:800}
+  .keytitle span{font-size:.85em;color:var(--soft)}
+  .chips{display:flex;flex-wrap:wrap;gap:.3em .45em;margin:.1em 0 .3em}
+  .chip{
+    border:1.2px solid var(--ink);border-radius:5px;
+    padding:0 .6em;line-height:1.6;font-weight:700;white-space:nowrap;
+  }
+  .chip em{font-style:normal;font-weight:500;color:var(--soft);margin-inline-end:.3em}
+  .kgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.4em}
+  .ki{margin-bottom:.35em;display:flex;gap:.45em;align-items:flex-start}
+  .ki .kn{font-weight:800;flex:0 0 auto;min-width:1.6em}
+  .ki .kt{flex:1}
+  .kk{font-size:.93em}
+  .kk .l{display:block;margin-inline-start:0}
+  .kk .l b{font-weight:800}
+  .note{font-size:.82em;color:var(--soft)}
+  .key .foot span:first-child{font-weight:700;color:var(--ink)}
+
+  /* ---- additions for exam 2 ---- */
+  .mcq.one{grid-template-columns:1fr}
+  .mcq.one .q{border-bottom:1px dotted var(--rule)}
+  .opts.c4{grid-template-columns:repeat(4,1fr)}
+  .nuc{direction:ltr;unicode-bidi:isolate;display:inline-flex;align-items:center;font-weight:700;font-family:"Times New Roman",serif}
+  .iso{display:inline-flex;flex-direction:column;line-height:1;font-size:.62em;text-align:center;margin-right:.12em;font-family:"Times New Roman",serif}
+  .iso i{font-style:normal;display:block}
+  .drawbox{
+    height:46mm;margin:.3em 0 0;margin-inline-start:1.85em;
+    border:1.3px dashed var(--rule);border-radius:8px;
+    display:flex;align-items:flex-end;justify-content:flex-start;
+    padding:.2em .7em;font-size:.78em;color:#999;
+  }
+  .tfq{display:grid;grid-template-columns:1fr 1fr;gap:.2em 1.4em}
+  .tf .box{width:3.6em}
+</style>
+</head>
+<body>
+
+<!-- ======================= PAGE 1 ======================= -->
+<section class="page" id="p1">
+  <div class="content">
+
+    <div class="head">
+      <div class="fields">
+        <span>نام و نام خانوادگی: <i class="dots"></i></span>
+        <span>کلاس: <i class="dots sm"></i></span>
+        <span>تاریخ: <i class="dots sm"></i></span>
+      </div>
+      <div class="meta">
+        <span>مدت آزمون: <b>........ دقیقه</b></span>
+        <span>بارم کل: <b>۲۰ نمره</b></span>
+      </div>
+      <div class="grade">نمرهٔ کسب‌شده با عدد و حروف و امضای مصحح: <i>&nbsp;</i></div>
+    </div>
+
+    <div class="sec"><span>بخش اول: چهارگزینه‌ای</span><small>۵ نمره (هر مورد ۱)</small></div>
+    <div class="mcq one">
+      <div class="q">
+        <div class="qh"><span class="n">۱.</span><span class="t">کدام گزینه یک مخلوط همگن است؟</span><span class="pt">۱</span></div>
+        <div class="opts c4"><span>الف) آب و شن</span><span>ب) آب نمک</span><span>ج) آب و روغن</span><span>د) شن و سنگریزه</span></div>
+      </div>
+      <div class="q">
+        <div class="qh"><span class="n">۲.</span><span class="t">برای جدا کردن آب از نمکِ حل‌شده در آن، مناسب‌ترین روش کدام است؟</span><span class="pt">۱</span></div>
+        <div class="opts c4"><span>الف) صاف کردن</span><span>ب) استفاده از آهن‌ربا</span><span>ج) تقطیر</span><span>د) جدا کردن با قیف</span></div>
+      </div>
+      <div class="q">
+        <div class="qh"><span class="n">۳.</span><span class="t">کدام مورد نشانهٔ قطعیِ انجام‌شدن یک تغییر شیمیایی است؟</span><span class="pt">۱</span></div>
+        <div class="opts"><span>الف) تغییر شکل ماده</span><span>ب) حل شدن شکر در آب</span><span>ج) تولید گاز یا تغییر رنگ همراه با مادهٔ جدید</span><span>د) ذوب شدن یخ</span></div>
+      </div>
+      <div class="q">
+        <div class="qh"><span class="n">۴.</span><span class="t">در سوختن کاغذ، کدام تغییر رخ می‌دهد؟</span><span class="pt">۱</span></div>
+        <div class="opts"><span>الف) تغییر فیزیکی، زیرا فقط شکل آن عوض می‌شود</span><span>ب) تغییر شیمیایی، زیرا مادهٔ جدید تولید می‌شود</span><span>ج) تغییر فیزیکی، زیرا گرما جذب می‌شود</span><span>د) هیچ تغییری رخ نمی‌دهد</span></div>
+      </div>
+      <div class="q">
+        <div class="qh"><span class="n">۵.</span><span class="t">کدام مورد ایزوتوپ کربن نیست؟</span><span class="pt">۱</span></div>
+        <div class="opts c4">
+          <span>الف) <span class="nuc"><span class="iso"><i>11</i><i>6</i></span>C</span></span>
+          <span>ب) <span class="nuc"><span class="iso"><i>12</i><i>6</i></span>C</span></span>
+          <span>ج) <span class="nuc"><span class="iso"><i>13</i><i>6</i></span>C</span></span>
+          <span>د) <span class="nuc"><span class="iso"><i>14</i><i>6</i></span>C</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec"><span>بخش دوم: جای خالی</span><small>۳ نمره (هر مورد ۰/۵)</small></div>
+    <div class="sub">
+      <p><b>۶.</b> مخلوطی که در آن اجزای آن با چشم قابل تشخیص نیستند، مخلوط <span class="blank"></span> نام دارد.</p>
+      <p><b>۷.</b> جداسازی اجزای خون بر اساس جرم ذرات، با استفاده از دستگاه <span class="blank"></span> انجام می‌شود.</p>
+      <p><b>۸.</b> در تغییر شیمیایی، خواص اولیهٔ ماده تغییر می‌کند و <span class="blank"></span> جدید تولید می‌شود.</p>
+      <p><b>۹.</b> به اتم‌های یک عنصر که تعداد نوترون متفاوت دارند، <span class="blank w"></span>‌های آن عنصر می‌گویند.</p>
+      <p><b>۱۰.</b> جرم پروتون با جرم <span class="blank"></span> تقریباً برابر است.</p>
+      <p><b>۱۱.</b> اتم کربن <span class="blank"></span> ایزوتوپ دارد.</p>
+    </div>
+
+    <div class="sec"><span>بخش سوم: صحیح یا غلط</span><small>۲ نمره (هر مورد ۰/۵)</small></div>
+    <div class="tf sub">
+      <div class="row"><span class="tx"><b>۱۲.</b> هوا یک مخلوط همگن است.</span><span class="box"></span></div>
+      <div class="row"><span class="tx"><b>۱۳.</b> حل شدن نمک در آب یک تغییر شیمیایی است.</span><span class="box"></span></div>
+      <div class="row"><span class="tx"><b>۱۴.</b> زنگ‌زدن آهن نمونه‌ای از تغییر شیمیایی است.</span><span class="box"></span></div>
+      <div class="row"><span class="tx"><b>۱۵.</b> در تقطیر، ابتدا ماده‌ای که نقطهٔ جوش پایین‌تری دارد تبخیر می‌شود.</span><span class="box"></span></div>
+    </div>
+    <p class="note sub" style="margin-top:.15em">در مقابل هر عبارت، «ص» یا «غ» بنویسید.</p>
+
+    <div class="sec"><span>بخش چهارم: تطبیق دادن</span><small>۲ نمره (هر مورد ۰/۵)</small></div>
+    <div class="q">
+      <div class="qh"><span class="n">۱۶.</span><span class="t">هر مورد از ستون «الف» را به روش مناسب جداسازی در ستون «ب» وصل کنید.</span></div>
+      <div class="match">
+        <div>
+          <div class="col-h">ستون الف</div>
+          <ol>
+            <li><b>۱.</b> جدا کردن آب و روغن</li>
+            <li><b>۲.</b> جدا کردن شن از آب</li>
+            <li><b>۳.</b> جدا کردن نمک از آب نمک</li>
+            <li><b>۴.</b> جدا کردن برادهٔ آهن از خاک اره</li>
+          </ol>
+        </div>
+        <div class="gap"></div>
+        <div>
+          <div class="col-h">ستون ب</div>
+          <ul>
+            <li><b>الف)</b> صاف کردن</li>
+            <li><b>ب)</b> قیف جداکننده</li>
+            <li><b>ج)</b> آهن‌ربا</li>
+            <li><b>د)</b> تبخیر</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="foot"><span>ادامهٔ سؤالات در پشت برگه ←</span><span>صفحهٔ ۱ از ۲</span></div>
+</section>
+
+<!-- ======================= PAGE 2 ======================= -->
+<section class="page" id="p2">
+  <div class="content">
+
+    <div class="sec"><span>بخش پنجم: تشریحی کوتاه</span><small>۳/۵ نمره</small></div>
+    <div class="q">
+      <div class="qh"><span class="n">۱۷.</span><span class="t">دو تفاوت تغییر فیزیکی و تغییر شیمیایی را بنویسید.</span><span class="pt">۱</span></div>
+      <div class="ans-block"><div class="ans"></div><div class="ans"></div></div>
+    </div>
+    <div class="q">
+      <div class="qh"><span class="n">۱۸.</span><span class="t">چرا جداسازی آب و الکل با قیف جداکننده امکان‌پذیر نیست؟ چه روشی پیشنهاد می‌کنید؟</span><span class="pt">۱</span></div>
+      <div class="ans-block"><div class="ans"></div><div class="ans"></div></div>
+    </div>
+    <div class="q">
+      <div class="qh"><span class="n">۱۹.</span><span class="t">سه نشانهٔ انجام‌شدن تغییر شیمیایی را نام ببرید.</span><span class="pt">۱/۵</span></div>
+      <div class="ans-block"><div class="ans"></div><div class="ans"></div></div>
+    </div>
+
+    <div class="sec"><span>بخش ششم: تحلیل و حل مسئله</span><small>۴/۵ نمره</small></div>
+    <div class="q">
+      <div class="qh"><span class="n">۲۰.</span><span class="t">دانش‌آموزی مخلوطی از آب، نمک، شن و برادهٔ آهن دارد. مراحل جداسازی هر یک از اجزا را به‌ترتیب بنویسید و نام روش به‌کاررفته را مشخص کنید.</span><span class="pt">۲</span></div>
+      <div class="ans-block"><div class="ans"></div><div class="ans"></div><div class="ans"></div><div class="ans"></div></div>
+    </div>
+    <div class="q">
+      <div class="qh"><span class="n">۲۱.</span><span class="t">یک تکه میوه در هوای باز تغییر رنگ می‌دهد و بوی متفاوتی پیدا می‌کند.</span></div>
+      <div class="sub">
+        <div class="qh"><span class="t">الف) این تغییر از چه نوعی است؟</span><span class="pt">۰/۵</span></div>
+        <div class="ans"></div>
+        <div class="qh" style="margin-top:.2em"><span class="t">ب) یک دلیل برای پاسخ خود بنویسید.</span><span class="pt">۰/۵</span></div>
+        <div class="ans"></div>
+      </div>
+    </div>
+    <div class="q">
+      <div class="qh"><span class="n">۲۲.</span><span class="t">مدل اتمی بور را توضیح دهید و مدل بور اتم <span class="nuc"><span class="iso"><i>14</i><i>7</i></span>N</span> را رسم کنید.</span><span class="pt">۱/۵</span></div>
+      <div class="ans-block"><div class="ans"></div><div class="ans"></div></div>
+      <div class="drawbox">محل رسم مدل بور</div>
+    </div>
+
+  </div>
+  <div class="foot"><span>موفق باشید</span><span>صفحهٔ ۲ از ۲</span></div>
+</section>
+
+<!-- ======================= PAGE 3: ANSWER KEY ======================= -->
+<section class="page key" id="p3">
+  <div class="content">
+
+    <div class="keytitle"><b>پاسخنامه و بارم‌بندی</b><span>ویژهٔ مصحح — بارم کل: ۲۰ نمره</span></div>
+
+    <div class="sec"><span>بخش اول: چهارگزینه‌ای</span><small>هر مورد ۱ — جمع ۵</small></div>
+    <div class="chips">
+      <span class="chip"><em>۱.</em>ب</span>
+      <span class="chip"><em>۲.</em>ج</span>
+      <span class="chip"><em>۳.</em>ج</span>
+      <span class="chip"><em>۴.</em>ب</span>
+      <span class="chip"><em>۵.</em>الف *</span>
+    </div>
+    <p class="note">* هر چهار گزینهٔ سؤال ۵ عدد اتمی ۶ دارند و همگی ایزوتوپ کربن‌اند؛ اگر منظور ایزوتوپ‌های طبیعی (کربن‌های ۱۲، ۱۳ و ۱۴) باشد، پاسخ «الف» است. پیشنهاد می‌شود صورت یا گزینه‌های این سؤال اصلاح شود.</p>
+
+    <div class="kgrid">
+      <div>
+        <div class="sec"><span>بخش دوم: جای خالی</span><small>هر مورد ۰/۵ — جمع ۳</small></div>
+        <div class="kk">
+          <span class="l"><b>۶)</b> همگن</span>
+          <span class="l"><b>۷)</b> سانتریفیوژ (دستگاه گریز از مرکز)</span>
+          <span class="l"><b>۸)</b> ماده</span>
+          <span class="l"><b>۹)</b> ایزوتوپ</span>
+          <span class="l"><b>۱۰)</b> نوترون</span>
+          <span class="l"><b>۱۱)</b> ۳ (سه) ایزوتوپ طبیعی</span>
+        </div>
+      </div>
+      <div>
+        <div class="sec"><span>بخش سوم: صحیح/غلط</span><small>هر مورد ۰/۵ — جمع ۲</small></div>
+        <div class="chips">
+          <span class="chip"><em>۱۲.</em>ص</span>
+          <span class="chip"><em>۱۳.</em>غ</span>
+          <span class="chip"><em>۱۴.</em>ص</span>
+          <span class="chip"><em>۱۵.</em>ص</span>
+        </div>
+        <div class="sec"><span>بخش چهارم: تطبیق</span><small>هر مورد ۰/۵ — جمع ۲</small></div>
+        <div class="chips">
+          <span class="chip"><em>۱ ←</em>ب</span>
+          <span class="chip"><em>۲ ←</em>الف</span>
+          <span class="chip"><em>۳ ←</em>د</span>
+          <span class="chip"><em>۴ ←</em>ج</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec"><span>بخش پنجم: تشریحی کوتاه</span><small>۳/۵ نمره</small></div>
+    <div class="kk">
+      <div class="ki"><span class="kn">۱۷.</span><span class="kt">
+        <span class="l">• در تغییر فیزیکی ماده جدید تولید نمی‌شود، اما در تغییر شیمیایی ماده یا مواد جدید با خواص متفاوت پدید می‌آید.</span>
+        <span class="l">• تغییر فیزیکی معمولاً برگشت‌پذیر و ساده است (مثل ذوب یخ)، اما تغییر شیمیایی معمولاً برگشت‌پذیر نیست (مثل سوختن چوب). <span class="note">هر تفاوت درست ۰/۵ — جمع ۱</span></span>
+      </span></div>
+      <div class="ki"><span class="kn">۱۸.</span><span class="kt">
+        <span class="l">آب و الکل کاملاً در هم حل می‌شوند و مخلوط همگن می‌سازند؛ لایه‌های جدا ندارند، پس قیف جداکننده کارایی ندارد (۰/۵). روش پیشنهادی: تقطیر، زیرا نقطهٔ جوش دو ماده متفاوت است (۰/۵).</span>
+      </span></div>
+      <div class="ki"><span class="kn">۱۹.</span><span class="kt">
+        <span class="l">تولید گاز، تغییر رنگ، تولید یا جذب گرما، نور، ایجاد رسوب، تغییر بو (هر مورد درست ۰/۵ — جمع ۱/۵)</span>
+      </span></div>
+    </div>
+
+    <div class="sec"><span>بخش ششم: تحلیل و حل مسئله</span><small>۴/۵ نمره</small></div>
+    <div class="kk">
+      <div class="ki"><span class="kn">۲۰.</span><span class="kt">
+        <span class="l">۱) آهن‌ربا: برادهٔ آهن جدا می‌شود. ۲) صاف کردن (صافی): شن روی صافی می‌ماند. ۳) تبخیر آب (یا تقطیر): نمک باقی می‌ماند و در تقطیر، آب هم جمع‌آوری می‌شود.</span>
+        <span class="note">هر مرحلهٔ درست همراه با نام روش ۰/۵ و ترتیب درست ۰/۵ — جمع ۲</span>
+      </span></div>
+      <div class="ki"><span class="kn">۲۱.</span><span class="kt">
+        <span class="l"><b>الف)</b> تغییر شیمیایی <span class="note">— ۰/۵</span></span>
+        <span class="l"><b>ب)</b> تغییر رنگ و بو نشانهٔ تولید مادهٔ جدید است. <span class="note">— ۰/۵</span></span>
+      </span></div>
+      <div class="ki"><span class="kn">۲۲.</span><span class="kt">
+        <div class="fig-row" style="grid-template-columns:1fr 38mm">
+          <div>
+            <span class="l">در مدل بور، الکترون‌ها روی مدارهای دایره‌ای با انرژی معین به دور هسته می‌چرخند. هر مدار گنجایش مشخصی دارد (۲ الکترون در لایهٔ اول و ۸ در لایهٔ دوم) و الکترون‌ها از لایهٔ نزدیک به هسته پر می‌شوند. <span class="note">— ۰/۵</span></span>
+            <span class="l" style="margin-top:.2em">نیتروژن: ۷ پروتون و ۷ نوترون در هسته؛ ۷ الکترون با آرایش ۲ و ۵ . <span class="note">— رسم هسته ۰/۵، لایه‌ها و الکترون‌ها ۰/۵</span></span>
+          </div>
+          <figure>
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="مدل بور نیتروژن">
+              <circle cx="100" cy="100" r="38" fill="none" stroke="#444" stroke-width="1.3"/>
+              <circle cx="100" cy="100" r="72" fill="none" stroke="#444" stroke-width="1.3"/>
+              <circle cx="100" cy="100" r="25" fill="#e4e4e4" stroke="#111" stroke-width="1.6"/>
+              <g font-family="Vazirmatn,Tahoma,sans-serif" font-size="9" font-weight="700" text-anchor="middle" fill="#111">
+                <text x="100" y="97">۷ پروتون</text>
+                <text x="100" y="109">۷ نوترون</text>
+              </g>
+              <g fill="#111">
+                <circle cx="138" cy="100" r="4.6"/><circle cx="62" cy="100" r="4.6"/>
+                <circle cx="100" cy="28" r="4.6"/><circle cx="168.5" cy="77.8" r="4.6"/>
+                <circle cx="142.3" cy="158.2" r="4.6"/><circle cx="57.7" cy="158.2" r="4.6"/>
+                <circle cx="31.5" cy="77.8" r="4.6"/>
+              </g>
+            </svg>
+          </figure>
+        </div>
+      </span></div>
+    </div>
+
+  </div>
+  <div class="foot"><span>پاسخنامه — ویژهٔ مصحح</span><span>صفحهٔ ۳</span></div>
+</section>
+
+<script>
+/* Auto-fit: each page's text starts at 11.5pt and shrinks in tiny steps only if
+   content would overflow, so every sheet stays exactly one A4 page. */
+function fitPages(){
+  document.querySelectorAll('.page .content').forEach(function(c){
+    var fs = 11.5;
+    c.style.fontSize = fs + 'pt';
+    while (c.scrollHeight > c.clientHeight + 1 && fs > 7.5){
+      fs -= 0.1;
+      c.style.fontSize = fs.toFixed(1) + 'pt';
+    }
+  });
+}
+window.addEventListener('load', fitPages);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitPages);
+window.addEventListener('beforeprint', fitPages);
+</script>
+</body>
+</html>
