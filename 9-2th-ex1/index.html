@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>آزمون علوم نهم — فصل ۱ و ۲ (نسخهٔ ب)</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      :root {
+        --ink: #1b1f2a;
+        --line: #9aa3b2;
+        --soft: #eef1f6;
+        --accent: #1f3a6e;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+      body {
+        background: #cfd4dc;
+        font-family: Vazirmatn, Tahoma, sans-serif;
+        color: var(--ink);
+        font-size: 9.4pt;
+        line-height: 1.55;
+      }
+      .page {
+        width: 210mm;
+        height: 297mm;
+        margin: 8mm auto;
+        padding: 9mm 11mm 15mm;
+        background: #fff;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .page::after {
+        content: attr(data-n);
+        position: absolute;
+        bottom: 4mm;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 8pt;
+        color: #667;
+      }
+      .hd {
+        border: 1.4px solid var(--ink);
+        border-radius: 3px;
+        padding: 2mm 3mm;
+      }
+      .hd h1 {
+        margin: 0 0 1mm;
+        font-size: 12.5pt;
+        font-weight: 800;
+        text-align: center;
+        color: var(--accent);
+      }
+      .hd .r {
+        display: flex;
+        justify-content: space-between;
+        gap: 4mm;
+        font-size: 9pt;
+      }
+      .sec {
+        display: flex;
+        justify-content: space-between;
+        background: var(--soft);
+        border-right: 3px solid var(--accent);
+        padding: 0.6mm 3mm;
+        margin: 0 0 1.4mm;
+        font-weight: 700;
+      }
+      .q {
+        margin: 0 0 1.8mm;
+        display: flex;
+        gap: 1.8mm;
+        break-inside: avoid;
+      }
+      .q:last-child {
+        margin-bottom: 0;
+      }
+      .q > b {
+        flex: none;
+        min-width: 6mm;
+      }
+      .q > div {
+        flex: 1;
+      }
+      .m {
+        color: #556;
+        font-size: 8.4pt;
+        white-space: nowrap;
+      }
+      .o {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0 3mm;
+        margin: 0.8mm 0 2.4mm;
+      }
+      .fb .sub {
+        margin: 1mm 0;
+      }
+      .sub {
+        display: flex;
+        justify-content: space-between;
+        gap: 3mm;
+        margin: 0.5mm 0;
+      }
+      .dot {
+        display: inline-block;
+        min-width: 22mm;
+        border-bottom: 1px dotted #444;
+      }
+      .tf {
+        display: flex;
+        justify-content: space-between;
+        gap: 3mm;
+        margin: 0.4mm 0;
+      }
+      .tf i {
+        border: 1px solid #444;
+        min-width: 13mm;
+        border-radius: 2px;
+      }
+      .mt {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1mm 10mm;
+        max-width: 150mm;
+        margin-top: 1mm;
+      }
+      .mt .h {
+        font-weight: 700;
+        border-bottom: 1px solid var(--line);
+      }
+      .n {
+        display: inline-block;
+        min-width: 8mm;
+        border-bottom: 1px solid #444;
+        margin-left: 2mm;
+      }
+      .ans {
+        border-bottom: 1px dotted #777;
+        height: 5.2mm;
+      }
+      table {
+        border-collapse: collapse;
+        margin: 1mm auto;
+        font-size: 9pt;
+      }
+      td,
+      th {
+        border: 1px solid #666;
+        padding: 0.6mm 4mm;
+        text-align: center;
+      }
+      th {
+        background: var(--soft);
+      }
+      .key {
+        justify-content: flex-start;
+      }
+      .key h2 {
+        margin: 0 0 2mm;
+        text-align: center;
+        color: var(--accent);
+        font-size: 13pt;
+      }
+      .key ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .key li {
+        margin: 0 0 1.5mm;
+        padding-bottom: 1.1mm;
+        border-bottom: 1px solid #e1e5ec;
+        font-size: 9pt;
+      }
+      .key li b {
+        color: var(--accent);
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          break-after: page;
+        }
+        .page:last-child {
+          break-after: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="page" data-n="صفحه ۱ از ۲ — ادامه در پشت برگه">
+      <div class="hd">
+        <h1>
+          آزمون علوم تجربی نهم — فصل ۱ (مواد و نقش آن‌ها در زندگی) و فصل ۲
+          (رفتار اتم‌ها با یکدیگر)
+        </h1>
+        <div class="r">
+          <span>نام و نام خانوادگی: ....................</span
+          ><span>کلاس: ............</span><span>تاریخ: ............</span>
+        </div>
+        <div class="r">
+          <span>مدت آزمون: ۶۰ دقیقه</span><span>بارم کل: ۲۰ نمره</span>
+        </div>
+      </div>
+
+      <div class="g">
+        <div class="sec">
+          <span>سؤالات چهارگزینه‌ای</span><span class="m">۴ نمره</span>
+        </div>
+        <div class="q">
+          <b>۱.</b>
+          <div>
+            گزینهٔ درست را انتخاب کنید. <span class="m">(هر مورد ۱ نمره)</span>
+            <div>
+              الف) عنصر کلر (۱۷) از نظر تعداد الکترون مدار آخر به کدام عنصر
+              شباهت دارد؟
+            </div>
+            <div class="o">
+              <span>۱) اکسیژن (۸)</span><span>۲) فلوئور (۹)</span
+              ><span>۳) سدیم (۱۱)</span><span>۴) آرگون (۱۸)</span>
+            </div>
+            <div>
+              ب) مقدار کدام یون در خون بیشتر از سایر موارد بوده و از وظایف آن
+              ایجاد جریان الکتریکی در مغز و اعصاب است؟
+            </div>
+            <div class="o">
+              <span>۱) یون کلرید</span><span>۲) یون پتاسیم</span
+              ><span>۳) یون آهن</span><span>۴) یون سدیم</span>
+            </div>
+            <div>پ) کدام مورد یک بسپار طبیعی نیست؟</div>
+            <div class="o">
+              <span>۱) سلولز</span><span>۲) نشاسته</span><span>۳) پلاستیک</span
+              ><span>۴) پشم</span>
+            </div>
+            <div>ت) فراوان‌ترین عنصر در بدن انسان کدام است؟</div>
+            <div class="o">
+              <span>۱) آهن</span><span>۲) اکسیژن</span><span>۳) آلومینیم</span
+              ><span>۴) سیلیسیم</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="g">
+        <div class="sec">
+          <span>جای خالی</span><span class="m">۲ نمره</span>
+        </div>
+        <div class="q fb">
+          <b>۲.</b>
+          <div>
+            عبارت‌های زیر را با واژه‌های مناسب کامل کنید.
+            <span class="m">(هر مورد ۰/۵ نمره)</span>
+            <div class="sub">
+              <span
+                >الف) از میان فلزهای منیزیم، آهن و طلا، فلز
+                <span class="dot"></span> با اکسیژن ترکیب نمی‌شود.</span
+              >
+            </div>
+            <div class="sub">
+              <span
+                >ب) گاز اوزون از مولکول‌های <span class="dot"></span> اتمی ساخته
+                شده است.</span
+              >
+            </div>
+            <div class="sub">
+              <span
+                >پ) به جاذبهٔ بین یون‌های مثبت و منفی، پیوند
+                <span class="dot"></span> می‌گویند.</span
+              >
+            </div>
+            <div class="sub">
+              <span
+                >ت) در مولکول آب، اتم‌ها برای رسیدن به پایداری، الکترون‌ها را
+                <span class="dot"></span> می‌گذارند.</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="g">
+        <div class="sec">
+          <span>درست / نادرست</span><span class="m">۲ نمره</span>
+        </div>
+        <div class="q">
+          <b>۳.</b>
+          <div>
+            درستی یا نادرستی عبارت‌ها را مشخص کنید.
+            <span class="m">(هر مورد ۰/۵ نمره)</span>
+            <div class="tf">
+              <span>الف) فلز منیزیم از فلز آهن واکنش‌پذیرتر است.</span
+              ><i>&nbsp;</i>
+            </div>
+            <div class="tf">
+              <span
+                >ب) ترکیب‌های یونی در حالت جامد رسانای خوب جریان برق‌اند.</span
+              ><i>&nbsp;</i>
+            </div>
+            <div class="tf">
+              <span
+                >پ) یون‌های سدیم و کلرید در مجموع بار الکتریکی خنثی دارند.</span
+              ><i>&nbsp;</i>
+            </div>
+            <div class="tf">
+              <span>ت) پلاستیک‌ها در محیط زیست به‌راحتی تجزیه می‌شوند.</span
+              ><i>&nbsp;</i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="g">
+        <div class="sec">
+          <span>تطبیق دادن</span><span class="m">۱/۵ نمره</span>
+        </div>
+        <div class="q">
+          <b>۴.</b>
+          <div>
+            موارد ستون «الف» را به ستون «ب» وصل کنید (یک مورد در ستون «الف»
+            اضافی است). <span class="m">(هر مورد ۰/۵ نمره)</span>
+            <div class="mt">
+              <div class="h">ستون الف</div>
+              <div class="h">ستون ب</div>
+              <div>۱. اتیلن گلیکول <span class="n"></span></div>
+              <div>الف) نقش مهم در فرآیند تنفس</div>
+              <div>۲. آمونیاک <span class="n"></span></div>
+              <div>ب) ضدیخ رادیاتور خودرو</div>
+              <div>۳. یون آهن ۲ مثبت <span class="n"></span></div>
+              <div>ج) تهیهٔ کودهای شیمیایی</div>
+              <div>۴. یون آهن ۳ مثبت <span class="n"></span></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="g">
+        <div class="sec">
+          <span>آرایش الکترونی و مدل اتمی</span><span class="m">۲/۵ نمره</span>
+        </div>
+        <div class="q">
+          <b>۵.</b>
+          <div>
+            از واکنش بین فلز لیتیم (۳) و گاز فلوئور (۹)، ترکیب لیتیم فلوئورید
+            (LiF) به دست می‌آید. به پرسش‌ها پاسخ دهید.
+            <span class="m">(۱/۵ نمره)</span>
+            <div class="sub">
+              <span
+                >الف) آرایش الکترونی هر دو اتم را بنویسید (تعداد الکترون هر
+                مدار).</span
+              ><span class="m">(۰/۵)</span>
+            </div>
+            <div class="ans"></div>
+            <div class="sub">
+              <span
+                >ب) کدام اتم الکترون از دست می‌دهد؟ ذره‌های سازندهٔ لیتیم
+                فلوئورید را با بارشان بنویسید.</span
+              ><span class="m">(۰/۵)</span>
+            </div>
+            <div class="ans"></div>
+            <div class="sub">
+              <span>پ) چرا این ترکیب در مجموع خنثی است؟</span
+              ><span class="m">(۰/۵)</span>
+            </div>
+            <div class="ans"></div>
+          </div>
+        </div>
+        <div class="q">
+          <b>۶.</b>
+          <div>
+            مدل اتمی بور را برای اتم فسفر (۱۵) رسم کنید و بگویید از نظر تعداد
+            الکترون مدار آخر، به کدام‌یک از عنصرهای نیتروژن (۷) و کربن (۶) شباهت
+            دارد. همچنین موقعیت دوره و گروه آن را در جدول تناوبی مشخص کنید.
+            <span class="m">(۱ نمره)</span>
+            <div class="ans"></div>
+            <div class="ans"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" data-n="صفحه ۲ از ۲ — موفق باشید">
+      <div class="g">
+        <div class="sec">
+          <span>تحلیل جدول و آزمایش</span><span class="m">۲/۵ نمره</span>
+        </div>
+        <div class="q">
+          <b>۷.</b>
+          <div>
+            در آزمایش رسانایی الکتریکی، محلول چهار ماده در آب مقطر بررسی شد و
+            نتیجه به‌صورت جدول زیر است. <span class="m">(۱ نمره)</span>
+            <table>
+              <tr>
+                <th>محلول</th>
+                <th>نمک خوراکی</th>
+                <th>شکر</th>
+                <th>کات کبود</th>
+                <th>اتانول</th>
+              </tr>
+              <tr>
+                <td>لامپ مدار</td>
+                <td>روشن</td>
+                <td>خاموش</td>
+                <td>روشن</td>
+                <td>خاموش</td>
+              </tr>
+            </table>
+            <div class="sub">
+              <span>الف) کدام مواد ترکیب یونی‌اند؟ دلیل بیاورید.</span
+              ><span class="m">(۰/۵)</span>
+            </div>
+            <div class="ans"></div>
+            <div class="sub">
+              <span>ب) چرا لامپ در محلول شکر روشن نمی‌شود؟</span
+              ><span class="m">(۰/۵)</span>
+            </div>
+            <div class="ans"></div>
+          </div>
+        </div>
+        <div class="q">
+          <b>۸.</b>
+          <div>
+            در ظرف پتری حاوی آب مقطر، در یک طرف بلور سدیم هیدروکسید و در طرف
+            مقابل بلور کات کبود قرار می‌دهیم. پس از مدتی در میان ظرف رنگ جدیدی
+            پدید می‌آید. <span class="m">(۱/۵ نمره)</span>
+            <div class="sub">
+              <span>الف) تغییر رنگ نشانهٔ چیست؟</span
+              ><span class="m">(۰/۵)</span>
+            </div>
+            <div class="ans"></div>
+            <div class="sub">
+              <span>ب) کدام یون‌ها با هم واکنش داده‌اند؟</span
+              ><span class="m">(۰/۵)</span>
+            </div>
+            <div class="ans"></div>
+            <div class="sub">
+              <span>پ) چرا واکنش در وسط ظرف رخ می‌دهد، نه کنار بلورها؟</span
+              ><span class="m">(۰/۵)</span>
+            </div>
+            <div class="ans"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="g">
+        <div class="sec">
+          <span>حل مسئله</span><span class="m">۱ نمره</span>
+        </div>
+        <div class="q">
+          <b>۹.</b>
+          <div>
+            ۷/۷ گرم فلز سدیم با ۱۱/۹ گرم گاز کلر به‌طور کامل واکنش می‌دهد. جرم
+            سدیم کلرید تولیدشده چند گرم است؟ قانونی را که به‌کار بردید بنویسید.
+            <span class="m">(۱ نمره)</span>
+            <div class="ans"></div>
+            <div class="ans"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="g">
+        <div class="sec">
+          <span>پاسخ کوتاه</span><span class="m">۵/۵ نمره</span>
+        </div>
+        <div class="q">
+          <b>۱۰.</b>
+          <div>
+            در یک آزمایش، تیغه‌های آهن، منیزیم و روی را جداگانه در محلول کات
+            کبود می‌اندازیم. <span class="m">(۱ نمره)</span>
+            <div class="sub">
+              <span
+                >الف) فلزهای منیزیم، آهن و طلا را از نظر واکنش‌پذیری از کم به
+                زیاد مرتب کنید.</span
+              ><span class="m">(۰/۵)</span>
+            </div>
+            <div class="ans"></div>
+            <div class="sub">
+              <span
+                >ب) در شرایط یکسان، ظروف آهنی زودتر زنگ می‌زنند یا ظروف مسی؟
+                چرا؟</span
+              ><span class="m">(۰/۵)</span>
+            </div>
+            <div class="ans"></div>
+          </div>
+        </div>
+        <div class="q">
+          <b>۱۱.</b>
+          <div>
+            <div class="sub">
+              <span
+                >معادلهٔ نوشتاری تشکیل آمونیاک را بنویسید و یک کاربرد آمونیاک را
+                نام ببرید.</span
+              ><span class="m">(۱ نمره)</span>
+            </div>
+            <div class="ans"></div>
+            <div class="ans"></div>
+          </div>
+        </div>
+        <div class="q">
+          <b>۱۲.</b>
+          <div>
+            <div class="sub">
+              <span
+                >بسپار را تعریف کنید و یک مثال طبیعی و یک مثال مصنوعی
+                بزنید.</span
+              ><span class="m">(۱ نمره)</span>
+            </div>
+            <div class="ans"></div>
+            <div class="ans"></div>
+          </div>
+        </div>
+        <div class="q">
+          <b>۱۳.</b>
+          <div>
+            <div class="sub">
+              <span
+                >چرا به افراد دارای فشار خون بالا توصیه می‌شود از رژیم کم‌نمک
+                استفاده کنند؟</span
+              ><span class="m">(۰/۵ نمره)</span>
+            </div>
+            <div class="ans"></div>
+            <div class="ans"></div>
+          </div>
+        </div>
+        <div class="q">
+          <b>۱۴.</b>
+          <div>
+            <div class="sub">
+              <span
+                >در مولکول آب (H₂O) هر اتم هیدروژن چند الکترون به اشتراک
+                می‌گذارد؟ مدار آخر اتم اکسیژن در این مولکول چند الکترون دارد؟
+                چرا مولکول آب بار الکتریکی ندارد؟</span
+              ><span class="m">(۱ نمره)</span>
+            </div>
+            <div class="ans"></div>
+            <div class="ans"></div>
+          </div>
+        </div>
+        <div class="q">
+          <b>۱۵.</b>
+          <div>
+            <div class="sub">
+              <span>دو تفاوت پیوند یونی و پیوند کووالانسی را بنویسید.</span
+              ><span class="m">(۱ نمره)</span>
+            </div>
+            <div class="ans"></div>
+            <div class="ans"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page key" data-n="پاسخنامه — مخصوص مصحح">
+      <h2>پاسخنامهٔ آزمون (جمع بارم: ۲۱)</h2>
+      <ol>
+        <li><b>۱ (۴، هر مورد ۱):</b> الف) ۲ ـ ب) ۴ ـ پ) ۳ ـ ت) ۲.</li>
+        <li>
+          <b>۲ (۲):</b> الف) طلا ـ ب) سه ـ پ) یونی ـ ت) به‌اشتراک (اشتراک
+          می‌گذارند).
+        </li>
+        <li><b>۳ (۲):</b> الف) درست ـ ب) نادرست ـ پ) درست ـ ت) نادرست.</li>
+        <li><b>۴ (۱/۵):</b> ۱←ب ـ ۲←ج ـ ۳←الف (مورد ۴ اضافی است).</li>
+        <li>
+          <b>۵ (۱/۵):</b> الف) Li: ۲ و ۱ — F: ۲ و ۷ (۰/۵). ب) لیتیم الکترون از
+          دست می‌دهد؛ ذره‌ها: Li⁺ و F⁻ (۰/۵). پ) بار مثبت کاتیون (۱+) با بار
+          منفی آنیون (۱−) برابر است و یکدیگر را خنثی می‌کنند (۰/۵).
+        </li>
+        <li>
+          <b>۶ (۱):</b> رسم مدارها با ۲ و ۸ و ۵ الکترون (۰/۵). شبیه نیتروژن است
+          چون مدار آخر هر دو ۵ الکترون دارد (۰/۲۵). دوره ۳ و گروه ۱۵ (ستون پنجم
+          جدول هشت‌ستونی کتاب) (۰/۲۵).
+        </li>
+        <li>
+          <b>۷ (۱):</b> الف) نمک خوراکی و کات کبود؛ چون محلولشان رساناست و یون
+          دارند (۰/۵). ب) ذره‌های سازندهٔ شکر مولکول‌اند و بار الکتریکی ندارند،
+          پس جریان برق را عبور نمی‌دهند (۰/۵).
+        </li>
+        <li>
+          <b>۸ (۱/۵):</b> الف) انجام تغییر (واکنش) شیمیایی و تشکیل ماده‌ای جدید
+          (۰/۵). ب) یون‌های مس (Cu²⁺) و هیدروکسید (OH⁻) (۰/۵). پ) یون‌ها در آب
+          پخش می‌شوند و به سمت هم حرکت می‌کنند؛ در وسط ظرف به هم می‌رسند و واکنش
+          می‌دهند (۰/۵).
+        </li>
+        <li>
+          <b>۹ (۱):</b> ۷/۷ + ۱۱/۹ = ۱۹/۶ گرم (۰/۵)؛ قانون پایستگی جرم (۰/۵).
+        </li>
+        <li>
+          <b>۱۰ (۱):</b> الف) طلا < آهن < منیزیم (۰/۵). ب) آهنی؛ زیرا آهن
+          واکنش‌پذیرتر از مس است و سریع‌تر با اکسیژن واکنش می‌دهد (۰/۵).
+        </li>
+        <li>
+          <b>۱۱ (۱):</b> گاز هیدروژن + گاز نیتروژن ← گاز آمونیاک (۰/۵)؛ کاربرد:
+          تهیهٔ کود شیمیایی، مواد منفجره یا یخ‌سازی (یک مورد کافی است) (۰/۵).
+        </li>
+        <li>
+          <b>۱۲ (۱):</b> بسپار: دسته‌ای از درشت‌مولکول‌ها که از اتصال تعداد
+          زیادی مولکول کوچک به هم ساخته شده‌اند (۰/۵). مثال طبیعی: سلولز،
+          نشاسته، ابریشم یا پشم (۰/۲۵). مثال مصنوعی: پلاستیک (۰/۲۵).
+        </li>
+        <li>
+          <b>۱۳ (۰/۵):</b> مصرف زیاد نمک باعث ورود بیش از اندازهٔ یون سدیم به
+          بدن و افزایش فشار خون می‌شود.
+        </li>
+        <li>
+          <b>۱۴ (۱):</b> هر هیدروژن ۱ الکترون (۰/۲۵)؛ مدار آخر اکسیژن ۸ الکترون
+          (۰/۲۵)؛ چون الکترونی داد و ستد نمی‌شود و الکترون‌ها فقط به‌اشتراک
+          گذاشته می‌شوند، هیچ اتمی بار پیدا نمی‌کند (۰/۵).
+        </li>
+        <li>
+          <b>۱۵ (۱):</b> (دو تفاوت، هر کدام ۰/۵) ۱) پیوند یونی: داد و ستد
+          (انتقال) الکترون بین اتم فلز و نافلز؛ پیوند کووالانسی: اشتراک الکترون
+          بین اتم‌های نافلز. ۲) ترکیب یونی از یون‌ها ساخته شده و محلولش رساناست؛
+          ترکیب مولکولی از مولکول‌ها ساخته شده و محلولش نارساناست.
+        </li>
+      </ol>
+    </section>
+  </body>
+</html>
